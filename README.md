@@ -83,7 +83,7 @@ docker compose up -d
 ```yaml
 lovelace:
   dashboards:
-    helios:
+    helios-dashboard:
       mode: yaml
       title: Helios
       icon: mdi:view-dashboard

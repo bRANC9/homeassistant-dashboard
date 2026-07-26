@@ -69,6 +69,16 @@ done
 
 log "Dashboard files copied."
 
+# Megjegyzés: a configuration.yaml-ban a dashboard key-nek kötőjelesnek kell lennie:
+# lovelace:
+#   dashboards:
+#     helios-dashboard:  <-- kötőjel kötelező!
+#       mode: yaml
+#       title: Helios
+#       icon: mdi:view-dashboard
+#       show_in_sidebar: true
+#       filename: www/helios-dashboard/dashboard.yaml
+
 # ── 4. HA reload ────────────────────────────────────────────
 log "Reloading Home Assistant dashboard..."
 if [ -n "${HA_TOKEN:-}" ]; then
