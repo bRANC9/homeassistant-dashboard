@@ -21,19 +21,7 @@
           "source": "payload",
           "name": "ref"
         }
-      },
-      "and": [
-        {
-          "match": {
-            "type": "sha256-hmac",
-            "value": "{{getenv \"WEBHOOK_SECRET\"}}",
-            "parameter": {
-              "source": "header",
-              "name": "X-Hub-Signature-256"
-            }
-          }
-        }
-      ]
+      }
     },
     "response-message": "Deploy triggered",
     "pass-environment-to-command": [
