@@ -17,8 +17,7 @@ log() {
 }
 
 log "=== Deploy started ==="
-log "Branch: ${WEBHOOK_REF:-main}"
-log "Commit: ${WEBHOOK_COMMIT:-unknown}"
+log "Event: ${WEBHOOK_REF:-push}"
 
 # ── 1. Git pull ──────────────────────────────────────────────
 log "Pulling latest changes..."
