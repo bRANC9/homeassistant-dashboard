@@ -5,6 +5,8 @@ services:
     image: ghcr.io/branc9/homeassistant-dashboard/ha-dashboard-webhook:latest
     container_name: ha-dashboard-webhook
     restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
     ports:
       - "9000:9000"
     volumes:
@@ -19,18 +21,6 @@ services:
       - HA_TOKEN=${HA_TOKEN}
       - HA_URL=${HA_URL:-http://localhost:8123}
     command: "-hooks /etc/webhook/hooks.json -verbose"
-
-  watchtower:
-    image: containrrr/watchtower
-    container_name: ha-dashboard-watchtower
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_POLL_INTERVAL=300
-      - WATCHTOWER_LABEL_ENABLE=true
-    command: ha-dashboard-webhook
 
 volumes:
   deploy-data:
