@@ -2,6 +2,7 @@ title: Pool
 path: pool
 icon: mdi:pool
 type: sections
+theme: Helios
 max_columns: 4
 sections:
   # ── Pool Status ──

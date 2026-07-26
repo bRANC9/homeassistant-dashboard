@@ -1,0 +1,6 @@
+Helios:
+  # Mushroom cards: slightly larger, easier-to-scan status icons.
+  mush-icon-size: 44px
+  mush-icon-symbol-size: 0.64em
+  mush-card-primary-font-size: 15px
+  mush-card-secondary-font-size: 12px

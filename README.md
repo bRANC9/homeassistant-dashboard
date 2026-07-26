@@ -34,6 +34,18 @@ Install via HACS before activating this dashboard:
 3. Copy view files to the appropriate location
 4. Restart Home Assistant or reload the dashboard
 
+### Theme
+
+Helios uses a small local Mushroom theme to make status icons easier to read. Ensure that
+`configuration.yaml` loads the Home Assistant `themes` directory:
+
+```yaml
+frontend:
+  themes: !include_dir_merge_named themes
+```
+
+The deployment copies `dashboard/themes/helios.yaml` to `<HA_CONFIG_PATH>/themes/helios.yaml`.
+
 ## Deployment
 
 Automatikus deploy webhook-al: a webhook container a TrueNAS-on fut és mount-olva van a HA config könyvtár.

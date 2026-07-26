@@ -51,7 +51,7 @@ log "YAML validation passed."
 log "Copying dashboard to $DASHBOARD_DST ..."
 mkdir -p "$DASHBOARD_DST/views"
 mkdir -p "$DASHBOARD_DST/cards"
-mkdir -p "$DASHBOARD_DST/themes"
+mkdir -p "$HA_CONFIG/themes"
 
 cp "$DASHBOARD_SRC/dashboard.yaml" "$DASHBOARD_DST/"
 
@@ -64,7 +64,7 @@ for card in "$DASHBOARD_SRC/cards/"*.yaml; do
 done
 
 for theme in "$DASHBOARD_SRC/themes/"*.yaml; do
-    [ -f "$theme" ] && cp "$theme" "$DASHBOARD_DST/themes/"
+    [ -f "$theme" ] && cp "$theme" "$HA_CONFIG/themes/"
 done
 
 log "Dashboard files copied."

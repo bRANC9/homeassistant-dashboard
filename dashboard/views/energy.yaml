@@ -2,6 +2,7 @@ title: Energy
 path: energy
 icon: mdi:lightning-bolt
 type: sections
+theme: Helios
 max_columns: 4
 sections:
   # ── Today Overview ──

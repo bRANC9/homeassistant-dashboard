@@ -2,6 +2,7 @@ title: Homelab
 path: homelab
 icon: mdi:server-network
 type: sections
+theme: Helios
 max_columns: 4
 sections:
   # ── Home Assistant ──
