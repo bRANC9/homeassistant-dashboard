@@ -5,7 +5,8 @@ LABEL org.opencontainers.image.description="Helios Dashboard webhook deployer"
 
 USER root
 
-RUN apk add --no-cache bash curl git python3 openssh-client
+RUN apk add --no-cache bash curl git python3 py3-pip openssh-client && \
+    pip3 install --break-system-packages pyyaml
 
 COPY deploy/deploy.sh /deploy/deploy.sh
 COPY deploy/validate.sh /deploy/validate.sh
