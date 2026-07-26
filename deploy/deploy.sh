@@ -69,18 +69,7 @@ done
 
 log "Dashboard files copied."
 
-# ── 4. Dashboard regisztráció ───────────────────────────────
-REG_FILE="$HA_CONFIG/ui-lovelace-helios.yaml"
-if [ ! -f "$REG_FILE" ]; then
-    log "Creating dashboard registration file..."
-    cat > "$REG_FILE" << 'EOF'
-views:
-  - !include www/helios-dashboard/dashboard.yaml
-EOF
-    log "Created $REG_FILE"
-fi
-
-# ── 5. HA reload ────────────────────────────────────────────
+# ── 4. HA reload ────────────────────────────────────────────
 log "Reloading Home Assistant dashboard..."
 if [ -n "${HA_TOKEN:-}" ]; then
     HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
