@@ -265,7 +265,7 @@ sections:
             secondary: "Surplus"
             icon: mdi:solar-power
             icon_color: >-
-              {% set v = states('sensor.ev_usable_surplus')|float %}
+              {% set v = states('sensor.ev_usable_surplus')|float(0) %}
               {% if v > 2 %} green
               {% elif v > 0 %} yellow
               {% else %} red {% endif %}

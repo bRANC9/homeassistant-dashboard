@@ -37,7 +37,7 @@ sections:
             secondary: "Water"
             icon: mdi:thermometer-water
             icon_color: >-
-              {% set v = states('sensor.medence_cso_homero_probe_temperature')|float %}
+              {% set v = states('sensor.medence_cso_homero_probe_temperature')|float(0) %}
               {% if v > 28 %} red
               {% elif v > 22 %} orange
               {% elif v > 16 %} green
