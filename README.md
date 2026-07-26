@@ -46,6 +46,8 @@ frontend:
 
 The deployment copies `dashboard/themes/helios.yaml` to `<HA_CONFIG_PATH>/themes/helios.yaml`.
 
+The Homelab view also displays the short Git commit hash of the deployed dashboard build.
+
 ## Deployment
 
 Automatikus deploy webhook-al: a webhook container a TrueNAS-on fut és mount-olva van a HA config könyvtár.
