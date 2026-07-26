@@ -20,8 +20,15 @@ log "=== Deploy started ==="
 log "Event: ${WEBHOOK_REF:-push}"
 
 # ── 1. Git pull ──────────────────────────────────────────────
-log "Pulling latest changes..."
 cd "$REPO_DIR"
+
+# Első futáskor clone-oljuk a repot
+if [ ! -d ".git" ]; then
+    log "First run — cloning repository..."
+    git clone https://github.com/bRANC9/homeassistant-dashboard.git .
+fi
+
+log "Pulling latest changes..."
 git fetch origin main 2>&1 | tee -a "$LOG_FILE"
 git reset --hard origin/main 2>&1 | tee -a "$LOG_FILE"
 git clean -fd 2>&1 | tee -a "$LOG_FILE"
