@@ -67,9 +67,11 @@ jobs:
         run: sleep 15
 
       - name: Trigger deploy webhook
-        if: ${{ secrets.WEBHOOK_URL != '' }}
+        if: ${{ env.WEBHOOK_URL != '' }}
         run: |
           curl -s -X POST \
             -H "Content-Type: application/json" \
             -d '{"ref":"refs/heads/main"}' \
-            "${{ secrets.WEBHOOK_URL }}/hooks/ha-dashboard-deploy" || echo "Webhook trigger skipped (not configured)"
+            "${{ env.WEBHOOK_URL }}/hooks/ha-dashboard-deploy" || echo "Webhook trigger failed"
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
