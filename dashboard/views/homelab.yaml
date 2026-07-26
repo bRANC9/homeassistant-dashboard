@@ -18,31 +18,31 @@ sections:
         grid_options:
           columns: 12
         cards:
-          - type: custom:mushroom-template-card
-            primary: "Home Assistant"
-            secondary: "{{ states('sensor.backup_backup_manager_state') }}"
-            icon: mdi:home-assistant
-            icon_color: "rgb(0, 188, 212)"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Home Assistant"
+              secondary: "{{ states('sensor.backup_backup_manager_state') }}"
+              icon: mdi:home-assistant
+              icon_color: "rgb(0, 188, 212)"
               columns: 4
 
-          - type: custom:mushroom-template-card
-            primary: "Zigbee2MQTT"
-            secondary: "{{ states('sensor.zigbee2mqtt_bridge_version') }}"
-            icon: mdi:zigbee
-            icon_color: "{{ states('sensor.z2m_connection_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Zigbee2MQTT"
+              secondary: "{{ states('sensor.zigbee2mqtt_bridge_version') }}"
+              icon: mdi:zigbee
+              icon_color: "{{ states('sensor.z2m_connection_color') }}"
               columns: 4
 
-          - type: custom:mushroom-template-card
-            primary: "TrueNAS"
-            secondary: "{{ states('sensor.truenas_update_text') }}"
-            icon: mdi:nas
-            icon_color: "{{ states('sensor.truenas_update_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "TrueNAS"
+              secondary: "{{ states('sensor.truenas_update_text') }}"
+              icon: mdi:nas
+              icon_color: "{{ states('sensor.truenas_update_color') }}"
               columns: 4
 
           - !include ../cards/deployment_version.yaml
@@ -60,30 +60,28 @@ sections:
         grid_options:
           columns: 12
         cards:
-          - type: custom:mushroom-entity-card
-            entity: binary_sensor.zigbee2mqtt_bridge_connection_state
-            name: Bridge State
-            icon: mdi:zigbee
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: entity_chip
+            variables:
+              entity: binary_sensor.zigbee2mqtt_bridge_connection_state
+              name: Bridge State
+              icon: mdi:zigbee
               columns: 3
 
-          - type: custom:mushroom-entity-card
-            entity: button.zigbee2mqtt_bridge_restart
-            name: Restart
-            icon: mdi:restart
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: entity_chip
+            variables:
+              entity: button.zigbee2mqtt_bridge_restart
+              name: Restart
+              icon: mdi:restart
               columns: 3
 
-          - type: custom:mushroom-entity-card
-            entity: switch.zigbee2mqtt_bridge_permit_join
-            name: Permit Join
-            icon: mdi:plus-network
-            tap_action:
-              action: toggle
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: entity_chip
+            variables:
+              entity: switch.zigbee2mqtt_bridge_permit_join
+              name: Permit Join
+              icon: mdi:plus-network
               columns: 3
 
           - type: custom:mushroom-select-card
@@ -135,156 +133,174 @@ sections:
         grid_options:
           columns: 12
         cards:
-          - type: custom:mushroom-template-card
-            primary: "Home Assistant"
-            secondary: "{{ states('sensor.truenas_app_homeassistant') }}"
-            icon: mdi:home-assistant
-            icon_color: "{{ states('sensor.truenas_app_homeassistant_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Home Assistant"
+              secondary: "{{ states('sensor.truenas_app_homeassistant') }}"
+              icon: mdi:home-assistant
+              icon_color: "{{ states('sensor.truenas_app_homeassistant_color') }}"
               columns: 2
 
-          - type: custom:mushroom-template-card
-            primary: "Zigbee2MQTT"
-            secondary: "{{ states('sensor.truenas_app_zigbee2mqtt') }}"
-            icon: mdi:zigbee
-            icon_color: "{{ states('sensor.truenas_app_zigbee2mqtt_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Zigbee2MQTT"
+              secondary: "{{ states('sensor.truenas_app_zigbee2mqtt') }}"
+              icon: mdi:zigbee
+              icon_color: "{{ states('sensor.truenas_app_zigbee2mqtt_color') }}"
               columns: 2
 
-          - type: custom:mushroom-template-card
-            primary: "Jellyfin"
-            secondary: "{{ states('sensor.truenas_app_jellyfin') }}"
-            icon: mdi:filmstrip-box
-            icon_color: "{{ states('sensor.truenas_app_jellyfin_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Jellyfin"
+              secondary: "{{ states('sensor.truenas_app_jellyfin') }}"
+              icon: mdi:filmstrip-box
+              icon_color: "{{ states('sensor.truenas_app_jellyfin_color') }}"
               columns: 2
 
-          - type: custom:mushroom-template-card
-            primary: "Frigate"
-            secondary: "{{ states('sensor.truenas_app_frigate') }}"
-            icon: mdi:cctv
-            icon_color: "{{ states('sensor.truenas_app_frigate_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Frigate"
+              secondary: "{{ states('sensor.truenas_app_frigate') }}"
+              icon: mdi:cctv
+              icon_color: "{{ states('sensor.truenas_app_frigate_color') }}"
               columns: 2
 
-          - type: custom:mushroom-template-card
-            primary: "Immich"
-            secondary: "{{ states('sensor.truenas_app_immich') }}"
-            icon: mdi:image-multiple
-            icon_color: "{{ states('sensor.truenas_app_immich_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Immich"
+              secondary: "{{ states('sensor.truenas_app_immich') }}"
+              icon: mdi:image-multiple
+              icon_color: "{{ states('sensor.truenas_app_immich_color') }}"
               columns: 2
 
-          - type: custom:mushroom-template-card
-            primary: "Pangolin"
-            secondary: "{{ states('sensor.truenas_app_pangolin') }}"
-            icon: mdi:shield-home
-            icon_color: "{{ states('sensor.truenas_app_pangolin_color') }}"
-            layout: vertical
-            grid_options:
-              columns: 2
-
-      - type: horizontal-stack
-        grid_options:
-          columns: 12
-        cards:
-          - type: custom:mushroom-template-card
-            primary: "AdGuard"
-            secondary: "{{ states('sensor.truenas_app_adguard') }}"
-            icon: mdi:shield-check
-            icon_color: "{{ states('sensor.truenas_app_adguard_color') }}"
-            layout: vertical
-            grid_options:
-              columns: 2
-
-          - type: custom:mushroom-template-card
-            primary: "ESPHome"
-            secondary: "{{ states('sensor.truenas_app_esphome') }}"
-            icon: mdi:chip
-            icon_color: "{{ states('sensor.truenas_app_esphome_color') }}"
-            layout: vertical
-            grid_options:
-              columns: 2
-
-          - type: custom:mushroom-template-card
-            primary: "Transmission"
-            secondary: "{{ states('sensor.truenas_app_transmission') }}"
-            icon: mdi:download
-            icon_color: "{{ states('sensor.truenas_app_transmission_color') }}"
-            layout: vertical
-            grid_options:
-              columns: 2
-
-          - type: custom:mushroom-template-card
-            primary: "Sonarr"
-            secondary: "{{ states('sensor.truenas_app_sonarr') }}"
-            icon: mdi:television
-            icon_color: "{{ states('sensor.truenas_app_sonarr_color') }}"
-            layout: vertical
-            grid_options:
-              columns: 2
-
-          - type: custom:mushroom-template-card
-            primary: "Radarr"
-            secondary: "{{ states('sensor.truenas_app_radarr') }}"
-            icon: mdi:movie
-            icon_color: "{{ states('sensor.truenas_app_radarr_color') }}"
-            layout: vertical
-            grid_options:
-              columns: 2
-
-          - type: custom:mushroom-template-card
-            primary: "Netdata"
-            secondary: "{{ states('sensor.truenas_app_netdata') }}"
-            icon: mdi:chart-line
-            icon_color: "{{ states('sensor.truenas_app_netdata_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Pangolin"
+              secondary: "{{ states('sensor.truenas_app_pangolin') }}"
+              icon: mdi:shield-home
+              icon_color: "{{ states('sensor.truenas_app_pangolin_color') }}"
               columns: 2
 
       - type: horizontal-stack
         grid_options:
           columns: 12
         cards:
-          - type: custom:mushroom-template-card
-            primary: "Mosquitto"
-            secondary: "{{ states('sensor.truenas_app_mosquitto') }}"
-            icon: mdi:broker
-            icon_color: "{{ states('sensor.truenas_app_mosquitto_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "AdGuard"
+              secondary: "{{ states('sensor.truenas_app_adguard') }}"
+              icon: mdi:shield-check
+              icon_color: "{{ states('sensor.truenas_app_adguard_color') }}"
               columns: 2
 
-          - type: custom:mushroom-template-card
-            primary: "Seerr"
-            secondary: "{{ states('sensor.truenas_app_seerr') }}"
-            icon: mdi:movie-open
-            icon_color: "{{ states('sensor.truenas_app_overseerr_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "ESPHome"
+              secondary: "{{ states('sensor.truenas_app_esphome') }}"
+              icon: mdi:chip
+              icon_color: "{{ states('sensor.truenas_app_esphome_color') }}"
               columns: 2
 
-          - type: custom:mushroom-template-card
-            primary: "Jackett"
-            secondary: "{{ states('sensor.truenas_app_jackett') }}"
-            icon: mdi:magnify
-            icon_color: "{{ states('sensor.truenas_app_jackett_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Transmission"
+              secondary: "{{ states('sensor.truenas_app_transmission') }}"
+              icon: mdi:download
+              icon_color: "{{ states('sensor.truenas_app_transmission_color') }}"
               columns: 2
 
-          - type: custom:mushroom-template-card
-            primary: "Watchtower"
-            secondary: "{{ states('sensor.truenas_app_watchtower') }}"
-            icon: mdi:update
-            icon_color: "{{ states('sensor.truenas_app_watchtower_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Sonarr"
+              secondary: "{{ states('sensor.truenas_app_sonarr') }}"
+              icon: mdi:television
+              icon_color: "{{ states('sensor.truenas_app_sonarr_color') }}"
+              columns: 2
+
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Radarr"
+              secondary: "{{ states('sensor.truenas_app_radarr') }}"
+              icon: mdi:movie
+              icon_color: "{{ states('sensor.truenas_app_radarr_color') }}"
+              columns: 2
+
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Netdata"
+              secondary: "{{ states('sensor.truenas_app_netdata') }}"
+              icon: mdi:chart-line
+              icon_color: "{{ states('sensor.truenas_app_netdata_color') }}"
+              columns: 2
+
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Mosquitto"
+              secondary: "{{ states('sensor.truenas_app_mosquitto') }}"
+              icon: mdi:broker
+              icon_color: "{{ states('sensor.truenas_app_mosquitto_color') }}"
+              columns: 2
+
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Seerr"
+              secondary: "{{ states('sensor.truenas_app_seerr') }}"
+              icon: mdi:movie-open
+              icon_color: "{{ states('sensor.truenas_app_overseerr_color') }}"
+              columns: 2
+
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Jackett"
+              secondary: "{{ states('sensor.truenas_app_jackett') }}"
+              icon: mdi:magnify
+              icon_color: "{{ states('sensor.truenas_app_jackett_color') }}"
+              columns: 2
+
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Watchtower"
+              secondary: "{{ states('sensor.truenas_app_watchtower') }}"
+              icon: mdi:update
+              icon_color: "{{ states('sensor.truenas_app_watchtower_color') }}"
+              columns: 2
+
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Cloudflare DDNS"
+              secondary: "{{ states('sensor.truenas_app_cloudflareddns') }}"
+              icon: mdi:cloud
+              icon_color: "{{ states('sensor.truenas_app_cloudflareddns_color') }}"
+              columns: 2
+
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Grafana"
+              secondary: "{{ states('sensor.truenas_app_grafana') }}"
+              icon: mdi:chart-line
+              icon_color: "{{ states('sensor.truenas_app_grafana_color') }}"
               columns: 2
 
   # ── Devices ──

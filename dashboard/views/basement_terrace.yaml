@@ -18,32 +18,30 @@ sections:
         grid_options:
           columns: 12
         cards:
-          - type: custom:mushroom-entity-card
-            entity: switch.pince_terasz_hangulat_vilagitas
-            name: Hangulatfény
-            icon: mdi:outdoor-lamp
-            tap_action:
-              action: toggle
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: entity_chip
+            variables:
+              entity: switch.pince_terasz_hangulat_vilagitas
+              name: Hangulatfény
+              icon: mdi:outdoor-lamp
               columns: 4
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.terasz_homero_temperature') }}°C"
-            secondary: "Hőmérséklet"
-            icon: mdi:thermometer
-            icon_color: "{{ states('sensor.terrace_temp_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.terasz_homero_temperature') }}°C"
+              secondary: "Hőmérséklet"
+              icon: mdi:thermometer
+              icon_color: "{{ states('sensor.terrace_temp_color') }}"
               columns: 4
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.terasz_homero_humidity') }}%"
-            secondary: "Páratartalom"
-            icon: mdi:water-percent
-            icon_color: blue
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.terasz_homero_humidity') }}%"
+              secondary: "Páratartalom"
+              icon: mdi:water-percent
+              icon_color: blue
               columns: 4
 
   # ── Temperature Chart ──
@@ -53,14 +51,20 @@ sections:
         entities:
           - entity: sensor.terasz_homero_temperature
             name: "Hőmérséklet"
+            color: "#00bcd4"
           - entity: sensor.terasz_homero_humidity
             name: "Páratartalom"
             y_axis: secondary
+            color: "#2196f3"
         name: "Terasz (24h)"
         hours_to_show: 24
         line_width: 3
         font_size: 75
         animate: true
+        show:
+          labels: true
+          legend: true
+          extrema: true
         grid_options:
           columns: 12
 

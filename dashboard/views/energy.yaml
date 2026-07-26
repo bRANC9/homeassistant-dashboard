@@ -20,40 +20,40 @@ sections:
         grid_options:
           columns: 12
         cards:
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.solis_s6_eh3p_pv_today_energy_generation') }} kWh"
-            secondary: "PV Today"
-            icon: mdi:solar-power
-            icon_color: yellow
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.solis_s6_eh3p_pv_today_energy_generation') }} kWh"
+              secondary: "PV Today"
+              icon: mdi:solar-power
+              icon_color: yellow
               columns: 3
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.solis_s6_eh3p_today_energy_consumption') }} kWh"
-            secondary: "Load"
-            icon: mdi:home-lightning-bolt
-            icon_color: blue
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.solis_s6_eh3p_today_energy_consumption') }} kWh"
+              secondary: "Load"
+              icon: mdi:home-lightning-bolt
+              icon_color: blue
               columns: 3
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.solis_s6_eh3p_today_battery_charge_energy') }} kWh"
-            secondary: "Bat Charge"
-            icon: mdi:battery-charging
-            icon_color: green
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.solis_s6_eh3p_today_battery_charge_energy') }} kWh"
+              secondary: "Bat Charge"
+              icon: mdi:battery-charging
+              icon_color: green
               columns: 3
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.solis_s6_eh3p_today_battery_discharge_energy') }} kWh"
-            secondary: "Bat Discharge"
-            icon: mdi:battery-minus
-            icon_color: orange
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.solis_s6_eh3p_today_battery_discharge_energy') }} kWh"
+              secondary: "Bat Discharge"
+              icon: mdi:battery-minus
+              icon_color: orange
               columns: 3
 
   # ── PV Production Chart ──
@@ -149,18 +149,41 @@ sections:
   # ── Power Meter History ──
   - type: grid
     cards:
-      - type: history-graph
+      - type: custom:mini-graph-card
+        name: "Fogyasztások (24h)"
+        hours_to_show: 24
+        points_per_hour: 2
+        animate: true
+        line_width: 3
+        show:
+          labels: true
+          legend: true
+          extrema: true
         entities:
           - entity: sensor.bojler_aram_mero_power
+            name: Bojler
+            color: "#ff9800"
           - entity: sensor.klima_aram_mero_power
+            name: Klíma
+            color: "#2196f3"
           - entity: sensor.iroda_aram_mero_power
+            name: Iroda
+            color: "#4caf50"
           - entity: sensor.pince_huto_power
+            name: Pince hűtő
+            color: "#795548"
           - entity: sensor.pince_melyhuto_power
+            name: Mélyhűtő
+            color: "#9c27b0"
           - entity: sensor.konyha_huto_power
+            name: Konyha hűtő
+            color: "#00bcd4"
           - entity: sensor.mosogep_power
+            name: Mosógép
+            color: "#f44336"
           - entity: sensor.szaritogep_power
-        title: "Fogyasztások (24h)"
-        hours_to_show: 24
+            name: Szárítógép
+            color: "#ff5722"
         grid_options:
           columns: 12
 
@@ -183,20 +206,20 @@ sections:
         grid_options:
           columns: 6
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.pv_forecast_total') }} kWh"
-        secondary: "PV Forecast (today)"
-        icon: mdi:solar-power
-        icon_color: yellow
-        layout: vertical
-        grid_options:
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.pv_forecast_total') }} kWh"
+          secondary: "PV Forecast (today)"
+          icon: mdi:solar-power
+          icon_color: yellow
           columns: 3
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.energy_production_today_2') }} kWh"
-        secondary: "Nyugat forecast"
-        icon: mdi:solar-power
-        icon_color: orange
-        layout: vertical
-        grid_options:
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.energy_production_today_2') }} kWh"
+          secondary: "Nyugat forecast"
+          icon: mdi:solar-power
+          icon_color: orange
           columns: 3

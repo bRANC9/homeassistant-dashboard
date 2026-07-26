@@ -1,0 +1,71 @@
+decluttering_templates:
+
+  # ── Sensor chip: displays a sensor value with icon and color ──
+  sensor_chip:
+    default:
+      - icon_color: grey
+      - columns: 2
+      - rows: 1
+    card:
+      type: custom:mushroom-template-card
+      primary: "[[primary]]"
+      secondary: "[[secondary]]"
+      icon: "[[icon]]"
+      icon_color: "[[icon_color]]"
+      layout: vertical
+      grid_options:
+        columns: "[[columns]]"
+        rows: "[[rows]]"
+
+  # ── Entity chip: clickable entity toggle ──
+  entity_chip:
+    default:
+      - columns: 3
+      - rows: 1
+    card:
+      type: custom:mushroom-entity-card
+      entity: "[[entity]]"
+      name: "[[name]]"
+      icon: "[[icon]]"
+      tap_action:
+        action: toggle
+      layout: vertical
+      grid_options:
+        columns: "[[columns]]"
+        rows: "[[rows]]"
+
+  # ── Action chip: button with custom tap action ──
+  action_chip:
+    default:
+      - icon_color: grey
+      - columns: 3
+      - rows: 1
+    card:
+      type: custom:mushroom-template-card
+      primary: "[[primary]]"
+      secondary: "[[secondary]]"
+      icon: "[[icon]]"
+      icon_color: "[[icon_color]]"
+      tap_action:
+        action: perform-action
+        perform_action: "[[perform_action]]"
+        target:
+          entity_id: "[[target_entity]]"
+      layout: vertical
+      grid_options:
+        columns: "[[columns]]"
+        rows: "[[rows]]"
+
+  # ── Service tile: app status with colored icon ──
+  service_tile:
+    default:
+      - columns: 2
+    card:
+      type: custom:mushroom-template-card
+      primary: "[[primary]]"
+      secondary: "[[secondary]]"
+      icon: "[[icon]]"
+      icon_color: "[[icon_color]]"
+      layout: vertical
+      grid_options:
+        columns: "[[columns]]"

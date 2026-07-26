@@ -19,93 +19,87 @@ sections:
         grid_options:
           columns: 12
         cards:
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.ioniq_5_ev_battery_level') }}%"
-            secondary: "{{ states('sensor.ioniq_5_ev_range') }} km"
-            icon: mdi:car-electric
-            icon_color: "{{ states('sensor.ev_battery_color_name') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.ioniq_5_ev_battery_level') }}%"
+              secondary: "{{ states('sensor.ioniq_5_ev_range') }} km"
+              icon: mdi:car-electric
+              icon_color: "{{ states('sensor.ev_battery_color_name') }}"
               columns: 4
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.ioniq_5_odometer') }} km"
-            secondary: "Odometer"
-            icon: mdi:counter
-            icon_color: grey
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.ioniq_5_odometer') }} km"
+              secondary: "Odometer"
+              icon: mdi:counter
+              icon_color: grey
               columns: 4
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.ioniq_5_average_energy_consumption') }} Wh/km"
-            secondary: "Avg Consumption"
-            icon: mdi:chart-line
-            icon_color: cyan
-            layout: vertical
-            grid_options:
-              columns: 4
-
-      - type: horizontal-stack
-        grid_options:
-          columns: 12
-        cards:
-          - type: custom:mushroom-entity-card
-            entity: binary_sensor.ioniq_5_ev_battery_charge
-            name: Charging
-            icon: mdi:battery-charging
-            layout: vertical
-            grid_options:
-              columns: 4
-
-          - type: custom:mushroom-entity-card
-            entity: binary_sensor.ioniq_5_ev_battery_plug
-            name: Plugged In
-            icon: mdi:power-plug
-            layout: vertical
-            grid_options:
-              columns: 4
-
-          - type: custom:mushroom-entity-card
-            entity: binary_sensor.ioniq_5_locked
-            name: Locked
-            icon: mdi:car-door-lock
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.ioniq_5_average_energy_consumption') }} Wh/km"
+              secondary: "Avg Consumption"
+              icon: mdi:chart-line
+              icon_color: cyan
               columns: 4
 
       - type: horizontal-stack
         grid_options:
           columns: 12
         cards:
-          - type: custom:mushroom-entity-card
-            entity: lock.ioniq_5_door_lock
-            name: Door Lock
-            icon: mdi:lock
-            tap_action:
-              action: toggle
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: entity_chip
+            variables:
+              entity: binary_sensor.ioniq_5_ev_battery_charge
+              name: Charging
+              icon: mdi:battery-charging
               columns: 4
 
-          - type: custom:mushroom-entity-card
-            entity: switch.ioniq_5_ioniq_5_climate
-            name: Climate
-            icon: mdi:hvac
-            tap_action:
-              action: toggle
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: entity_chip
+            variables:
+              entity: binary_sensor.ioniq_5_ev_battery_plug
+              name: Plugged In
+              icon: mdi:power-plug
               columns: 4
 
-          - type: custom:mushroom-entity-card
-            entity: switch.ioniq_5_ioniq_5_ev_charging
-            name: EV Charging
-            icon: mdi:ev-station
-            tap_action:
-              action: toggle
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: entity_chip
+            variables:
+              entity: binary_sensor.ioniq_5_locked
+              name: Locked
+              icon: mdi:car-door-lock
+              columns: 4
+
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
+          - type: custom:decluttering-card
+            template: entity_chip
+            variables:
+              entity: lock.ioniq_5_door_lock
+              name: Door Lock
+              icon: mdi:lock
+              columns: 4
+
+          - type: custom:decluttering-card
+            template: entity_chip
+            variables:
+              entity: switch.ioniq_5_ioniq_5_climate
+              name: Climate
+              icon: mdi:hvac
+              columns: 4
+
+          - type: custom:decluttering-card
+            template: entity_chip
+            variables:
+              entity: switch.ioniq_5_ioniq_5_ev_charging
+              name: EV Charging
+              icon: mdi:ev-station
               columns: 4
 
   # ── Charging Station ──
@@ -121,41 +115,39 @@ sections:
         grid_options:
           columns: 12
         cards:
-          - type: custom:mushroom-entity-card
-            entity: switch.22k07_charging_station_start_stop
-            name: Start/Stop
-            icon: mdi:ev-station
-            tap_action:
-              action: toggle
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: entity_chip
+            variables:
+              entity: switch.22k07_charging_station_start_stop
+              name: Start/Stop
+              icon: mdi:ev-station
               columns: 3
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.22k07_charging_station_charging_power') }} W"
-            secondary: "Power"
-            icon: mdi:flash
-            icon_color: yellow
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.22k07_charging_station_charging_power') }} W"
+              secondary: "Power"
+              icon: mdi:flash
+              icon_color: yellow
               columns: 3
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.22k07_charging_station_total_energy') }} kWh"
-            secondary: "Total"
-            icon: mdi:counter
-            icon_color: blue
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.22k07_charging_station_total_energy') }} kWh"
+              secondary: "Total"
+              icon: mdi:counter
+              icon_color: blue
               columns: 3
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('number.22k07_charging_station_charge_current') }}A"
-            secondary: "Current"
-            icon: mdi:current-ac
-            icon_color: orange
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('number.22k07_charging_station_charge_current') }}A"
+              secondary: "Current"
+              icon: mdi:current-ac
+              icon_color: orange
               columns: 3
 
       - type: custom:mushroom-number-card
@@ -186,54 +178,52 @@ sections:
             grid_options:
               columns: 4
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.ev_usable_surplus') }} kW"
-            secondary: "Surplus"
-            icon: mdi:solar-power
-            icon_color: "{{ states('sensor.ev_surplus_color') }}"
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.ev_usable_surplus') }} kW"
+              secondary: "Surplus"
+              icon: mdi:solar-power
+              icon_color: "{{ states('sensor.ev_surplus_color') }}"
               columns: 4
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.ev_target_soc_effective') }}%"
-            secondary: "Target SOC"
-            icon: mdi:flag-checkered
-            icon_color: purple
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.ev_target_soc_effective') }}%"
+              secondary: "Target SOC"
+              icon: mdi:flag-checkered
+              icon_color: purple
               columns: 4
 
       - type: horizontal-stack
         grid_options:
           columns: 12
         cards:
-          - type: custom:mushroom-entity-card
-            entity: input_boolean.ev_force_charge_today
-            name: Force Charge
-            icon: mdi:ev-station
-            tap_action:
-              action: toggle
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: entity_chip
+            variables:
+              entity: input_boolean.ev_force_charge_today
+              name: Force Charge
+              icon: mdi:ev-station
               columns: 4
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.ev_power_kw') }} kW"
-            secondary: "EV Power"
-            icon: mdi:flash
-            icon_color: yellow
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.ev_power_kw') }} kW"
+              secondary: "EV Power"
+              icon: mdi:flash
+              icon_color: yellow
               columns: 4
 
-          - type: custom:mushroom-template-card
-            primary: "{{ states('sensor.ev_charge_hours_remaining') }}h"
-            secondary: "Time to Full"
-            icon: mdi:timer-sand
-            icon_color: cyan
-            layout: vertical
-            grid_options:
+          - type: custom:decluttering-card
+            template: sensor_chip
+            variables:
+              primary: "{{ states('sensor.ev_charge_hours_remaining') }}h"
+              secondary: "Time to Full"
+              icon: mdi:timer-sand
+              icon_color: cyan
               columns: 4
 
   # ── Vehicle Doors & Details ──
@@ -298,10 +288,18 @@ sections:
         grid_options:
           columns: 6
 
-      - type: history-graph
+      - type: custom:mini-graph-card
+        name: "Töltési teljesítmény (24h)"
+        hours_to_show: 24
+        line_width: 3
+        font_size: 75
+        animate: true
+        show:
+          labels: true
+          legend: true
         entities:
           - entity: sensor.22k07_charging_station_charging_power
-        title: "Töltési teljesítmény (24h)"
-        hours_to_show: 24
+            name: Power
+            color: "#ff9800"
         grid_options:
           columns: 6
