@@ -32,12 +32,7 @@ sections:
             primary: "{{ states('sensor.terasz_homero_temperature') }}°C"
             secondary: "Hőmérséklet"
             icon: mdi:thermometer
-            icon_color: >-
-              {% set v = states('sensor.terasz_homero_temperature')|float(0) %}
-              {% if v > 30 %} red
-              {% elif v > 20 %} orange
-              {% elif v > 10 %} green
-              {% else %} blue {% endif %}
+            icon_color: "{{ states('sensor.terrace_temp_color') }}"
             layout: vertical
             grid_options:
               columns: 4

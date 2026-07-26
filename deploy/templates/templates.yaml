@@ -1,0 +1,220 @@
+template:
+
+  - sensor:
+
+      # ── Battery SOC colors ──
+      - name: "Battery SOC Color RGB"
+        state: >-
+          {% set v = states('sensor.solis_s6_eh3p_battery_soc')|int(0) %}
+          {% if v > 70 %} rgb(76, 175, 80)
+          {% elif v > 40 %} rgb(255, 193, 7)
+          {% else %} rgb(244, 67, 54) {% endif %}
+        icon: mdi:battery
+
+      - name: "Battery SOC Color Name"
+        state: >-
+          {% set v = states('sensor.solis_s6_eh3p_battery_soc')|int(0) %}
+          {% if v > 70 %} green
+          {% elif v > 40 %} yellow
+          {% else %} red {% endif %}
+        icon: mdi:battery
+
+      # ── EV Battery colors ──
+      - name: "EV Battery Color RGB"
+        state: >-
+          {% set v = states('sensor.ioniq_5_ev_battery_level')|int(0) %}
+          {% if v > 70 %} rgb(156, 39, 176)
+          {% elif v > 40 %} rgb(255, 193, 7)
+          {% else %} rgb(244, 67, 54) {% endif %}
+        icon: mdi:car-electric
+
+      - name: "EV Battery Color Name"
+        state: >-
+          {% set v = states('sensor.ioniq_5_ev_battery_level')|int(0) %}
+          {% if v > 80 %} green
+          {% elif v > 40 %} yellow
+          {% else %} red {% endif %}
+        icon: mdi:car-electric
+
+      # ── Charger status text ──
+      - name: "EV Charger Status Text"
+        state: >-
+          {% if is_state('sensor.22k07_charging_station_work_state', 'charger_charging') %}
+            Charging {{ states('sensor.22k07_charging_station_charging_power') }}W
+          {% elif is_state('sensor.22k07_charging_station_work_state', 'charger_free') %}
+            Ready
+          {% else %}
+            {{ states('sensor.22k07_charging_station_work_state') }}
+          {% endif %}
+        icon: mdi:ev-station
+
+      # ── EV Surplus color ──
+      - name: "EV Surplus Color"
+        state: >-
+          {% set v = states('sensor.ev_usable_surplus')|float(0) %}
+          {% if v > 2 %} green
+          {% elif v > 0 %} yellow
+          {% else %} red {% endif %}
+        icon: mdi:solar-power
+
+      # ── Pool pump status text ──
+      - name: "Pool Pump Status Text"
+        state: >-
+          {% if is_state('switch.medence_szivattyu_biztositek', 'on') %}
+            Pump ON → {{ states('input_datetime.pool_pump_stop_time')[11:16] }}
+          {% else %}
+            Pump OFF
+          {% endif %}
+        icon: mdi:water-pump
+
+      # ── Pool pump stop time formatted ──
+      - name: "Pool Pump Stop Time"
+        state: "{{ states('input_datetime.pool_pump_stop_time')[11:16] }}"
+        icon: mdi:clock-outline
+
+      # ── Pool water temp color ──
+      - name: "Pool Water Temp Color"
+        state: >-
+          {% set v = states('sensor.medence_cso_homero_probe_temperature')|float(0) %}
+          {% if v > 28 %} red
+          {% elif v > 22 %} orange
+          {% elif v > 16 %} green
+          {% else %} blue {% endif %}
+        icon: mdi:thermometer-water
+
+      # ── Pool probe battery color ──
+      - name: "Pool Probe Battery Color"
+        state: >-
+          {% set v = states('sensor.medence_cso_homero_battery')|int(0) %}
+          {% if v > 60 %} green
+          {% elif v > 30 %} yellow
+          {% else %} red {% endif %}
+        icon: mdi:battery
+
+      # ── Terrace temp color ──
+      - name: "Terrace Temp Color"
+        state: >-
+          {% set v = states('sensor.terasz_homero_temperature')|float(0) %}
+          {% if v > 30 %} red
+          {% elif v > 20 %} orange
+          {% elif v > 10 %} green
+          {% else %} blue {% endif %}
+        icon: mdi:thermometer
+
+      # ── Z2M connection color ──
+      - name: "Z2M Connection Color"
+        state: >-
+          {% if is_state('binary_sensor.zigbee2mqtt_bridge_connection_state', 'on') %} green
+          {% else %} red {% endif %}
+        icon: mdi:zigbee
+
+      # ── TrueNAS update text ──
+      - name: "TrueNAS Update Text"
+        state: >-
+          {% if is_state('update.truenas_update', 'on') %} Update available
+          {% else %} Up to date {% endif %}
+        icon: mdi:update
+
+      # ── TrueNAS update color ──
+      - name: "TrueNAS Update Color"
+        state: >-
+          {% if is_state('update.truenas_update', 'on') %} orange
+          {% else %} green {% endif %}
+        icon: mdi:update
+
+      # ── TrueNAS app colors ──
+      - name: "TrueNAS App Homeassistant Color"
+        state: >-
+          {% if states('sensor.truenas_app_homeassistant') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:home-assistant
+
+      - name: "TrueNAS App Zigbee2mqtt Color"
+        state: >-
+          {% if states('sensor.truenas_app_zigbee2mqtt') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:zigbee
+
+      - name: "TrueNAS App Jellyfin Color"
+        state: >-
+          {% if states('sensor.truenas_app_jellyfin') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:filmstrip
+
+      - name: "TrueNAS App Frigate Color"
+        state: >-
+          {% if states('sensor.truenas_app_frigate') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:cctv
+
+      - name: "TrueNAS App Immich Color"
+        state: >-
+          {% if states('sensor.truenas_app_immich') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:image-multiple
+
+      - name: "TrueNAS App Pangolin Color"
+        state: >-
+          {% if states('sensor.truenas_app_pangolin') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:shield-home
+
+      - name: "TrueNAS App Adguard Color"
+        state: >-
+          {% if states('sensor.truenas_app_adguard') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:shield
+
+      - name: "TrueNAS App Esphome Color"
+        state: >-
+          {% if states('sensor.truenas_app_esphome') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:chip
+
+      - name: "TrueNAS App Transmission Color"
+        state: >-
+          {% if states('sensor.truenas_app_transmission') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:download
+
+      - name: "TrueNAS App Sonarr Color"
+        state: >-
+          {% if states('sensor.truenas_app_sonarr') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:television
+
+      - name: "TrueNAS App Radarr Color"
+        state: >-
+          {% if states('sensor.truenas_app_radarr') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:movie
+
+      - name: "TrueNAS App Netdata Color"
+        state: >-
+          {% if states('sensor.truenas_app_netdata') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:chart-line
+
+      - name: "TrueNAS App Mosquitto Color"
+        state: >-
+          {% if states('sensor.truenas_app_mosquitto') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:broker
+
+      - name: "TrueNAS App Overseerr Color"
+        state: >-
+          {% if states('sensor.truenas_app_seerr') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:eye
+
+      - name: "TrueNAS App Jackett Color"
+        state: >-
+          {% if states('sensor.truenas_app_jackett') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:magnify
+
+      - name: "TrueNAS App Watchtower Color"
+        state: >-
+          {% if states('sensor.truenas_app_watchtower') == 'RUNNING' %} green
+          {% else %} red {% endif %}
+        icon: mdi:watchtower

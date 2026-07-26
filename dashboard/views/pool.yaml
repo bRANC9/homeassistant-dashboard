@@ -10,12 +10,7 @@ sections:
     cards:
       - type: custom:mushroom-title-card
         title: "\U0001F3CA Medence"
-        subtitle: >-
-          {% if is_state('switch.medence_szivattyu_biztositek', 'on') %}
-            Pump ON → {{ states('input_datetime.pool_pump_stop_time')[11:16] }}
-          {% else %}
-            Pump OFF
-          {% endif %}
+        subtitle: "{{ states('sensor.pool_pump_status_text') }}"
         grid_options:
           columns: 12
 
@@ -37,12 +32,7 @@ sections:
             primary: "{{ states('sensor.medence_cso_homero_probe_temperature') }}°C"
             secondary: "Water"
             icon: mdi:thermometer-water
-            icon_color: >-
-              {% set v = states('sensor.medence_cso_homero_probe_temperature')|float(0) %}
-              {% if v > 28 %} red
-              {% elif v > 22 %} orange
-              {% elif v > 16 %} green
-              {% else %} blue {% endif %}
+            icon_color: "{{ states('sensor.pool_water_temp_color') }}"
             layout: vertical
             grid_options:
               columns: 3
@@ -92,11 +82,7 @@ sections:
             primary: "{{ states('sensor.medence_cso_homero_battery') }}%"
             secondary: "Probe Battery"
             icon: mdi:battery
-            icon_color: >-
-              {% set v = states('sensor.medence_cso_homero_battery')|int %}
-              {% if v > 60 %} green
-              {% elif v > 30 %} yellow
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.pool_probe_battery_color') }}"
             layout: vertical
             grid_options:
               columns: 4
@@ -109,7 +95,7 @@ sections:
           columns: 12
         cards:
           - type: custom:mushroom-template-card
-            primary: "{{ states('input_datetime.pool_pump_stop_time')[11:16] }}"
+            primary: "{{ states('sensor.pool_pump_stop_time') }}"
             secondary: "Stop Time"
             icon: mdi:clock-outline
             icon_color: red

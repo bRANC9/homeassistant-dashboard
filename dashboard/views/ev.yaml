@@ -23,11 +23,7 @@ sections:
             primary: "{{ states('sensor.ioniq_5_ev_battery_level') }}%"
             secondary: "{{ states('sensor.ioniq_5_ev_range') }} km"
             icon: mdi:car-electric
-            icon_color: >-
-              {% set v = states('sensor.ioniq_5_ev_battery_level')|int %}
-              {% if v > 70 %} green
-              {% elif v > 40 %} yellow
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.ev_battery_color_name') }}"
             layout: vertical
             grid_options:
               columns: 4
@@ -117,14 +113,7 @@ sections:
     cards:
       - type: custom:mushroom-title-card
         title: "\u26A1 Charging Station"
-        subtitle: >-
-          {% if is_state('sensor.22k07_charging_station_work_state', 'charger_charging') %}
-            Charging at {{ states('sensor.22k07_charging_station_charging_power') }}W
-          {% elif is_state('sensor.22k07_charging_station_work_state', 'charger_free') %}
-            Ready
-          {% else %}
-            {{ states('sensor.22k07_charging_station_work_state') }}
-          {% endif %}
+        subtitle: "{{ states('sensor.ev_charger_status_text') }}"
         grid_options:
           columns: 12
 
@@ -201,11 +190,7 @@ sections:
             primary: "{{ states('sensor.ev_usable_surplus') }} kW"
             secondary: "Surplus"
             icon: mdi:solar-power
-            icon_color: >-
-              {% set v = states('sensor.ev_usable_surplus')|float(0) %}
-              {% if v > 2 %} green
-              {% elif v > 0 %} yellow
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.ev_surplus_color') }}"
             layout: vertical
             grid_options:
               columns: 4

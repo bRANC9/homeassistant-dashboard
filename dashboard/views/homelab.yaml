@@ -31,23 +31,16 @@ sections:
             primary: "Zigbee2MQTT"
             secondary: "{{ states('sensor.zigbee2mqtt_bridge_version') }}"
             icon: mdi:zigbee
-            icon_color: >-
-              {% if is_state('binary_sensor.zigbee2mqtt_bridge_connection_state', 'on') %}
-                green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.z2m_connection_color') }}"
             layout: vertical
             grid_options:
               columns: 4
 
           - type: custom:mushroom-template-card
             primary: "TrueNAS"
-            secondary: >-
-              {% if is_state('update.truenas_update', 'on') %} Update available
-              {% else %} Up to date {% endif %}
+            secondary: "{{ states('sensor.truenas_update_text') }}"
             icon: mdi:nas
-            icon_color: >-
-              {% if is_state('update.truenas_update', 'on') %} orange
-              {% else %} green {% endif %}
+            icon_color: "{{ states('sensor.truenas_update_color') }}"
             layout: vertical
             grid_options:
               columns: 4
@@ -146,9 +139,7 @@ sections:
             primary: "Home Assistant"
             secondary: "{{ states('sensor.truenas_app_homeassistant') }}"
             icon: mdi:home-assistant
-            icon_color: >-
-              {% if states('sensor.truenas_app_homeassistant') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_homeassistant_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -157,9 +148,7 @@ sections:
             primary: "Zigbee2MQTT"
             secondary: "{{ states('sensor.truenas_app_zigbee2mqtt') }}"
             icon: mdi:zigbee
-            icon_color: >-
-              {% if states('sensor.truenas_app_zigbee2mqtt') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_zigbee2mqtt_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -168,9 +157,7 @@ sections:
             primary: "Jellyfin"
             secondary: "{{ states('sensor.truenas_app_jellyfin') }}"
             icon: mdi:filmstrip-box
-            icon_color: >-
-              {% if states('sensor.truenas_app_jellyfin') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_jellyfin_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -179,9 +166,7 @@ sections:
             primary: "Frigate"
             secondary: "{{ states('sensor.truenas_app_frigate') }}"
             icon: mdi:cctv
-            icon_color: >-
-              {% if states('sensor.truenas_app_frigate') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_frigate_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -190,9 +175,7 @@ sections:
             primary: "Immich"
             secondary: "{{ states('sensor.truenas_app_immich') }}"
             icon: mdi:image-multiple
-            icon_color: >-
-              {% if states('sensor.truenas_app_immich') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_immich_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -201,9 +184,7 @@ sections:
             primary: "Pangolin"
             secondary: "{{ states('sensor.truenas_app_pangolin') }}"
             icon: mdi:shield-home
-            icon_color: >-
-              {% if states('sensor.truenas_app_pangolin') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_pangolin_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -216,9 +197,7 @@ sections:
             primary: "AdGuard"
             secondary: "{{ states('sensor.truenas_app_adguard') }}"
             icon: mdi:shield-check
-            icon_color: >-
-              {% if states('sensor.truenas_app_adguard') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_adguard_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -227,9 +206,7 @@ sections:
             primary: "ESPHome"
             secondary: "{{ states('sensor.truenas_app_esphome') }}"
             icon: mdi:chip
-            icon_color: >-
-              {% if states('sensor.truenas_app_esphome') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_esphome_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -238,9 +215,7 @@ sections:
             primary: "Transmission"
             secondary: "{{ states('sensor.truenas_app_transmission') }}"
             icon: mdi:download
-            icon_color: >-
-              {% if states('sensor.truenas_app_transmission') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_transmission_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -249,9 +224,7 @@ sections:
             primary: "Sonarr"
             secondary: "{{ states('sensor.truenas_app_sonarr') }}"
             icon: mdi:television
-            icon_color: >-
-              {% if states('sensor.truenas_app_sonarr') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_sonarr_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -260,9 +233,7 @@ sections:
             primary: "Radarr"
             secondary: "{{ states('sensor.truenas_app_radarr') }}"
             icon: mdi:movie
-            icon_color: >-
-              {% if states('sensor.truenas_app_radarr') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_radarr_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -271,9 +242,7 @@ sections:
             primary: "Netdata"
             secondary: "{{ states('sensor.truenas_app_netdata') }}"
             icon: mdi:chart-line
-            icon_color: >-
-              {% if states('sensor.truenas_app_netdata') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_netdata_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -286,9 +255,7 @@ sections:
             primary: "Mosquitto"
             secondary: "{{ states('sensor.truenas_app_mosquitto') }}"
             icon: mdi:broker
-            icon_color: >-
-              {% if states('sensor.truenas_app_mosquitto') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_mosquitto_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -297,9 +264,7 @@ sections:
             primary: "Seerr"
             secondary: "{{ states('sensor.truenas_app_seerr') }}"
             icon: mdi:movie-open
-            icon_color: >-
-              {% if states('sensor.truenas_app_seerr') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_overseerr_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -308,9 +273,7 @@ sections:
             primary: "Jackett"
             secondary: "{{ states('sensor.truenas_app_jackett') }}"
             icon: mdi:magnify
-            icon_color: >-
-              {% if states('sensor.truenas_app_jackett') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_jackett_color') }}"
             layout: vertical
             grid_options:
               columns: 2
@@ -319,9 +282,7 @@ sections:
             primary: "Watchtower"
             secondary: "{{ states('sensor.truenas_app_watchtower') }}"
             icon: mdi:update
-            icon_color: >-
-              {% if states('sensor.truenas_app_watchtower') == 'RUNNING' %} green
-              {% else %} red {% endif %}
+            icon_color: "{{ states('sensor.truenas_app_watchtower_color') }}"
             layout: vertical
             grid_options:
               columns: 2
