@@ -5,6 +5,7 @@ services:
     image: ghcr.io/branc9/homeassistant-dashboard/ha-dashboard-webhook:latest
     container_name: ha-dashboard-webhook
     restart: unless-stopped
+    user: root
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
     ports:
