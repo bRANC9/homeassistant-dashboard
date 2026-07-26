@@ -419,27 +419,24 @@ sections:
           columns: 6
 
       - type: custom:mini-graph-card
+        name: Terasz
+        hours_to_show: 24
+        points_per_hour: 2
+        animate: true
+        line_width: 4
+        show:
+          labels: true
+          legend: true
         entities:
           - entity: sensor.terasz_homero_temperature
-            name: Terasz °C
-        name: Terasz
-        animate: true
-        line_width: 8
-        font_size: 75
-        grid_options:
-          columns: 3
-
-      - type: custom:mini-graph-card
-        entities:
+            name: Hőmérséklet
+            color: "#00bcd4"
           - entity: sensor.terasz_homero_humidity
-            name: Terasz %
-        name: Terasz %
-        animate: true
-        line_color: blue
-        line_width: 8
-        font_size: 75
+            name: Páratartalom
+            y_axis: secondary
+            color: "#2196f3"
         grid_options:
-          columns: 3
+          columns: 6
 
   # ── Climate & Rooms ──
   - type: grid
@@ -599,7 +596,7 @@ sections:
   # ── Power History ──
   - type: grid
     cards:
-      - type: custom:history-graph
+      - type: history-graph
         entities:
           - entity: sensor.nappali_homero_temperature
           - entity: sensor.gyerek_szoba_homero_temperature
@@ -611,7 +608,7 @@ sections:
         grid_options:
           columns: 6
 
-      - type: custom:history-graph
+      - type: history-graph
         entities:
           - entity: sensor.nappali_homero_humidity
           - entity: sensor.gyerek_szoba_homero_humidity

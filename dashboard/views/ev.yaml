@@ -312,7 +312,7 @@ sections:
         grid_options:
           columns: 6
 
-      - type: custom:history-graph
+      - type: history-graph
         entities:
           - entity: sensor.22k07_charging_station_charging_power
         title: "Töltési teljesítmény (24h)"

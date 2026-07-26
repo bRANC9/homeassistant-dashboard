@@ -148,7 +148,7 @@ sections:
   # ── Power Meter History ──
   - type: grid
     cards:
-      - type: custom:history-graph
+      - type: history-graph
         entities:
           - entity: sensor.bojler_aram_mero_power
           - entity: sensor.klima_aram_mero_power

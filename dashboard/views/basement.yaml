@@ -108,7 +108,7 @@ sections:
   # ── Power Monitoring ──
   - type: grid
     cards:
-      - type: custom:history-graph
+      - type: history-graph
         entities:
           - entity: sensor.bojler_aram_mero_power
           - entity: sensor.pince_huto_power
@@ -129,7 +129,7 @@ sections:
   # ── Load Overview ──
   - type: grid
     cards:
-      - type: custom:history-graph
+      - type: history-graph
         entities:
           - entity: sensor.solis_s6_eh3p_household_load_power
           - entity: sensor.mert_fogyasztasok
