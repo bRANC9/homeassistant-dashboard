@@ -60,7 +60,7 @@ sections:
             icon_color: "rgb(121, 85, 72)"
             layout: vertical
             grid_options:
-              columns: 3
+              columns: 4
 
           - type: custom:mushroom-template-card
             primary: "{{ states('sensor.pince_homero_humidity') }}%"
@@ -69,7 +69,7 @@ sections:
             icon_color: blue
             layout: vertical
             grid_options:
-              columns: 3
+              columns: 4
 
           - type: custom:mushroom-entity-card
             entity: binary_sensor.pince_mozgas_erzekelo_presence
@@ -77,8 +77,12 @@ sections:
             icon: mdi:motion-sensor
             layout: vertical
             grid_options:
-              columns: 3
+              columns: 4
 
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
           - type: custom:mushroom-template-card
             primary: "{{ states('sensor.iroda_aram_mero_power') }} W"
             secondary: "Iroda"
@@ -86,9 +90,27 @@ sections:
             icon_color: cyan
             layout: vertical
             grid_options:
-              columns: 3
+              columns: 4
 
-  # ── Battery & Grid Detail ──
+          - type: custom:mushroom-template-card
+            primary: "{{ states('sensor.garazs_homero_temperature') }}°C"
+            secondary: "Garázs"
+            icon: mdi:garage-variant
+            icon_color: orange
+            layout: vertical
+            grid_options:
+              columns: 4
+
+          - type: custom:mushroom-template-card
+            primary: "{{ states('sensor.nem_mert_fogyasztasok') }} W"
+            secondary: "Nem mért"
+            icon: mdi:help-circle
+            icon_color: grey
+            layout: vertical
+            grid_options:
+              columns: 4
+
+  # ── Battery & Garage (24h) ──
   - type: grid
     cards:
       - type: custom:mini-graph-card
@@ -106,7 +128,7 @@ sections:
         grid_options:
           columns: 12
 
-  # ── Power Monitoring ──
+  # ── Áramok (24h) ──
   - type: grid
     cards:
       - type: history-graph
@@ -127,7 +149,7 @@ sections:
         grid_options:
           columns: 12
 
-  # ── Load Overview ──
+  # ── Fogyasztások (24h) ──
   - type: grid
     cards:
       - type: history-graph
@@ -140,7 +162,7 @@ sections:
         grid_options:
           columns: 12
 
-  # ── Entities List ──
+  # ── Részletes fogyasztás ──
   - type: grid
     cards:
       - type: entities
