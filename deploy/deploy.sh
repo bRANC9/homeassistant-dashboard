@@ -22,6 +22,9 @@ log "Event: ${WEBHOOK_REF:-push}"
 # ── 1. Git pull ──────────────────────────────────────────────
 cd "$REPO_DIR"
 
+# Git safe directory beállítás (Docker volume ownership miatt)
+git config --global --add safe.directory "$REPO_DIR"
+
 # Első futáskor clone-oljuk a repot
 if [ ! -d ".git" ]; then
     log "First run — cloning repository..."
