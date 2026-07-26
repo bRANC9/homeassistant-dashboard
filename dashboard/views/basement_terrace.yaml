@@ -1,0 +1,96 @@
+title: Basement Terrace
+path: basement-terrace
+icon: mdi:lantern
+type: sections
+max_columns: 4
+sections:
+  # ── Current Devices ──
+  - type: grid
+    cards:
+      - type: custom:mushroom-title-card
+        title: "Pince Terasz"
+        subtitle: "Jelenlegi eszközök"
+        grid_options:
+          columns: 12
+
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: switch.pince_terasz_hangulat_vilagitas
+            name: Hangulatfény
+            icon: mdi:outdoor-lamp
+            tap_action:
+              action: toggle
+            layout: vertical
+            grid_options:
+              columns: 4
+
+          - type: custom:mushroom-template-card
+            primary: "{{ states('sensor.terasz_homero_temperature') }}°C"
+            secondary: "Hőmérséklet"
+            icon: mdi:thermometer
+            icon_color: >-
+              {% set v = states('sensor.terasz_homero_temperature')|float %}
+              {% if v > 30 %} red
+              {% elif v > 20 %} orange
+              {% elif v > 10 %} green
+              {% else %} blue {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 4
+
+          - type: custom:mushroom-template-card
+            primary: "{{ states('sensor.terasz_homero_humidity') }}%"
+            secondary: "Páratartalom"
+            icon: mdi:water-percent
+            icon_color: blue
+            layout: vertical
+            grid_options:
+              columns: 4
+
+  # ── Temperature Chart ──
+  - type: grid
+    cards:
+      - type: custom:mini-graph-card
+        entities:
+          - entity: sensor.terasz_homero_temperature
+            name: "Hőmérséklet"
+          - entity: sensor.terasz_homero_humidity
+            name: "Páratartalom"
+            y_axis: secondary
+        name: "Terasz (24h)"
+        hours_to_show: 24
+        line_width: 3
+        font_size: 75
+        animate: true
+        grid_options:
+          columns: 12
+
+  # ── Future Devices Placeholder ──
+  - type: grid
+    cards:
+      - type: custom:mushroom-title-card
+        title: "Jövőbeni eszközök"
+        subtitle: "Placeholder - ide kerülnek majd az új eszközök"
+        grid_options:
+          columns: 12
+
+      - type: custom:auto-entities
+        card:
+          type: entities
+          title: "Tervezett"
+        filter:
+          - include:
+              entity_id: "sensor.terasz_*"
+          - include:
+              entity_id: "light.terasz_*"
+          - include:
+              entity_id: "switch.terasz_*"
+          - include:
+              entity_id: "binary_sensor.terasz_*"
+        sort:
+          method: name
+        grid_options:
+          columns: 12

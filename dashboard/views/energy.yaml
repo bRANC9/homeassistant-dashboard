@@ -1,0 +1,201 @@
+title: Energy
+path: energy
+icon: mdi:lightning-bolt
+type: sections
+max_columns: 4
+sections:
+  # ── Today Overview ──
+  - type: grid
+    cards:
+      - type: custom:mushroom-title-card
+        title: "Napi Energia"
+        subtitle: >-
+          Import: {{ states('sensor.solis_s6_eh3p_today_energy_imported_from_grid') }} kWh |
+          Export: {{ states('sensor.solis_s6_eh3p_today_energy_fed_into_grid') }} kWh
+        grid_options:
+          columns: 12
+
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
+          - type: custom:mushroom-template-card
+            primary: "{{ states('sensor.solis_s6_eh3p_pv_today_energy_generation') }} kWh"
+            secondary: "PV Today"
+            icon: mdi:solar-power
+            icon_color: yellow
+            layout: vertical
+            grid_options:
+              columns: 3
+
+          - type: custom:mushroom-template-card
+            primary: "{{ states('sensor.solis_s6_eh3p_today_energy_consumption') }} kWh"
+            secondary: "Load"
+            icon: mdi:home-lightning-bolt
+            icon_color: blue
+            layout: vertical
+            grid_options:
+              columns: 3
+
+          - type: custom:mushroom-template-card
+            primary: "{{ states('sensor.solis_s6_eh3p_today_battery_charge_energy') }} kWh"
+            secondary: "Bat Charge"
+            icon: mdi:battery-charging
+            icon_color: green
+            layout: vertical
+            grid_options:
+              columns: 3
+
+          - type: custom:mushroom-template-card
+            primary: "{{ states('sensor.solis_s6_eh3p_today_battery_discharge_energy') }} kWh"
+            secondary: "Bat Discharge"
+            icon: mdi:battery-minus
+            icon_color: orange
+            layout: vertical
+            grid_options:
+              columns: 3
+
+  # ── PV Production Chart ──
+  - type: grid
+    cards:
+      - type: custom:apexcharts-card
+        graph_span: 24h
+        span:
+          offset: -24h
+        header:
+          show: true
+          title: "PV Power (W)"
+        series:
+          - entity: sensor.solis_s6_eh3p_pv_power_1
+            name: "Dél"
+            color: "#f4c430"
+            unit: W
+          - entity: sensor.solis_s6_eh3p_pv_power_2
+            name: "Nyugat"
+            color: "#ff9800"
+            unit: W
+        grid_options:
+          columns: 12
+
+  # ── Grid Import/Export ──
+  - type: grid
+    cards:
+      - type: custom:apexcharts-card
+        graph_span: 24h
+        span:
+          offset: -24h
+        header:
+          show: true
+          title: "Grid (W)"
+        series:
+          - entity: sensor.solis_s6_eh3p_meter_total_active_power
+            name: "Grid"
+            invert: true
+            color: "#2196f3"
+            unit: W
+        grid_options:
+          columns: 12
+
+  # ── Battery ──
+  - type: grid
+    cards:
+      - type: custom:apexcharts-card
+        graph_span: 24h
+        span:
+          offset: -24h
+        header:
+          show: true
+          title: "Battery SOC (%) & Power (W)"
+        series:
+          - entity: sensor.solis_s6_eh3p_battery_soc
+            name: "SOC"
+            type: column
+            color: "#4caf50"
+            unit: "%"
+          - entity: sensor.solis_s6_eh3p_battery_power
+            name: "Power"
+            color: "#ffc0cb"
+            unit: W
+        grid_options:
+          columns: 12
+
+  # ── Household Load ──
+  - type: grid
+    cards:
+      - type: custom:apexcharts-card
+        graph_span: 24h
+        span:
+          offset: -24h
+        header:
+          show: true
+          title: "Household Load (W)"
+        series:
+          - entity: sensor.solis_s6_eh3p_household_load_power
+            name: "Essential"
+            color: "#ff5722"
+            unit: W
+          - entity: sensor.mert_fogyasztasok
+            name: "Measured"
+            color: "#ff9800"
+            unit: W
+          - entity: sensor.nem_mert_fogyasztasok
+            name: "Unmeasured"
+            color: "#795548"
+            unit: W
+        grid_options:
+          columns: 12
+
+  # ── Power Meter History ──
+  - type: grid
+    cards:
+      - type: custom:history-graph
+        entities:
+          - entity: sensor.bojler_aram_mero_power
+          - entity: sensor.klima_aram_mero_power
+          - entity: sensor.iroda_aram_mero_power
+          - entity: sensor.pince_huto_power
+          - entity: sensor.pince_melyhuto_power
+          - entity: sensor.konyha_huto_power
+          - entity: sensor.mosogep_power
+          - entity: sensor.szaritogep_power
+        title: "Fogyasztások (24h)"
+        hours_to_show: 24
+        grid_options:
+          columns: 12
+
+  # ── Energy Costs ──
+  - type: grid
+    cards:
+      - type: entities
+        title: "Költségek"
+        entities:
+          - entity: sensor.import_rezsi_kwh
+            name: "Rezszi import (kWh)"
+          - entity: sensor.import_piaci_kwh
+            name: "Piaci import (kWh)"
+          - entity: sensor.import_osszes_koltseg
+            name: "Összes költség (HUF)"
+          - entity: sensor.solis_s6_eh3p_today_energy_imported_from_grid_cost
+            name: "Import költség"
+          - entity: sensor.solis_s6_eh3p_today_energy_fed_into_grid_compensation
+            name: "Export kompenzáció"
+        grid_options:
+          columns: 6
+
+      - type: custom:mushroom-template-card
+        primary: "{{ states('sensor.pv_forecast_total') }} kWh"
+        secondary: "PV Forecast (today)"
+        icon: mdi:solar-power
+        icon_color: yellow
+        layout: vertical
+        grid_options:
+          columns: 3
+
+      - type: custom:mushroom-template-card
+        primary: "{{ states('sensor.energy_production_today_2') }} kWh"
+        secondary: "Nyugat forecast"
+        icon: mdi:solar-power
+        icon_color: orange
+        layout: vertical
+        grid_options:
+          columns: 3

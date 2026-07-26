@@ -1,0 +1,32 @@
+# Home Assistant secrets and sensitive files
+secrets.yaml
+*.secret
+.env
+.env.*
+!.env.example
+
+# HA storage (never commit)
+.storage/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Backup files
+*.bak
+*.backup

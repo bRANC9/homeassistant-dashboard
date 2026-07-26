@@ -1,0 +1,146 @@
+title: Homelab
+path: homelab
+icon: mdi:server-network
+type: sections
+max_columns: 4
+sections:
+  # ── Home Assistant ──
+  - type: grid
+    cards:
+      - type: custom:mushroom-title-card
+        title: "\U0001F5A5 Homelab"
+        subtitle: ""
+        grid_options:
+          columns: 12
+
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
+          - type: custom:mushroom-template-card
+            primary: "Home Assistant"
+            secondary: "{{ states('sensor.backup_backup_manager_state') }}"
+            icon: mdi:home-assistant
+            icon_color: "rgb(0, 188, 212)"
+            layout: vertical
+            grid_options:
+              columns: 4
+
+          - type: custom:mushroom-template-card
+            primary: "Zigbee2MQTT"
+            secondary: "{{ states('sensor.zigbee2mqtt_bridge_version') }}"
+            icon: mdi:zigbee
+            icon_color: >-
+              {% if is_state('binary_sensor.zigbee2mqtt_bridge_connection_state', 'on') %}
+                green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 4
+
+          - type: custom:mushroom-template-card
+            primary: "TrueNAS"
+            secondary: >-
+              {% if is_state('update.truenas_update', 'on') %} Update available
+              {% else %} Up to date {% endif %}
+            icon: mdi:nas
+            icon_color: >-
+              {% if is_state('update.truenas_update', 'on') %} orange
+              {% else %} green {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 4
+
+  # ── Zigbee2MQTT ──
+  - type: grid
+    cards:
+      - type: custom:mushroom-title-card
+        title: "Zigbee2MQTT"
+        subtitle: ""
+        grid_options:
+          columns: 12
+
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: binary_sensor.zigbee2mqtt_bridge_connection_state
+            name: Bridge State
+            icon: mdi:zigbee
+            layout: vertical
+            grid_options:
+              columns: 3
+
+          - type: custom:mushroom-entity-card
+            entity: button.zigbee2mqtt_bridge_restart
+            name: Restart
+            icon: mdi:restart
+            layout: vertical
+            grid_options:
+              columns: 3
+
+          - type: custom:mushroom-entity-card
+            entity: switch.zigbee2mqtt_bridge_permit_join
+            name: Permit Join
+            icon: mdi:plus-network
+            tap_action:
+              action: toggle
+            layout: vertical
+            grid_options:
+              columns: 3
+
+          - type: custom:mushroom-select-card
+            entity: select.zigbee2mqtt_bridge_log_level
+            name: Log Level
+            icon: mdi:file-document
+            grid_options:
+              columns: 3
+
+  # ── System Health ──
+  - type: grid
+    cards:
+      - type: entities
+        title: "Rendszer"
+        entities:
+          - entity: sensor.backup_backup_manager_state
+            name: "Backup állapot"
+          - entity: sensor.backup_next_scheduled_automatic_backup
+            name: "Következő backup"
+          - entity: update.truenas_update
+            name: "TrueNAS update"
+          - entity: sensor.zigbee2mqtt_bridge_version
+            name: "Z2M verzió"
+        grid_options:
+          columns: 6
+
+      - type: entities
+        title: "Hálózat"
+        entities:
+          - entity: binary_sensor.zigbee2mqtt_bridge_connection_state
+            name: "Zigbee bridge"
+          - entity: switch.zigbee2mqtt_bridge_permit_join
+            name: "Zigbee permit join"
+          - entity: select.zigbee2mqtt_bridge_log_level
+            name: "Z2M log level"
+        grid_options:
+          columns: 6
+
+  # ── Devices ──
+  - type: grid
+    cards:
+      - type: custom:auto-entities
+        card:
+          type: entities
+          title: "Eszközök"
+        filter:
+          - include:
+              domain: update
+          - include:
+              domain: sensor
+              attributes:
+                device_class: timestamp
+        sort:
+          method: name
+        grid_options:
+          columns: 12

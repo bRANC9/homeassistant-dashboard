@@ -1,0 +1,52 @@
+[
+  {
+    "id": "ha-dashboard-deploy",
+    "execute-command": "/deploy/deploy.sh",
+    "command-working-directory": "/deploy/repo",
+    "pass-arguments-to-command": [
+      {
+        "source": "payload",
+        "name": "ref"
+      },
+      {
+        "source": "payload",
+        "name": "after"
+      }
+    ],
+    "trigger-rule": {
+      "match": {
+        "type": "value",
+        "value": "refs/heads/main",
+        "parameter": {
+          "source": "payload",
+          "name": "ref"
+        }
+      },
+      "and": [
+        {
+          "match": {
+            "type": "sha256-hmac",
+            "value": "{{getenv \"WEBHOOK_SECRET\"}}",
+            "parameter": {
+              "source": "header",
+              "name": "X-Hub-Signature-256"
+            }
+          }
+        }
+      ]
+    },
+    "response-message": "Deploy triggered",
+    "pass-environment-to-command": [
+      {
+        "envname": "WEBHOOK_REF",
+        "source": "payload",
+        "name": "ref"
+      },
+      {
+        "envname": "WEBHOOK_COMMIT",
+        "source": "payload",
+        "name": "after"
+      }
+    ]
+  }
+]

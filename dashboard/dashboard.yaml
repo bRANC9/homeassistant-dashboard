@@ -1,0 +1,8 @@
+views:
+  - !include views/home.yaml
+  - !include views/energy.yaml
+  - !include views/ev.yaml
+  - !include views/pool.yaml
+  - !include views/basement.yaml
+  - !include views/basement_terrace.yaml
+  - !include views/homelab.yaml

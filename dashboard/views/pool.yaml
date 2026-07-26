@@ -1,0 +1,206 @@
+title: Pool
+path: pool
+icon: mdi:pool
+type: sections
+max_columns: 4
+sections:
+  # ── Pool Status ──
+  - type: grid
+    cards:
+      - type: custom:mushroom-title-card
+        title: "\U0001F3CA Medence"
+        subtitle: >-
+          {% if is_state('switch.medence_szivattyu_biztositek', 'on') %}
+            Pump ON → {{ states('input_datetime.pool_pump_stop_time')[11:16] }}
+          {% else %}
+            Pump OFF
+          {% endif %}
+        grid_options:
+          columns: 12
+
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: switch.medence_szivattyu_biztositek
+            name: Szivattyú
+            icon: mdi:water-pump
+            tap_action:
+              action: toggle
+            layout: vertical
+            grid_options:
+              columns: 3
+
+          - type: custom:mushroom-template-card
+            primary: "{{ states('sensor.medence_cso_homero_probe_temperature') }}°C"
+            secondary: "Water"
+            icon: mdi:thermometer-water
+            icon_color: >-
+              {% set v = states('sensor.medence_cso_homero_probe_temperature')|float %}
+              {% if v > 28 %} red
+              {% elif v > 22 %} orange
+              {% elif v > 16 %} green
+              {% else %} blue {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 3
+
+          - type: custom:mushroom-template-card
+            primary: "{{ states('input_number.medence_utolso_homerseklet') }}°C"
+            secondary: "Cached"
+            icon: mdi:thermometer-check
+            icon_color: cyan
+            layout: vertical
+            grid_options:
+              columns: 3
+
+          - type: custom:mushroom-entity-card
+            entity: switch.medence_vilagitas_biztositek
+            name: Fény
+            icon: mdi:swim
+            tap_action:
+              action: toggle
+            layout: vertical
+            grid_options:
+              columns: 3
+
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
+          - type: custom:mushroom-template-card
+            primary: "{{ states('sensor.medence_szivattyu_biztositek_power') }} W"
+            secondary: "Power"
+            icon: mdi:flash
+            icon_color: yellow
+            layout: vertical
+            grid_options:
+              columns: 4
+
+          - type: custom:mushroom-template-card
+            primary: "{{ states('input_number.pool_pump_daily_total_runtime') }}h/8h"
+            secondary: "Runtime"
+            icon: mdi:timer
+            icon_color: blue
+            layout: vertical
+            grid_options:
+              columns: 4
+
+          - type: custom:mushroom-template-card
+            primary: "{{ states('sensor.medence_cso_homero_battery') }}%"
+            secondary: "Probe Battery"
+            icon: mdi:battery
+            icon_color: >-
+              {% set v = states('sensor.medence_cso_homero_battery')|int %}
+              {% if v > 60 %} green
+              {% elif v > 30 %} yellow
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 4
+
+  # ── Timer Controls ──
+  - type: grid
+    cards:
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
+          - type: custom:mushroom-template-card
+            primary: "{{ states('input_datetime.pool_pump_stop_time')[11:16] }}"
+            secondary: "Stop Time"
+            icon: mdi:clock-outline
+            icon_color: red
+            layout: vertical
+            grid_options:
+              columns: 4
+
+          - type: custom:mushroom-template-card
+            primary: "+1h"
+            secondary: "Extend"
+            icon: mdi:clock-plus
+            icon_color: blue
+            tap_action:
+              action: perform-action
+              perform_action: input_button.press
+              target:
+                entity_id: input_button.pool_pump_extend_time
+            layout: vertical
+            grid_options:
+              columns: 4
+
+          - type: custom:mushroom-template-card
+            primary: "-1h"
+            secondary: "Reduce"
+            icon: mdi:clock-minus
+            icon_color: orange
+            tap_action:
+              action: perform-action
+              perform_action: input_button.press
+              target:
+                entity_id: input_button.pool_pump_reduce_time
+            layout: vertical
+            grid_options:
+              columns: 4
+
+      - type: custom:mushroom-entity-card
+        entity: input_button.pool_pump_extend_time
+        name: "Extend (1h)"
+        icon: mdi:clock-plus-outline
+        layout: vertical
+        grid_options:
+          columns: 12
+
+  # ── Charts ──
+  - type: grid
+    cards:
+      - type: custom:mini-graph-card
+        entities:
+          - entity: sensor.medence_cso_homero_probe_temperature
+            name: Probe
+          - entity: input_number.medence_utolso_homerseklet
+            name: Cached
+        name: "Pool Temp °C"
+        hours_to_show: 24
+        line_width: 3
+        font_size: 75
+        animate: true
+        grid_options:
+          columns: 6
+
+      - type: custom:mini-graph-card
+        entities:
+          - entity: sensor.medence_szivattyu_biztositek_power
+            name: Pump
+        name: "Pump Power (W)"
+        hours_to_show: 24
+        line_width: 3
+        font_size: 75
+        animate: true
+        line_color: blue
+        grid_options:
+          columns: 6
+
+  # ── Sensor Details ──
+  - type: grid
+    cards:
+      - type: entities
+        title: "Szenzorok"
+        entities:
+          - entity: sensor.medence_cso_homero_probe_temperature
+            name: "Víz hőmérséklet"
+          - entity: input_number.medence_utolso_homerseklet
+            name: "Utolsó mérés"
+          - entity: sensor.medence_meres_allapota
+            name: "Mérés állapota"
+          - entity: sensor.medence_cso_homero_battery
+            name: "Szenzor elem"
+          - entity: sensor.medence_szivattyu_biztositek_power
+            name: "Szivattyú teljesítmény"
+          - entity: input_number.pool_pump_daily_total_runtime
+            name: "Napi üzemidő"
+          - entity: input_datetime.pool_pump_stop_time
+            name: "Leállítás időpontja"
+        grid_options:
+          columns: 12
