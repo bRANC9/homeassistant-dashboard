@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'deploy/**'
+      - 'dashboard/**'
       - '.github/workflows/docker-build.yml'
   workflow_dispatch:
 
@@ -53,3 +54,22 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: linux/amd64
+
+  # Build után 10 mp-et vár, majd triggereli a webhook-et
+  # Így a Watchtower le tudja húzni az új image-et
+  notify:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - name: Wait for image to propagate
+        run: sleep 15
+
+      - name: Trigger deploy webhook
+        if: ${{ secrets.WEBHOOK_URL != '' }}
+        run: |
+          curl -s -X POST \
+            -H "Content-Type: application/json" \
+            -d '{"ref":"refs/heads/main"}' \
+            "${{ secrets.WEBHOOK_URL }}/hooks/ha-dashboard-deploy" || echo "Webhook trigger skipped (not configured)"
