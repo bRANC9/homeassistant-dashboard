@@ -43,6 +43,14 @@ GitHub push → webhook container (TrueNAS-on) → git pull → validate
     → copy fájlok (közvetlen mount) → HA reload
 ```
 
+### Docker image
+
+A GitHub Actions automatikusan buildeli és publikálja a webhook containert a GitHub Container Registry-ben (`ghcr.io`). TrueNAS-on csak le kell húzni:
+
+```bash
+docker pull ghcr.io/branc9/homeassistant-dashboard/ha-dashboard-webhook:latest
+```
+
 ### Gyors beállítás
 
 ```bash
@@ -87,8 +95,10 @@ lovelace:
 
 | Fájl | Cél |
 |------|-----|
+| `deploy/Dockerfile` | Webhook container image build |
 | `deploy/docker-compose.yml` | Webhook container (HA config mount-olva) |
 | `deploy/hooks.json` | Webhook szabályok + HMAC validáció |
 | `deploy/deploy.sh` | Git pull → validate → copy → HA reload |
 | `deploy/validate.sh` | YAML szintaktikai ellenőrzés |
 | `deploy/setup.sh` | Első beállítás, secret generálás |
+| `.github/workflows/docker-build.yml` | CI: Docker image build + push to GHCR |
