@@ -129,6 +129,203 @@ sections:
         grid_options:
           columns: 6
 
+  # ── TrueNAS Docker Apps ──
+  - type: grid
+    cards:
+      - type: custom:mushroom-title-card
+        title: "\U0001F4E6 TrueNAS Docker"
+        subtitle: ""
+        grid_options:
+          columns: 12
+
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
+          - type: custom:mushroom-template-card
+            primary: "Home Assistant"
+            secondary: "{{ states('sensor.truenas_app_homeassistant') }}"
+            icon: mdi:home-assistant
+            icon_color: >-
+              {% if states('sensor.truenas_app_homeassistant') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "Zigbee2MQTT"
+            secondary: "{{ states('sensor.truenas_app_zigbee2mqtt') }}"
+            icon: mdi:zigbee
+            icon_color: >-
+              {% if states('sensor.truenas_app_zigbee2mqtt') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "Jellyfin"
+            secondary: "{{ states('sensor.truenas_app_jellyfin') }}"
+            icon: mdi:filmstrip-box
+            icon_color: >-
+              {% if states('sensor.truenas_app_jellyfin') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "Frigate"
+            secondary: "{{ states('sensor.truenas_app_frigate') }}"
+            icon: mdi:cctv
+            icon_color: >-
+              {% if states('sensor.truenas_app_frigate') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "Immich"
+            secondary: "{{ states('sensor.truenas_app_immich') }}"
+            icon: mdi:image-multiple
+            icon_color: >-
+              {% if states('sensor.truenas_app_immich') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "Pangolin"
+            secondary: "{{ states('sensor.truenas_app_pangolin') }}"
+            icon: mdi:shield-home
+            icon_color: >-
+              {% if states('sensor.truenas_app_pangolin') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
+          - type: custom:mushroom-template-card
+            primary: "AdGuard"
+            secondary: "{{ states('sensor.truenas_app_adguard') }}"
+            icon: mdi:shield-check
+            icon_color: >-
+              {% if states('sensor.truenas_app_adguard') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "ESPHome"
+            secondary: "{{ states('sensor.truenas_app_esphome') }}"
+            icon: mdi:chip
+            icon_color: >-
+              {% if states('sensor.truenas_app_esphome') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "Transmission"
+            secondary: "{{ states('sensor.truenas_app_transmission') }}"
+            icon: mdi:download
+            icon_color: >-
+              {% if states('sensor.truenas_app_transmission') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "Sonarr"
+            secondary: "{{ states('sensor.truenas_app_sonarr') }}"
+            icon: mdi:television
+            icon_color: >-
+              {% if states('sensor.truenas_app_sonarr') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "Radarr"
+            secondary: "{{ states('sensor.truenas_app_radarr') }}"
+            icon: mdi:movie
+            icon_color: >-
+              {% if states('sensor.truenas_app_radarr') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "Netdata"
+            secondary: "{{ states('sensor.truenas_app_netdata') }}"
+            icon: mdi:chart-line
+            icon_color: >-
+              {% if states('sensor.truenas_app_netdata') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
+          - type: custom:mushroom-template-card
+            primary: "Mosquitto"
+            secondary: "{{ states('sensor.truenas_app_mosquitto') }}"
+            icon: mdi:broker
+            icon_color: >-
+              {% if states('sensor.truenas_app_mosquitto') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "Seerr"
+            secondary: "{{ states('sensor.truenas_app_seerr') }}"
+            icon: mdi:movie-open
+            icon_color: >-
+              {% if states('sensor.truenas_app_seerr') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "Jackett"
+            secondary: "{{ states('sensor.truenas_app_jackett') }}"
+            icon: mdi:magnify
+            icon_color: >-
+              {% if states('sensor.truenas_app_jackett') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
+          - type: custom:mushroom-template-card
+            primary: "Watchtower"
+            secondary: "{{ states('sensor.truenas_app_watchtower') }}"
+            icon: mdi:update
+            icon_color: >-
+              {% if states('sensor.truenas_app_watchtower') == 'RUNNING' %} green
+              {% else %} red {% endif %}
+            layout: vertical
+            grid_options:
+              columns: 2
+
   # ── Devices ──
   - type: grid
     cards:
