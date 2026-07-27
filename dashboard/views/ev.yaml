@@ -15,92 +15,89 @@ sections:
         grid_options:
           columns: 12
 
-      - type: horizontal-stack
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.ioniq_5_ev_battery_level') }}%"
+          secondary: "{{ states('sensor.ioniq_5_ev_range') }} km"
+          icon: mdi:car-electric
+          icon_color: "{{ 'green' if states('sensor.ioniq_5_ev_battery_level')|int(0) > 80 else 'yellow' if states('sensor.ioniq_5_ev_battery_level')|int(0) > 40 else 'red' }}"
         grid_options:
-          columns: 12
-        cards:
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.ioniq_5_ev_battery_level') }}%"
-              secondary: "{{ states('sensor.ioniq_5_ev_range') }} km"
-              icon: mdi:car-electric
-              icon_color: "{{ states('sensor.ev_battery_color_name') }}"
-              columns: 4
+          columns: 4
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.ioniq_5_odometer') }} km"
-              secondary: "Odometer"
-              icon: mdi:counter
-              icon_color: grey
-              columns: 4
-
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.ioniq_5_average_energy_consumption') }} Wh/km"
-              secondary: "Avg Consumption"
-              icon: mdi:chart-line
-              icon_color: cyan
-              columns: 4
-
-      - type: horizontal-stack
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.ioniq_5_odometer') }} km"
+          secondary: "Odometer"
+          icon: mdi:counter
+          icon_color: grey
         grid_options:
-          columns: 12
-        cards:
-          - type: custom:decluttering-card
-            template: entity_chip
-            variables:
-              entity: binary_sensor.ioniq_5_ev_battery_charge
-              name: Charging
-              icon: mdi:battery-charging
-              columns: 4
+          columns: 4
 
-          - type: custom:decluttering-card
-            template: entity_chip
-            variables:
-              entity: binary_sensor.ioniq_5_ev_battery_plug
-              name: Plugged In
-              icon: mdi:power-plug
-              columns: 4
-
-          - type: custom:decluttering-card
-            template: entity_chip
-            variables:
-              entity: binary_sensor.ioniq_5_locked
-              name: Locked
-              icon: mdi:car-door-lock
-              columns: 4
-
-      - type: horizontal-stack
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.ioniq_5_average_energy_consumption') }} Wh/km"
+          secondary: "Avg Consumption"
+          icon: mdi:chart-line
+          icon_color: cyan
         grid_options:
-          columns: 12
-        cards:
-          - type: custom:decluttering-card
-            template: entity_chip
-            variables:
-              entity: lock.ioniq_5_door_lock
-              name: Door Lock
-              icon: mdi:lock
-              columns: 4
+          columns: 4
 
-          - type: custom:decluttering-card
-            template: entity_chip
-            variables:
-              entity: switch.ioniq_5_ioniq_5_climate
-              name: Climate
-              icon: mdi:hvac
-              columns: 4
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          entity: binary_sensor.ioniq_5_ev_battery_charge
+          name: Charging
+          icon: mdi:battery-charging
+        grid_options:
+          columns: 4
 
-          - type: custom:decluttering-card
-            template: entity_chip
-            variables:
-              entity: switch.ioniq_5_ioniq_5_ev_charging
-              name: EV Charging
-              icon: mdi:ev-station
-              columns: 4
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          entity: binary_sensor.ioniq_5_ev_battery_plug
+          name: Plugged In
+          icon: mdi:power-plug
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          entity: binary_sensor.ioniq_5_locked
+          name: Locked
+          icon: mdi:car-door-lock
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          entity: lock.ioniq_5_door_lock
+          name: Door Lock
+          icon: mdi:lock
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          entity: switch.ioniq_5_ioniq_5_climate
+          name: Climate
+          icon: mdi:hvac
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          entity: switch.ioniq_5_ioniq_5_ev_charging
+          name: EV Charging
+          icon: mdi:ev-station
+        grid_options:
+          columns: 4
 
   # ── Charging Station ──
   - type: grid
@@ -111,44 +108,44 @@ sections:
         grid_options:
           columns: 12
 
-      - type: horizontal-stack
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          entity: switch.22k07_charging_station_start_stop
+          name: Start/Stop
+          icon: mdi:ev-station
         grid_options:
-          columns: 12
-        cards:
-          - type: custom:decluttering-card
-            template: entity_chip
-            variables:
-              entity: switch.22k07_charging_station_start_stop
-              name: Start/Stop
-              icon: mdi:ev-station
-              columns: 3
+          columns: 3
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.22k07_charging_station_charging_power') }} W"
-              secondary: "Power"
-              icon: mdi:flash
-              icon_color: yellow
-              columns: 3
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.22k07_charging_station_charging_power') }} W"
+          secondary: "Power"
+          icon: mdi:flash
+          icon_color: yellow
+        grid_options:
+          columns: 3
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.22k07_charging_station_total_energy') }} kWh"
-              secondary: "Total"
-              icon: mdi:counter
-              icon_color: blue
-              columns: 3
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.22k07_charging_station_total_energy') }} kWh"
+          secondary: "Total"
+          icon: mdi:counter
+          icon_color: blue
+        grid_options:
+          columns: 3
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('number.22k07_charging_station_charge_current') }}A"
-              secondary: "Current"
-              icon: mdi:current-ac
-              icon_color: orange
-              columns: 3
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('number.22k07_charging_station_charge_current') }}A"
+          secondary: "Current"
+          icon: mdi:current-ac
+          icon_color: orange
+        grid_options:
+          columns: 3
 
       - type: custom:mushroom-number-card
         entity: number.22k07_charging_station_charge_current
@@ -167,64 +164,61 @@ sections:
         grid_options:
           columns: 12
 
-      - type: horizontal-stack
+      - type: custom:mushroom-select-card
+        entity: input_select.ev_charge_mode
+        name: Mode
+        icon: mdi:car-electric
         grid_options:
-          columns: 12
-        cards:
-          - type: custom:mushroom-select-card
-            entity: input_select.ev_charge_mode
-            name: Mode
-            icon: mdi:car-electric
-            grid_options:
-              columns: 4
+          columns: 4
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.ev_usable_surplus') }} kW"
-              secondary: "Surplus"
-              icon: mdi:solar-power
-              icon_color: "{{ states('sensor.ev_surplus_color') }}"
-              columns: 4
-
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.ev_target_soc_effective') }}%"
-              secondary: "Target SOC"
-              icon: mdi:flag-checkered
-              icon_color: purple
-              columns: 4
-
-      - type: horizontal-stack
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.ev_usable_surplus') }} kW"
+          secondary: "Surplus"
+          icon: mdi:solar-power
+          icon_color: "{{ 'green' if states('sensor.ev_usable_surplus')|float(0) > 2 else 'yellow' if states('sensor.ev_usable_surplus')|float(0) > 0 else 'red' }}"
         grid_options:
-          columns: 12
-        cards:
-          - type: custom:decluttering-card
-            template: entity_chip
-            variables:
-              entity: input_boolean.ev_force_charge_today
-              name: Force Charge
-              icon: mdi:ev-station
-              columns: 4
+          columns: 4
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.ev_power_kw') }} kW"
-              secondary: "EV Power"
-              icon: mdi:flash
-              icon_color: yellow
-              columns: 4
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.ev_target_soc_effective') }}%"
+          secondary: "Target SOC"
+          icon: mdi:flag-checkered
+          icon_color: purple
+        grid_options:
+          columns: 4
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.ev_charge_hours_remaining') }}h"
-              secondary: "Time to Full"
-              icon: mdi:timer-sand
-              icon_color: cyan
-              columns: 4
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          entity: input_boolean.ev_force_charge_today
+          name: Force Charge
+          icon: mdi:ev-station
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.ev_power_kw') }} kW"
+          secondary: "EV Power"
+          icon: mdi:flash
+          icon_color: yellow
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.ev_charge_hours_remaining') }}h"
+          secondary: "Time to Full"
+          icon: mdi:timer-sand
+          icon_color: cyan
+        grid_options:
+          columns: 4
 
   # ── Vehicle Doors & Details ──
   - type: grid

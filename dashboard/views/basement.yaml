@@ -14,97 +14,94 @@ sections:
         grid_options:
           columns: 12
 
-      - type: horizontal-stack
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          entity: button.wake_on_lan_b4_2e_99_d1_c0_37
+          name: WoL Desktop
+          icon: mdi:power
         grid_options:
-          columns: 12
-        cards:
-          - type: custom:decluttering-card
-            template: entity_chip
-            variables:
-              entity: button.wake_on_lan_b4_2e_99_d1_c0_37
-              name: WoL Desktop
-              icon: mdi:power
-              columns: 4
+          columns: 4
 
-          - type: custom:decluttering-card
-            template: entity_chip
-            variables:
-              entity: button.desktop_nia5fgv_hibernate
-              name: Altatás
-              icon: mdi:power-sleep
-              columns: 4
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          entity: button.desktop_nia5fgv_hibernate
+          name: Altatás
+          icon: mdi:power-sleep
+        grid_options:
+          columns: 4
 
-          - type: custom:decluttering-card
-            template: entity_chip
-            variables:
-              entity: switch.pince_terasz_hangulat_vilagitas
-              name: Terasz fény
-              icon: mdi:outdoor-lamp
-              columns: 4
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          entity: switch.pince_terasz_hangulat_vilagitas
+          name: Terasz fény
+          icon: mdi:outdoor-lamp
+        grid_options:
+          columns: 4
 
   # ── Sensors ──
   - type: grid
     cards:
-      - type: horizontal-stack
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.pince_homero_temperature') }}°C"
+          secondary: "Pince"
+          icon: mdi:thermometer
+          icon_color: "rgb(121, 85, 72)"
         grid_options:
-          columns: 12
-        cards:
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.pince_homero_temperature') }}°C"
-              secondary: "Pince"
-              icon: mdi:thermometer
-              icon_color: "rgb(121, 85, 72)"
-              columns: 4
+          columns: 4
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.pince_homero_humidity') }}%"
-              secondary: "Pára"
-              icon: mdi:water-percent
-              icon_color: blue
-              columns: 4
-
-          - type: custom:decluttering-card
-            template: entity_chip
-            variables:
-              entity: binary_sensor.pince_mozgas_erzekelo_presence
-              name: Mozgás
-              icon: mdi:motion-sensor
-              columns: 4
-
-      - type: horizontal-stack
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.pince_homero_humidity') }}%"
+          secondary: "Pára"
+          icon: mdi:water-percent
+          icon_color: blue
         grid_options:
-          columns: 12
-        cards:
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.iroda_aram_mero_power') }} W"
-              secondary: "Iroda"
-              icon: mdi:monitor-shimmer
-              icon_color: cyan
-              columns: 4
+          columns: 4
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.garazs_homero_temperature') }}°C"
-              secondary: "Garázs"
-              icon: mdi:garage-variant
-              icon_color: orange
-              columns: 4
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          entity: binary_sensor.pince_mozgas_erzekelo_presence
+          name: Mozgás
+          icon: mdi:motion-sensor
+        grid_options:
+          columns: 4
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.nem_mert_fogyasztasok') }} W"
-              secondary: "Nem mért"
-              icon: mdi:help-circle
-              icon_color: grey
-              columns: 4
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.iroda_aram_mero_power') }} W"
+          secondary: "Iroda"
+          icon: mdi:monitor-shimmer
+          icon_color: cyan
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.garazs_homero_temperature') }}°C"
+          secondary: "Garázs"
+          icon: mdi:garage-variant
+          icon_color: orange
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.nem_mert_fogyasztasok') }} W"
+          secondary: "Nem mért"
+          icon: mdi:help-circle
+          icon_color: grey
+        grid_options:
+          columns: 4
 
   # ── Battery & Garage (24h) ──
   - type: grid

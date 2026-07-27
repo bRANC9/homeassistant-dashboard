@@ -16,45 +16,45 @@ sections:
         grid_options:
           columns: 12
 
-      - type: horizontal-stack
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.solis_s6_eh3p_pv_today_energy_generation') }} kWh"
+          secondary: "PV Today"
+          icon: mdi:solar-power
+          icon_color: yellow
         grid_options:
-          columns: 12
-        cards:
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.solis_s6_eh3p_pv_today_energy_generation') }} kWh"
-              secondary: "PV Today"
-              icon: mdi:solar-power
-              icon_color: yellow
-              columns: 3
+          columns: 3
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.solis_s6_eh3p_today_energy_consumption') }} kWh"
-              secondary: "Load"
-              icon: mdi:home-lightning-bolt
-              icon_color: blue
-              columns: 3
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.solis_s6_eh3p_today_energy_consumption') }} kWh"
+          secondary: "Load"
+          icon: mdi:home-lightning-bolt
+          icon_color: blue
+        grid_options:
+          columns: 3
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.solis_s6_eh3p_today_battery_charge_energy') }} kWh"
-              secondary: "Bat Charge"
-              icon: mdi:battery-charging
-              icon_color: green
-              columns: 3
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.solis_s6_eh3p_today_battery_charge_energy') }} kWh"
+          secondary: "Bat Charge"
+          icon: mdi:battery-charging
+          icon_color: green
+        grid_options:
+          columns: 3
 
-          - type: custom:decluttering-card
-            template: sensor_chip
-            variables:
-              primary: "{{ states('sensor.solis_s6_eh3p_today_battery_discharge_energy') }} kWh"
-              secondary: "Bat Discharge"
-              icon: mdi:battery-minus
-              icon_color: orange
-              columns: 3
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          primary: "{{ states('sensor.solis_s6_eh3p_today_battery_discharge_energy') }} kWh"
+          secondary: "Bat Discharge"
+          icon: mdi:battery-minus
+          icon_color: orange
+        grid_options:
+          columns: 3
 
   # ── PV Production Chart ──
   - type: grid
@@ -213,7 +213,6 @@ sections:
           secondary: "PV Forecast (today)"
           icon: mdi:solar-power
           icon_color: yellow
-          columns: 3
         grid_options:
           columns: 3
 
@@ -224,6 +223,5 @@ sections:
           secondary: "Nyugat forecast"
           icon: mdi:solar-power
           icon_color: orange
-          columns: 3
         grid_options:
           columns: 3
