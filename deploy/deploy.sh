@@ -105,8 +105,8 @@ if [ -n "${HA_TOKEN:-}" ]; then
     curl -s -X POST \
         -H "Authorization: Bearer $HA_TOKEN" \
         -H "Content-Type: application/json" \
-        -d "{\"message\": \"Dashboard deployed: $COMMIT\", \"title\": \"Helios Deploy\", \"data\": {\"channel\": \"ha-dashboard\"}}" \
-        "${HA_URL}/api/services/mobile_app/send_notification" > /dev/null 2>&1 || true
+        -d "{\"message\": \"Dashboard deployed: $COMMIT\", \"title\": \"Helios Deploy\"}" \
+        "${HA_URL}/api/services/notify/sm_s921b" > /dev/null 2>&1 || true
     log "Notification sent."
 else
     log "WARNING: HA_TOKEN not set, skipping HA refresh."
