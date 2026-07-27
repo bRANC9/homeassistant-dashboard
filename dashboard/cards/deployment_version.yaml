@@ -4,3 +4,5 @@ secondary: "Build __HELIOS_BUILD__"
 icon: mdi:source-commit
 icon_color: green
 layout: vertical
+grid_options:
+  columns: 6

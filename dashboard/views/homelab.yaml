@@ -47,14 +47,7 @@ sections:
         grid_options:
           columns: 6
 
-      - type: custom:mushroom-template-card
-        primary: "Helios Dashboard"
-        secondary: "Build __HELIOS_BUILD__"
-        icon: mdi:source-commit
-        icon_color: green
-        layout: vertical
-        grid_options:
-          columns: 6
+      - !include ../cards/deployment_version.yaml
 
   # ── Zigbee2MQTT ──
   - type: grid

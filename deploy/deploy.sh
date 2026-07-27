@@ -70,10 +70,9 @@ done
 
 # Replace the source placeholder only in the deployed copy. This keeps the
 # repository deterministic while the Homelab view shows the running build.
-VERSION_CARD="$DASHBOARD_DST/cards/deployment_version.yaml"
-if [ -f "$VERSION_CARD" ]; then
-    sed -i "s/__HELIOS_BUILD__/${COMMIT}/g" "$VERSION_CARD"
-fi
+grep -rl "__HELIOS_BUILD__" "$DASHBOARD_DST" 2>/dev/null | while read -r f; do
+    sed -i "s/__HELIOS_BUILD__/${COMMIT}/g" "$f"
+done
 
 for theme in "$DASHBOARD_SRC/themes/"*.yaml; do
     [ -f "$theme" ] && cp "$theme" "$HA_CONFIG/themes/"
