@@ -74,13 +74,6 @@ for theme in "$DASHBOARD_SRC/themes/"*.yaml; do
     [ -f "$theme" ] && cp "$theme" "$HA_CONFIG/themes/"
 done
 
-# ── REST szenzorok másolása (TrueNAS Docker app-ok) ──
-REST_SRC="$REPO_DIR/deploy/templates/rest.yaml"
-if [ -f "$REST_SRC" ]; then
-    cp "$REST_SRC" "$HA_CONFIG/rest.yaml"
-    log "REST sensors copied to HA config."
-fi
-
 log "Dashboard files copied."
 
 # Megjegyzés: a configuration.yaml-ban a dashboard key-nek kötőjelesnek kell lennie:
