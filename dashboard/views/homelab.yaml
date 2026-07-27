@@ -136,200 +136,200 @@ sections:
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Home Assistant"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_homeassistant', 'on') else 'Stopped' }}"
-          icon: mdi:home-assistant
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_homeassistant', 'on') else 'red' }}"
+          - primary: "Home Assistant"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_homeassistant', 'on') else 'Stopped' }}"
+          - icon: mdi:home-assistant
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_homeassistant', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Zigbee2MQTT"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_zigbee2mqtt', 'on') else 'Stopped' }}"
-          icon: mdi:zigbee
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_zigbee2mqtt', 'on') else 'red' }}"
+          - primary: "Zigbee2MQTT"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_zigbee2mqtt', 'on') else 'Stopped' }}"
+          - icon: mdi:zigbee
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_zigbee2mqtt', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Jellyfin"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_jellyfin', 'on') else 'Stopped' }}"
-          icon: mdi:filmstrip-box
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_jellyfin', 'on') else 'red' }}"
+          - primary: "Jellyfin"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_jellyfin', 'on') else 'Stopped' }}"
+          - icon: mdi:filmstrip-box
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_jellyfin', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Frigate"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_frigate', 'on') else 'Stopped' }}"
-          icon: mdi:cctv
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_frigate', 'on') else 'red' }}"
+          - primary: "Frigate"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_frigate', 'on') else 'Stopped' }}"
+          - icon: mdi:cctv
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_frigate', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Immich"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_immich', 'on') else 'Stopped' }}"
-          icon: mdi:image-multiple
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_immich', 'on') else 'red' }}"
+          - primary: "Immich"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_immich', 'on') else 'Stopped' }}"
+          - icon: mdi:image-multiple
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_immich', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Pangolin"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_pangolin', 'on') else 'Stopped' }}"
-          icon: mdi:shield-home
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_pangolin', 'on') else 'red' }}"
+          - primary: "Pangolin"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_pangolin', 'on') else 'Stopped' }}"
+          - icon: mdi:shield-home
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_pangolin', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "AdGuard"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_adguard_home', 'on') else 'Stopped' }}"
-          icon: mdi:shield-check
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_adguard_home', 'on') else 'red' }}"
+          - primary: "AdGuard"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_adguard_home', 'on') else 'Stopped' }}"
+          - icon: mdi:shield-check
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_adguard_home', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "ESPHome"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_esphome', 'on') else 'Stopped' }}"
-          icon: mdi:chip
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_esphome', 'on') else 'red' }}"
+          - primary: "ESPHome"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_esphome', 'on') else 'Stopped' }}"
+          - icon: mdi:chip
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_esphome', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Transmission"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_transmission', 'on') else 'Stopped' }}"
-          icon: mdi:download
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_transmission', 'on') else 'red' }}"
+          - primary: "Transmission"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_transmission', 'on') else 'Stopped' }}"
+          - icon: mdi:download
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_transmission', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Sonarr"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_sonarr', 'on') else 'Stopped' }}"
-          icon: mdi:television
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_sonarr', 'on') else 'red' }}"
+          - primary: "Sonarr"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_sonarr', 'on') else 'Stopped' }}"
+          - icon: mdi:television
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_sonarr', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Radarr"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_radarr', 'on') else 'Stopped' }}"
-          icon: mdi:movie
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_radarr', 'on') else 'red' }}"
+          - primary: "Radarr"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_radarr', 'on') else 'Stopped' }}"
+          - icon: mdi:movie
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_radarr', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Netdata"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_netdata', 'on') else 'Stopped' }}"
-          icon: mdi:chart-line
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_netdata', 'on') else 'red' }}"
+          - primary: "Netdata"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_netdata', 'on') else 'Stopped' }}"
+          - icon: mdi:chart-line
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_netdata', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Mosquitto"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_mosquitto', 'on') else 'Stopped' }}"
-          icon: mdi:broker
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_mosquitto', 'on') else 'red' }}"
+          - primary: "Mosquitto"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_mosquitto', 'on') else 'Stopped' }}"
+          - icon: mdi:broker
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_mosquitto', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Seerr"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_seerr', 'on') else 'Stopped' }}"
-          icon: mdi:movie-open
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_seerr', 'on') else 'red' }}"
+          - primary: "Seerr"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_seerr', 'on') else 'Stopped' }}"
+          - icon: mdi:movie-open
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_seerr', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Jackett"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_jackett', 'on') else 'Stopped' }}"
-          icon: mdi:magnify
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_jackett', 'on') else 'red' }}"
+          - primary: "Jackett"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_jackett', 'on') else 'Stopped' }}"
+          - icon: mdi:magnify
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_jackett', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Watchtower"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_watchtower', 'on') else 'Stopped' }}"
-          icon: mdi:update
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_watchtower', 'on') else 'red' }}"
+          - primary: "Watchtower"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_watchtower', 'on') else 'Stopped' }}"
+          - icon: mdi:update
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_watchtower', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Cloudflare DDNS"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_azure_agent', 'on') else 'Stopped' }}"
-          icon: mdi:cloud
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_azure_agent', 'on') else 'red' }}"
+          - primary: "Cloudflare DDNS"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_azure_agent', 'on') else 'Stopped' }}"
+          - icon: mdi:cloud
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_azure_agent', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "Grafana"
-          secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_grafana', 'on') else 'Stopped' }}"
-          icon: mdi:chart-line
-          icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_grafana', 'on') else 'red' }}"
+          - primary: "Grafana"
+          - secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_grafana', 'on') else 'Stopped' }}"
+          - icon: mdi:chart-line
+          - icon_color: "{{ 'green' if is_state('binary_sensor.truenas_apps_grafana', 'on') else 'red' }}"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "TrueNAS"
-          secondary: "{{ 'CPU ' ~ states('sensor.truenas_cpu_usage') ~ '%' }}"
-          icon: mdi:nas
-          icon_color: "rgb(0, 188, 212)"
+          - primary: "TrueNAS"
+          - secondary: "{{ 'CPU ' ~ states('sensor.truenas_cpu_usage') ~ '%' }}"
+          - icon: mdi:nas
+          - icon_color: "rgb(0, 188, 212)"
         grid_options:
           columns: 3
 
       - type: custom:decluttering-card
         template: service_tile
         variables:
-          primary: "TrueNAS RAM"
-          secondary: "{{ states('sensor.truenas_memory_usage') }}%"
-          icon: mdi:memory
-          icon_color: "rgb(156, 39, 176)"
+          - primary: "TrueNAS RAM"
+          - secondary: "{{ states('sensor.truenas_memory_usage') }}%"
+          - icon: mdi:memory
+          - icon_color: "rgb(156, 39, 176)"
         grid_options:
           columns: 3
 
