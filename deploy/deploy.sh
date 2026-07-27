@@ -51,6 +51,7 @@ log "YAML validation passed."
 log "Copying dashboard to $DASHBOARD_DST ..."
 mkdir -p "$DASHBOARD_DST/views"
 mkdir -p "$DASHBOARD_DST/cards"
+mkdir -p "$DASHBOARD_DST/templates"
 mkdir -p "$HA_CONFIG/themes"
 
 cp "$DASHBOARD_SRC/dashboard.yaml" "$DASHBOARD_DST/"
@@ -61,6 +62,10 @@ done
 
 for card in "$DASHBOARD_SRC/cards/"*.yaml; do
     [ -f "$card" ] && cp "$card" "$DASHBOARD_DST/cards/"
+done
+
+for template in "$DASHBOARD_SRC/templates/"*.yaml; do
+    [ -f "$template" ] && cp "$template" "$DASHBOARD_DST/templates/"
 done
 
 # Replace the source placeholder only in the deployed copy. This keeps the
