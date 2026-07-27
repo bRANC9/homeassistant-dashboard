@@ -101,7 +101,7 @@ sections:
             name: "Backup állapot"
           - entity: sensor.backup_next_scheduled_automatic_backup
             name: "Következő backup"
-          - entity: update.truenas_update
+          - entity: update.truenas_ce_update
             name: "TrueNAS update"
           - entity: sensor.zigbee2mqtt_bridge_version
             name: "Z2M verzió"
@@ -137,7 +137,7 @@ sections:
             template: service_tile
             variables:
               primary: "Home Assistant"
-              secondary: "{{ states('sensor.truenas_app_homeassistant') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_homeassistant', 'on') else 'Stopped' }}"
               icon: mdi:home-assistant
               icon_color: "{{ states('sensor.truenas_app_homeassistant_color') }}"
               columns: 2
@@ -146,7 +146,7 @@ sections:
             template: service_tile
             variables:
               primary: "Zigbee2MQTT"
-              secondary: "{{ states('sensor.truenas_app_zigbee2mqtt') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_zigbee2mqtt', 'on') else 'Stopped' }}"
               icon: mdi:zigbee
               icon_color: "{{ states('sensor.truenas_app_zigbee2mqtt_color') }}"
               columns: 2
@@ -155,7 +155,7 @@ sections:
             template: service_tile
             variables:
               primary: "Jellyfin"
-              secondary: "{{ states('sensor.truenas_app_jellyfin') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_jellyfin', 'on') else 'Stopped' }}"
               icon: mdi:filmstrip-box
               icon_color: "{{ states('sensor.truenas_app_jellyfin_color') }}"
               columns: 2
@@ -164,7 +164,7 @@ sections:
             template: service_tile
             variables:
               primary: "Frigate"
-              secondary: "{{ states('sensor.truenas_app_frigate') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_frigate', 'on') else 'Stopped' }}"
               icon: mdi:cctv
               icon_color: "{{ states('sensor.truenas_app_frigate_color') }}"
               columns: 2
@@ -173,7 +173,7 @@ sections:
             template: service_tile
             variables:
               primary: "Immich"
-              secondary: "{{ states('sensor.truenas_app_immich') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_immich', 'on') else 'Stopped' }}"
               icon: mdi:image-multiple
               icon_color: "{{ states('sensor.truenas_app_immich_color') }}"
               columns: 2
@@ -182,7 +182,7 @@ sections:
             template: service_tile
             variables:
               primary: "Pangolin"
-              secondary: "{{ states('sensor.truenas_app_pangolin') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_pangolin', 'on') else 'Stopped' }}"
               icon: mdi:shield-home
               icon_color: "{{ states('sensor.truenas_app_pangolin_color') }}"
               columns: 2
@@ -195,7 +195,7 @@ sections:
             template: service_tile
             variables:
               primary: "AdGuard"
-              secondary: "{{ states('sensor.truenas_app_adguard') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_adguard_home', 'on') else 'Stopped' }}"
               icon: mdi:shield-check
               icon_color: "{{ states('sensor.truenas_app_adguard_color') }}"
               columns: 2
@@ -204,7 +204,7 @@ sections:
             template: service_tile
             variables:
               primary: "ESPHome"
-              secondary: "{{ states('sensor.truenas_app_esphome') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_esphome', 'on') else 'Stopped' }}"
               icon: mdi:chip
               icon_color: "{{ states('sensor.truenas_app_esphome_color') }}"
               columns: 2
@@ -213,7 +213,7 @@ sections:
             template: service_tile
             variables:
               primary: "Transmission"
-              secondary: "{{ states('sensor.truenas_app_transmission') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_transmission', 'on') else 'Stopped' }}"
               icon: mdi:download
               icon_color: "{{ states('sensor.truenas_app_transmission_color') }}"
               columns: 2
@@ -222,7 +222,7 @@ sections:
             template: service_tile
             variables:
               primary: "Sonarr"
-              secondary: "{{ states('sensor.truenas_app_sonarr') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_sonarr', 'on') else 'Stopped' }}"
               icon: mdi:television
               icon_color: "{{ states('sensor.truenas_app_sonarr_color') }}"
               columns: 2
@@ -231,7 +231,7 @@ sections:
             template: service_tile
             variables:
               primary: "Radarr"
-              secondary: "{{ states('sensor.truenas_app_radarr') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_radarr', 'on') else 'Stopped' }}"
               icon: mdi:movie
               icon_color: "{{ states('sensor.truenas_app_radarr_color') }}"
               columns: 2
@@ -240,7 +240,7 @@ sections:
             template: service_tile
             variables:
               primary: "Netdata"
-              secondary: "{{ states('sensor.truenas_app_netdata') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_netdata', 'on') else 'Stopped' }}"
               icon: mdi:chart-line
               icon_color: "{{ states('sensor.truenas_app_netdata_color') }}"
               columns: 2
@@ -253,7 +253,7 @@ sections:
             template: service_tile
             variables:
               primary: "Mosquitto"
-              secondary: "{{ states('sensor.truenas_app_mosquitto') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_mosquitto', 'on') else 'Stopped' }}"
               icon: mdi:broker
               icon_color: "{{ states('sensor.truenas_app_mosquitto_color') }}"
               columns: 2
@@ -262,7 +262,7 @@ sections:
             template: service_tile
             variables:
               primary: "Seerr"
-              secondary: "{{ states('sensor.truenas_app_seerr') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_seerr', 'on') else 'Stopped' }}"
               icon: mdi:movie-open
               icon_color: "{{ states('sensor.truenas_app_overseerr_color') }}"
               columns: 2
@@ -271,7 +271,7 @@ sections:
             template: service_tile
             variables:
               primary: "Jackett"
-              secondary: "{{ states('sensor.truenas_app_jackett') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_jackett', 'on') else 'Stopped' }}"
               icon: mdi:magnify
               icon_color: "{{ states('sensor.truenas_app_jackett_color') }}"
               columns: 2
@@ -280,7 +280,7 @@ sections:
             template: service_tile
             variables:
               primary: "Watchtower"
-              secondary: "{{ states('sensor.truenas_app_watchtower') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_watchtower', 'on') else 'Stopped' }}"
               icon: mdi:update
               icon_color: "{{ states('sensor.truenas_app_watchtower_color') }}"
               columns: 2
@@ -289,16 +289,16 @@ sections:
             template: service_tile
             variables:
               primary: "Cloudflare DDNS"
-              secondary: "{{ states('sensor.truenas_app_cloudflareddns') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_azure_agent', 'on') else 'Stopped' }}"
               icon: mdi:cloud
-              icon_color: "{{ states('sensor.truenas_app_cloudflareddns_color') }}"
+              icon_color: "{{ states('sensor.truenas_app_cloudflare_ddns_color') }}"
               columns: 2
 
           - type: custom:decluttering-card
             template: service_tile
             variables:
               primary: "Grafana"
-              secondary: "{{ states('sensor.truenas_app_grafana') }}"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_grafana', 'on') else 'Stopped' }}"
               icon: mdi:chart-line
               icon_color: "{{ states('sensor.truenas_app_grafana_color') }}"
               columns: 2

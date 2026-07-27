@@ -111,110 +111,122 @@ template:
       # ── TrueNAS update text ──
       - name: "TrueNAS Update Text"
         state: >-
-          {% if is_state('update.truenas_update', 'on') %} Update available
+          {% if is_state('update.truenas_ce_update', 'on') %} Update available
           {% else %} Up to date {% endif %}
         icon: mdi:update
 
       # ── TrueNAS update color ──
       - name: "TrueNAS Update Color"
         state: >-
-          {% if is_state('update.truenas_update', 'on') %} orange
+          {% if is_state('update.truenas_ce_update', 'on') %} orange
           {% else %} green {% endif %}
         icon: mdi:update
 
-      # ── TrueNAS app colors ──
+      # ── TrueNAS app colors (binary_sensor based) ──
       - name: "TrueNAS App Homeassistant Color"
         state: >-
-          {% if states('sensor.truenas_app_homeassistant') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_homeassistant', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:home-assistant
 
       - name: "TrueNAS App Zigbee2mqtt Color"
         state: >-
-          {% if states('sensor.truenas_app_zigbee2mqtt') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_zigbee2mqtt', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:zigbee
 
       - name: "TrueNAS App Jellyfin Color"
         state: >-
-          {% if states('sensor.truenas_app_jellyfin') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_jellyfin', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:filmstrip
 
       - name: "TrueNAS App Frigate Color"
         state: >-
-          {% if states('sensor.truenas_app_frigate') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_frigate', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:cctv
 
       - name: "TrueNAS App Immich Color"
         state: >-
-          {% if states('sensor.truenas_app_immich') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_immich', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:image-multiple
 
       - name: "TrueNAS App Pangolin Color"
         state: >-
-          {% if states('sensor.truenas_app_pangolin') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_pangolin', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:shield-home
 
       - name: "TrueNAS App Adguard Color"
         state: >-
-          {% if states('sensor.truenas_app_adguard') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_adguard_home', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:shield
 
       - name: "TrueNAS App Esphome Color"
         state: >-
-          {% if states('sensor.truenas_app_esphome') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_esphome', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:chip
 
       - name: "TrueNAS App Transmission Color"
         state: >-
-          {% if states('sensor.truenas_app_transmission') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_transmission', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:download
 
       - name: "TrueNAS App Sonarr Color"
         state: >-
-          {% if states('sensor.truenas_app_sonarr') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_sonarr', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:television
 
       - name: "TrueNAS App Radarr Color"
         state: >-
-          {% if states('sensor.truenas_app_radarr') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_radarr', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:movie
 
       - name: "TrueNAS App Netdata Color"
         state: >-
-          {% if states('sensor.truenas_app_netdata') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_netdata', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:chart-line
 
       - name: "TrueNAS App Mosquitto Color"
         state: >-
-          {% if states('sensor.truenas_app_mosquitto') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_mosquitto', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:broker
 
       - name: "TrueNAS App Overseerr Color"
         state: >-
-          {% if states('sensor.truenas_app_seerr') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_seerr', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:eye
 
       - name: "TrueNAS App Jackett Color"
         state: >-
-          {% if states('sensor.truenas_app_jackett') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_jackett', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:magnify
 
       - name: "TrueNAS App Watchtower Color"
         state: >-
-          {% if states('sensor.truenas_app_watchtower') == 'RUNNING' %} green
+          {% if is_state('binary_sensor.truenas_apps_watchtower', 'on') %} green
           {% else %} red {% endif %}
         icon: mdi:watchtower
+
+      - name: "TrueNAS App Cloudflare DDNS Color"
+        state: >-
+          {% if is_state('binary_sensor.truenas_apps_azure_agent', 'on') %} green
+          {% else %} red {% endif %}
+        icon: mdi:cloud
+
+      - name: "TrueNAS App Grafana Color"
+        state: >-
+          {% if is_state('binary_sensor.truenas_apps_grafana', 'on') %} green
+          {% else %} red {% endif %}
+        icon: mdi:chart-line
