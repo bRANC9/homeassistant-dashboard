@@ -214,6 +214,8 @@ sections:
           icon: mdi:solar-power
           icon_color: yellow
           columns: 3
+        grid_options:
+          columns: 3
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -222,4 +224,6 @@ sections:
           secondary: "Nyugat forecast"
           icon: mdi:solar-power
           icon_color: orange
+          columns: 3
+        grid_options:
           columns: 3

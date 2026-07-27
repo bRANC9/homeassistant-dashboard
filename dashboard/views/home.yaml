@@ -15,6 +15,9 @@ sections:
           secondary: Solar
           icon: mdi:solar-power
           icon_color: "rgb(244, 196, 48)"
+          columns: 2
+        grid_options:
+          columns: 2
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -23,6 +26,9 @@ sections:
           secondary: House
           icon: mdi:home-lightning-bolt
           icon_color: "rgb(100, 180, 246)"
+          columns: 2
+        grid_options:
+          columns: 2
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -31,6 +37,9 @@ sections:
           secondary: Battery
           icon: mdi:battery
           icon_color: "{{ states('sensor.battery_soc_color_rgb') }}"
+          columns: 2
+        grid_options:
+          columns: 2
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -39,6 +48,9 @@ sections:
           secondary: EV
           icon: mdi:car-electric
           icon_color: "{{ states('sensor.ev_battery_color_rgb') }}"
+          columns: 2
+        grid_options:
+          columns: 2
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -47,6 +59,9 @@ sections:
           secondary: Pool
           icon: mdi:thermometer-water
           icon_color: "rgb(255, 152, 0)"
+          columns: 2
+        grid_options:
+          columns: 2
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -55,6 +70,9 @@ sections:
           secondary: "{{ states('sensor.terasz_homero_humidity') }}%"
           icon: mdi:thermometer
           icon_color: "rgb(0, 188, 212)"
+          columns: 2
+        grid_options:
+          columns: 2
 
   # ── Power Flow (dedicated section, bigger) ──
   - type: grid
@@ -169,7 +187,7 @@ sections:
           essential_load2: sensor.klima_aram_mero_power
           essential_load3: sensor.bojler_aram_mero_power
         grid_options:
-          columns: full
+          columns: 12
           rows: 5
 
   # ── EV Quick Status ──

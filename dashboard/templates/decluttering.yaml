@@ -2,8 +2,6 @@
 sensor_chip:
   default:
     - icon_color: grey
-    - columns: 2
-    - rows: 1
   card:
     type: custom:mushroom-template-card
     primary: "[[primary]]"
@@ -11,15 +9,9 @@ sensor_chip:
     icon: "[[icon]]"
     icon_color: "[[icon_color]]"
     layout: vertical
-    grid_options:
-      columns: "[[columns]]"
-      rows: "[[rows]]"
 
 # ── Entity chip: clickable entity toggle ──
 entity_chip:
-  default:
-    - columns: 3
-    - rows: 1
   card:
     type: custom:mushroom-entity-card
     entity: "[[entity]]"
@@ -28,16 +20,11 @@ entity_chip:
     tap_action:
       action: toggle
     layout: vertical
-    grid_options:
-      columns: "[[columns]]"
-      rows: "[[rows]]"
 
 # ── Action chip: button with custom tap action ──
 action_chip:
   default:
     - icon_color: grey
-    - columns: 3
-    - rows: 1
   card:
     type: custom:mushroom-template-card
     primary: "[[primary]]"
@@ -50,14 +37,9 @@ action_chip:
       target:
         entity_id: "[[target_entity]]"
     layout: vertical
-    grid_options:
-      columns: "[[columns]]"
-      rows: "[[rows]]"
 
 # ── Service tile: app status with colored icon ──
 service_tile:
-  default:
-    - columns: 2
   card:
     type: custom:mushroom-template-card
     primary: "[[primary]]"
@@ -65,5 +47,3 @@ service_tile:
     icon: "[[icon]]"
     icon_color: "[[icon_color]]"
     layout: vertical
-    grid_options:
-      columns: "[[columns]]"
