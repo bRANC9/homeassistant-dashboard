@@ -3,7 +3,7 @@ path: basement
 icon: mdi:home-floor-b
 type: sections
 theme: Helios
-max_columns: 4
+max_columns: 12
 sections:
   # ── Quick Controls ──
   - type: grid

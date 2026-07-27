@@ -3,7 +3,7 @@ path: home
 icon: mdi:home
 type: sections
 theme: Helios
-max_columns: 4
+max_columns: 12
 sections:
   # ── Status Chips ──
   - type: grid

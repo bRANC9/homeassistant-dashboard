@@ -3,7 +3,7 @@ path: pool
 icon: mdi:pool
 type: sections
 theme: Helios
-max_columns: 4
+max_columns: 12
 sections:
   # ── Pool Status ──
   - type: grid

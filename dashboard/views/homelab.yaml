@@ -3,7 +3,7 @@ path: homelab
 icon: mdi:server-network
 type: sections
 theme: Helios
-max_columns: 4
+max_columns: 12
 sections:
   # ── Home Assistant ──
   - type: grid

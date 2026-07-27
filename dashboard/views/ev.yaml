@@ -3,7 +3,7 @@ path: ev
 icon: mdi:car-electric
 type: sections
 theme: Helios
-max_columns: 4
+max_columns: 12
 sections:
   # ── Vehicle Status ──
   - type: grid
