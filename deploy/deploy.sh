@@ -101,13 +101,15 @@ if [ -n "${HA_TOKEN:-}" ]; then
         log "WARNING: HA reload returned HTTP $HTTP_CODE"
     fi
 
-    # Notification
-    curl -s -X POST \
-        -H "Authorization: Bearer $HA_TOKEN" \
-        -H "Content-Type: application/json" \
-        -d "{\"message\": \"Dashboard deployed: $COMMIT\", \"title\": \"Helios Deploy\"}" \
-        "${HA_URL}/api/services/notify/sm_s921b" > /dev/null 2>&1 || true
-    log "Notification sent."
+    # Notifications
+    for TARGET in sm_s921b desktop_nia5fgv; do
+        curl -s -X POST \
+            -H "Authorization: Bearer $HA_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"message\": \"Dashboard deployed: $COMMIT\", \"title\": \"Helios Deploy\"}" \
+            "${HA_URL}/api/services/notify/${TARGET}" > /dev/null 2>&1 || true
+    done
+    log "Notifications sent."
 else
     log "WARNING: HA_TOKEN not set, skipping HA refresh."
     log "Manual: HA → Developer Tools → Services → lovelace.reload"
