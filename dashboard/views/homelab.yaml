@@ -25,7 +25,7 @@ sections:
               secondary: "{{ states('sensor.backup_backup_manager_state') }}"
               icon: mdi:home-assistant
               icon_color: "rgb(0, 188, 212)"
-              columns: 4
+              columns: 6
 
           - type: custom:decluttering-card
             template: service_tile
@@ -34,8 +34,12 @@ sections:
               secondary: "{{ states('sensor.zigbee2mqtt_bridge_version') }}"
               icon: mdi:zigbee
               icon_color: "{{ states('sensor.z2m_connection_color') }}"
-              columns: 4
+              columns: 6
 
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
           - type: custom:decluttering-card
             template: service_tile
             variables:
@@ -43,7 +47,7 @@ sections:
               secondary: "{{ states('sensor.truenas_update_text') }}"
               icon: mdi:nas
               icon_color: "{{ states('sensor.truenas_update_color') }}"
-              columns: 4
+              columns: 6
 
           - !include ../cards/deployment_version.yaml
 
@@ -66,7 +70,7 @@ sections:
               entity: binary_sensor.zigbee2mqtt_bridge_connection_state
               name: Bridge State
               icon: mdi:zigbee
-              columns: 3
+              columns: 4
 
           - type: custom:decluttering-card
             template: entity_chip
@@ -74,7 +78,7 @@ sections:
               entity: button.zigbee2mqtt_bridge_restart
               name: Restart
               icon: mdi:restart
-              columns: 3
+              columns: 4
 
           - type: custom:decluttering-card
             template: entity_chip
@@ -82,14 +86,18 @@ sections:
               entity: switch.zigbee2mqtt_bridge_permit_join
               name: Permit Join
               icon: mdi:plus-network
-              columns: 3
+              columns: 4
 
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
           - type: custom:mushroom-select-card
             entity: select.zigbee2mqtt_bridge_log_level
             name: Log Level
             icon: mdi:file-document
             grid_options:
-              columns: 3
+              columns: 12
 
   # ── System Health ──
   - type: grid
@@ -106,19 +114,25 @@ sections:
           - entity: sensor.zigbee2mqtt_bridge_version
             name: "Z2M verzió"
         grid_options:
-          columns: 6
+          columns: 8
 
       - type: entities
         title: "Hálózat"
         entities:
-          - entity: binary_sensor.zigbee2mqtt_bridge_connection_state
-            name: "Zigbee bridge"
-          - entity: switch.zigbee2mqtt_bridge_permit_join
-            name: "Zigbee permit join"
-          - entity: select.zigbee2mqtt_bridge_log_level
-            name: "Z2M log level"
+          - entity: binary_sensor.truenas_network_enp2s0_link
+            name: "TrueNAS link"
+          - entity: sensor.truenas_network_enp2s0_rx
+            name: "TrueNAS RX"
+          - entity: sensor.truenas_network_enp2s0_tx
+            name: "TrueNAS TX"
+          - entity: binary_sensor.truenas_apps_pangolin
+            name: "Pangolin reverse proxy"
+          - entity: binary_sensor.truenas_apps_adguard_home
+            name: "AdGuard Home DNS"
+          - entity: switch.truenas_cron_jobs_update_cloudflare_enabled
+            name: "Cloudflare DDNS"
         grid_options:
-          columns: 6
+          columns: 4
 
   # ── TrueNAS Docker Apps ──
   - type: grid
@@ -140,7 +154,7 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_homeassistant', 'on') else 'Stopped' }}"
               icon: mdi:home-assistant
               icon_color: "{{ states('sensor.truenas_app_homeassistant_color') }}"
-              columns: 2
+              columns: 3
 
           - type: custom:decluttering-card
             template: service_tile
@@ -149,7 +163,7 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_zigbee2mqtt', 'on') else 'Stopped' }}"
               icon: mdi:zigbee
               icon_color: "{{ states('sensor.truenas_app_zigbee2mqtt_color') }}"
-              columns: 2
+              columns: 3
 
           - type: custom:decluttering-card
             template: service_tile
@@ -158,7 +172,7 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_jellyfin', 'on') else 'Stopped' }}"
               icon: mdi:filmstrip-box
               icon_color: "{{ states('sensor.truenas_app_jellyfin_color') }}"
-              columns: 2
+              columns: 3
 
           - type: custom:decluttering-card
             template: service_tile
@@ -167,25 +181,7 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_frigate', 'on') else 'Stopped' }}"
               icon: mdi:cctv
               icon_color: "{{ states('sensor.truenas_app_frigate_color') }}"
-              columns: 2
-
-          - type: custom:decluttering-card
-            template: service_tile
-            variables:
-              primary: "Immich"
-              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_immich', 'on') else 'Stopped' }}"
-              icon: mdi:image-multiple
-              icon_color: "{{ states('sensor.truenas_app_immich_color') }}"
-              columns: 2
-
-          - type: custom:decluttering-card
-            template: service_tile
-            variables:
-              primary: "Pangolin"
-              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_pangolin', 'on') else 'Stopped' }}"
-              icon: mdi:shield-home
-              icon_color: "{{ states('sensor.truenas_app_pangolin_color') }}"
-              columns: 2
+              columns: 3
 
       - type: horizontal-stack
         grid_options:
@@ -194,11 +190,29 @@ sections:
           - type: custom:decluttering-card
             template: service_tile
             variables:
+              primary: "Immich"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_immich', 'on') else 'Stopped' }}"
+              icon: mdi:image-multiple
+              icon_color: "{{ states('sensor.truenas_app_immich_color') }}"
+              columns: 3
+
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "Pangolin"
+              secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_pangolin', 'on') else 'Stopped' }}"
+              icon: mdi:shield-home
+              icon_color: "{{ states('sensor.truenas_app_pangolin_color') }}"
+              columns: 3
+
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
               primary: "AdGuard"
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_adguard_home', 'on') else 'Stopped' }}"
               icon: mdi:shield-check
               icon_color: "{{ states('sensor.truenas_app_adguard_color') }}"
-              columns: 2
+              columns: 3
 
           - type: custom:decluttering-card
             template: service_tile
@@ -207,8 +221,12 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_esphome', 'on') else 'Stopped' }}"
               icon: mdi:chip
               icon_color: "{{ states('sensor.truenas_app_esphome_color') }}"
-              columns: 2
+              columns: 3
 
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
           - type: custom:decluttering-card
             template: service_tile
             variables:
@@ -216,7 +234,7 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_transmission', 'on') else 'Stopped' }}"
               icon: mdi:download
               icon_color: "{{ states('sensor.truenas_app_transmission_color') }}"
-              columns: 2
+              columns: 3
 
           - type: custom:decluttering-card
             template: service_tile
@@ -225,7 +243,7 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_sonarr', 'on') else 'Stopped' }}"
               icon: mdi:television
               icon_color: "{{ states('sensor.truenas_app_sonarr_color') }}"
-              columns: 2
+              columns: 3
 
           - type: custom:decluttering-card
             template: service_tile
@@ -234,7 +252,7 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_radarr', 'on') else 'Stopped' }}"
               icon: mdi:movie
               icon_color: "{{ states('sensor.truenas_app_radarr_color') }}"
-              columns: 2
+              columns: 3
 
           - type: custom:decluttering-card
             template: service_tile
@@ -243,7 +261,7 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_netdata', 'on') else 'Stopped' }}"
               icon: mdi:chart-line
               icon_color: "{{ states('sensor.truenas_app_netdata_color') }}"
-              columns: 2
+              columns: 3
 
       - type: horizontal-stack
         grid_options:
@@ -256,7 +274,7 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_mosquitto', 'on') else 'Stopped' }}"
               icon: mdi:broker
               icon_color: "{{ states('sensor.truenas_app_mosquitto_color') }}"
-              columns: 2
+              columns: 3
 
           - type: custom:decluttering-card
             template: service_tile
@@ -265,7 +283,7 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_seerr', 'on') else 'Stopped' }}"
               icon: mdi:movie-open
               icon_color: "{{ states('sensor.truenas_app_overseerr_color') }}"
-              columns: 2
+              columns: 3
 
           - type: custom:decluttering-card
             template: service_tile
@@ -274,7 +292,7 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_jackett', 'on') else 'Stopped' }}"
               icon: mdi:magnify
               icon_color: "{{ states('sensor.truenas_app_jackett_color') }}"
-              columns: 2
+              columns: 3
 
           - type: custom:decluttering-card
             template: service_tile
@@ -283,8 +301,12 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_watchtower', 'on') else 'Stopped' }}"
               icon: mdi:update
               icon_color: "{{ states('sensor.truenas_app_watchtower_color') }}"
-              columns: 2
+              columns: 3
 
+      - type: horizontal-stack
+        grid_options:
+          columns: 12
+        cards:
           - type: custom:decluttering-card
             template: service_tile
             variables:
@@ -292,7 +314,7 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_azure_agent', 'on') else 'Stopped' }}"
               icon: mdi:cloud
               icon_color: "{{ states('sensor.truenas_app_cloudflare_ddns_color') }}"
-              columns: 2
+              columns: 3
 
           - type: custom:decluttering-card
             template: service_tile
@@ -301,7 +323,25 @@ sections:
               secondary: "{{ 'Running' if is_state('binary_sensor.truenas_apps_grafana', 'on') else 'Stopped' }}"
               icon: mdi:chart-line
               icon_color: "{{ states('sensor.truenas_app_grafana_color') }}"
-              columns: 2
+              columns: 3
+
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "TrueNAS"
+              secondary: "{{ 'CPU ' ~ states('sensor.truenas_cpu_usage') ~ '%' }}"
+              icon: mdi:nas
+              icon_color: "rgb(0, 188, 212)"
+              columns: 3
+
+          - type: custom:decluttering-card
+            template: service_tile
+            variables:
+              primary: "TrueNAS RAM"
+              secondary: "{{ states('sensor.truenas_memory_usage') }}%"
+              icon: mdi:memory
+              icon_color: "rgb(156, 39, 176)"
+              columns: 3
 
   # ── Devices ──
   - type: grid
