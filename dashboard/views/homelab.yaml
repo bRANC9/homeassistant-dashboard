@@ -14,30 +14,33 @@ sections:
         grid_options:
           columns: 12
 
-      - type: custom:mushroom-template-card
-        primary: "Home Assistant"
-        secondary: "{{ states('sensor.backup_backup_manager_state') }}"
-        icon: mdi:home-assistant
-        icon_color: "rgb(0, 188, 212)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "Home Assistant"
+          - secondary: "{{ states('sensor.backup_backup_manager_state') }}"
+          - icon: mdi:home-assistant
+          - icon_color: "rgb(0, 188, 212)"
         grid_options:
           columns: 6
 
-      - type: custom:mushroom-template-card
-        primary: "Zigbee2MQTT"
-        secondary: "{{ states('sensor.zigbee2mqtt_bridge_version') }}"
-        icon: mdi:zigbee
-        icon_color: "{{ states('sensor.z2m_connection_color') }}"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "Zigbee2MQTT"
+          - secondary: "{{ states('sensor.zigbee2mqtt_bridge_version') }}"
+          - icon: mdi:zigbee
+          - icon_color: "{{ states('sensor.z2m_connection_color') }}"
         grid_options:
           columns: 6
 
-      - type: custom:mushroom-template-card
-        primary: "TrueNAS"
-        secondary: "{{ states('sensor.truenas_update_text') }}"
-        icon: mdi:nas
-        icon_color: "{{ states('sensor.truenas_update_color') }}"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "TrueNAS"
+          - secondary: "{{ states('sensor.truenas_update_text') }}"
+          - icon: mdi:nas
+          - icon_color: "{{ states('sensor.truenas_update_color') }}"
         grid_options:
           columns: 6
 
@@ -52,33 +55,30 @@ sections:
         grid_options:
           columns: 12
 
-      - type: custom:mushroom-entity-card
-        entity: binary_sensor.zigbee2mqtt_bridge_connection_state
-        name: Bridge State
-        icon: mdi:zigbee
-        tap_action:
-          action: toggle
-        layout: vertical
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          - entity: binary_sensor.zigbee2mqtt_bridge_connection_state
+          - name: Bridge State
+          - icon: mdi:zigbee
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-entity-card
-        entity: button.zigbee2mqtt_bridge_restart
-        name: Restart
-        icon: mdi:restart
-        tap_action:
-          action: toggle
-        layout: vertical
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          - entity: button.zigbee2mqtt_bridge_restart
+          - name: Restart
+          - icon: mdi:restart
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-entity-card
-        entity: switch.zigbee2mqtt_bridge_permit_join
-        name: Permit Join
-        icon: mdi:plus-network
-        tap_action:
-          action: toggle
-        layout: vertical
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          - entity: switch.zigbee2mqtt_bridge_permit_join
+          - name: Permit Join
+          - icon: mdi:plus-network
         grid_options:
           columns: 4
 

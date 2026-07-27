@@ -8,57 +8,63 @@ sections:
   # ── Status Chips ──
   - type: grid
     cards:
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.solis_s6_eh3p_total_pv_power') }}W"
-        secondary: Solar
-        icon: mdi:solar-power
-        icon_color: "rgb(244, 196, 48)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.solis_s6_eh3p_total_pv_power') }}W"
+          - secondary: Solar
+          - icon: mdi:solar-power
+          - icon_color: "rgb(244, 196, 48)"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.solis_s6_eh3p_household_load_power') }}W"
-        secondary: House
-        icon: mdi:home-lightning-bolt
-        icon_color: "rgb(100, 180, 246)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.solis_s6_eh3p_household_load_power') }}W"
+          - secondary: House
+          - icon: mdi:home-lightning-bolt
+          - icon_color: "rgb(100, 180, 246)"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.solis_s6_eh3p_battery_soc') }}%"
-        secondary: Battery
-        icon: mdi:battery
-        icon_color: "{{ states('sensor.battery_soc_color_rgb') }}"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.solis_s6_eh3p_battery_soc') }}%"
+          - secondary: Battery
+          - icon: mdi:battery
+          - icon_color: "{{ states('sensor.battery_soc_color_rgb') }}"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.ioniq_5_ev_battery_level') }}%"
-        secondary: EV
-        icon: mdi:car-electric
-        icon_color: "{{ states('sensor.ev_battery_color_rgb') }}"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.ioniq_5_ev_battery_level') }}%"
+          - secondary: EV
+          - icon: mdi:car-electric
+          - icon_color: "{{ states('sensor.ev_battery_color_rgb') }}"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.medence_cso_homero_probe_temperature') }}°C"
-        secondary: Pool
-        icon: mdi:thermometer-water
-        icon_color: "rgb(255, 152, 0)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.medence_cso_homero_probe_temperature') }}°C"
+          - secondary: Pool
+          - icon: mdi:thermometer-water
+          - icon_color: "rgb(255, 152, 0)"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.terasz_homero_temperature') }}°C"
-        secondary: "{{ states('sensor.terasz_homero_humidity') }}%"
-        icon: mdi:thermometer
-        icon_color: "rgb(0, 188, 212)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.terasz_homero_temperature') }}°C"
+          - secondary: "{{ states('sensor.terasz_homero_humidity') }}%"
+          - icon: mdi:thermometer
+          - icon_color: "rgb(0, 188, 212)"
         grid_options:
           columns: 2
 
@@ -187,31 +193,32 @@ sections:
         grid_options:
           columns: 12
 
-      - type: custom:mushroom-entity-card
-        entity: switch.22k07_charging_station_start_stop
-        name: Charger
-        icon: mdi:ev-station
-        tap_action:
-          action: toggle
-        layout: vertical
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          - entity: switch.22k07_charging_station_start_stop
+          - name: Charger
+          - icon: mdi:ev-station
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.ioniq_5_ev_battery_level') }}%"
-        secondary: "{{ states('sensor.ioniq_5_ev_range') }} km"
-        icon: mdi:car-electric
-        icon_color: "{{ states('sensor.ev_battery_color_name') }}"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.ioniq_5_ev_battery_level') }}%"
+          - secondary: "{{ states('sensor.ioniq_5_ev_range') }} km"
+          - icon: mdi:car-electric
+          - icon_color: "{{ states('sensor.ev_battery_color_name') }}"
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.solis_s6_eh3p_battery_soc') }}%"
-        secondary: Dyness
-        icon: mdi:battery
-        icon_color: "{{ states('sensor.battery_soc_color_name') }}"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.solis_s6_eh3p_battery_soc') }}%"
+          - secondary: Dyness
+          - icon: mdi:battery
+          - icon_color: "{{ states('sensor.battery_soc_color_name') }}"
         grid_options:
           columns: 4
 
@@ -222,37 +229,43 @@ sections:
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.ev_usable_surplus') }} kW"
-        secondary: Surplus
-        icon: mdi:solar-power
-        icon_color: "{{ states('sensor.ev_surplus_color') }}"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.ev_usable_surplus') }} kW"
+          - secondary: Surplus
+          - icon: mdi:solar-power
+          - icon_color: "{{ states('sensor.ev_surplus_color') }}"
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.ev_target_soc_effective') }}%"
-        secondary: Target
-        icon: mdi:flag-checkered
-        icon_color: purple
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.ev_target_soc_effective') }}%"
+          - secondary: Target
+          - icon: mdi:flag-checkered
+          - icon_color: purple
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('number.22k07_charging_station_charge_current') }}A"
-        secondary: Amps
-        icon: mdi:current-ac
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('number.22k07_charging_station_charge_current') }}A"
+          - secondary: Amps
+          - icon: mdi:current-ac
+          - icon_color: grey
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.22k07_charging_station_total_energy') }} kWh"
-        secondary: Total
-        icon: mdi:counter
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.22k07_charging_station_total_energy') }} kWh"
+          - secondary: Total
+          - icon: mdi:counter
+          - icon_color: grey
         grid_options:
           columns: 4
 
@@ -273,86 +286,85 @@ sections:
         grid_options:
           columns: 12
 
-      - type: custom:mushroom-entity-card
-        entity: switch.medence_szivattyu_biztositek
-        name: Szivattyú
-        icon: mdi:water-pump
-        tap_action:
-          action: toggle
-        layout: vertical
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          - entity: switch.medence_szivattyu_biztositek
+          - name: Szivattyú
+          - icon: mdi:water-pump
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.medence_cso_homero_probe_temperature') }}°C"
-        secondary: Water
-        icon: mdi:thermometer-water
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.medence_cso_homero_probe_temperature') }}°C"
+          - secondary: Water
+          - icon: mdi:thermometer-water
+          - icon_color: grey
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('input_number.medence_utolso_homerseklet') }}°C"
-        secondary: Cached
-        icon: mdi:thermometer-check
-        icon_color: cyan
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('input_number.medence_utolso_homerseklet') }}°C"
+          - secondary: Cached
+          - icon: mdi:thermometer-check
+          - icon_color: cyan
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('input_number.pool_pump_daily_total_runtime') }}h/8h"
-        secondary: Runtime
-        icon: mdi:timer
-        icon_color: blue
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('input_number.pool_pump_daily_total_runtime') }}h/8h"
+          - secondary: Runtime
+          - icon: mdi:timer
+          - icon_color: blue
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-entity-card
-        entity: switch.medence_vilagitas_biztositek
-        name: Fény
-        icon: mdi:swim
-        tap_action:
-          action: toggle
-        layout: vertical
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          - entity: switch.medence_vilagitas_biztositek
+          - name: Fény
+          - icon: mdi:swim
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('input_datetime.pool_pump_stop_time')[11:16] }}"
-        secondary: Stop
-        icon: mdi:clock-outline
-        icon_color: red
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('input_datetime.pool_pump_stop_time')[11:16] }}"
+          - secondary: Stop
+          - icon: mdi:clock-outline
+          - icon_color: red
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-template-card
-        primary: "+1h"
-        secondary: Extend
-        icon: mdi:clock-plus
-        icon_color: blue
-        layout: vertical
-        tap_action:
-          action: perform-action
-          perform_action: input_button.press
-          target:
-            entity_id: input_button.pool_pump_extend_time
+      - type: custom:decluttering-card
+        template: action_chip
+        variables:
+          - primary: "+1h"
+          - secondary: Extend
+          - icon: mdi:clock-plus
+          - icon_color: blue
+          - perform_action: input_button.press
+          - target_entity: input_button.pool_pump_extend_time
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-template-card
-        primary: "-1h"
-        secondary: Reduce
-        icon: mdi:clock-minus
-        icon_color: orange
-        layout: vertical
-        tap_action:
-          action: perform-action
-          perform_action: input_button.press
-          target:
-            entity_id: input_button.pool_pump_reduce_time
+      - type: custom:decluttering-card
+        template: action_chip
+        variables:
+          - primary: "-1h"
+          - secondary: Reduce
+          - icon: mdi:clock-minus
+          - icon_color: orange
+          - perform_action: input_button.press
+          - target_entity: input_button.pool_pump_reduce_time
         grid_options:
           columns: 3
 
@@ -495,57 +507,63 @@ sections:
         grid_options:
           columns: 12
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.nappali_homero_temperature') }}°C"
-        secondary: Nappali
-        icon: mdi:thermometer
-        icon_color: "rgb(255, 152, 0)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.nappali_homero_temperature') }}°C"
+          - secondary: Nappali
+          - icon: mdi:thermometer
+          - icon_color: "rgb(255, 152, 0)"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.halo_homero_temperature') }}°C"
-        secondary: Háló
-        icon: mdi:thermometer
-        icon_color: "rgb(156, 39, 176)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.halo_homero_temperature') }}°C"
+          - secondary: Háló
+          - icon: mdi:thermometer
+          - icon_color: "rgb(156, 39, 176)"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.gyerek_szoba_homero_temperature') }}°C"
-        secondary: Gyerekszoba
-        icon: mdi:thermometer
-        icon_color: "rgb(33, 150, 243)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.gyerek_szoba_homero_temperature') }}°C"
+          - secondary: Gyerekszoba
+          - icon: mdi:thermometer
+          - icon_color: "rgb(33, 150, 243)"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.furdo_homero_temperature') }}°C"
-        secondary: Fürdő
-        icon: mdi:thermometer-water
-        icon_color: "rgb(0, 188, 212)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.furdo_homero_temperature') }}°C"
+          - secondary: Fürdő
+          - icon: mdi:thermometer-water
+          - icon_color: "rgb(0, 188, 212)"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.pince_homero_temperature') }}°C"
-        secondary: Pince
-        icon: mdi:thermometer
-        icon_color: "rgb(121, 85, 72)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.pince_homero_temperature') }}°C"
+          - secondary: Pince
+          - icon: mdi:thermometer
+          - icon_color: "rgb(121, 85, 72)"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.garazs_homero_temperature') }}°C"
-        secondary: Garázs
-        icon: mdi:thermometer
-        icon_color: "rgb(96, 125, 139)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.garazs_homero_temperature') }}°C"
+          - secondary: Garázs
+          - icon: mdi:thermometer
+          - icon_color: "rgb(96, 125, 139)"
         grid_options:
           columns: 2
 
@@ -639,60 +657,66 @@ sections:
         grid_options:
           columns: 12
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.solis_s6_eh3p_pv_today_energy_generation') }} kWh"
-        secondary: "☀ Solar"
-        icon: mdi:solar-power
-        icon_color: "rgb(244, 196, 48)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.solis_s6_eh3p_pv_today_energy_generation') }} kWh"
+          - secondary: "☀ Solar"
+          - icon: mdi:solar-power
+          - icon_color: "rgb(244, 196, 48)"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.solis_s6_eh3p_today_energy_consumption') }} kWh"
-        secondary: "🏠 Load"
-        icon: mdi:home-lightning-bolt
-        icon_color: "rgb(100, 180, 246)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.solis_s6_eh3p_today_energy_consumption') }} kWh"
+          - secondary: "🏠 Load"
+          - icon: mdi:home-lightning-bolt
+          - icon_color: "rgb(100, 180, 246)"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.solis_s6_eh3p_battery_soc') }}%"
-        secondary: "🔋 Battery"
-        icon: mdi:battery
-        icon_color: "{{ states('sensor.battery_soc_color_rgb') }}"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.solis_s6_eh3p_battery_soc') }}%"
+          - secondary: "🔋 Battery"
+          - icon: mdi:battery
+          - icon_color: "{{ states('sensor.battery_soc_color_rgb') }}"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: >-
-          {{ states('sensor.solis_s6_eh3p_today_energy_imported_from_grid') }} kWh
-        secondary: "⚡ Import"
-        icon: mdi:transmission-tower-import
-        icon_color: "rgb(255, 152, 0)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: >-
+              {{ states('sensor.solis_s6_eh3p_today_energy_imported_from_grid') }} kWh
+          - secondary: "⚡ Import"
+          - icon: mdi:transmission-tower-import
+          - icon_color: "rgb(255, 152, 0)"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: >-
-          {{ states('sensor.solis_s6_eh3p_today_energy_fed_into_grid') }} kWh
-        secondary: "⚡ Export"
-        icon: mdi:transmission-tower-export
-        icon_color: "rgb(76, 175, 80)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: >-
+              {{ states('sensor.solis_s6_eh3p_today_energy_fed_into_grid') }} kWh
+          - secondary: "⚡ Export"
+          - icon: mdi:transmission-tower-export
+          - icon_color: "rgb(76, 175, 80)"
         grid_options:
           columns: 2
 
-      - type: custom:mushroom-template-card
-        primary: >-
-          {{ states('sensor.solis_s6_eh3p_today_energy_fed_into_grid_compensation') }} HUF
-        secondary: "💰 Saved"
-        icon: mdi:cash
-        icon_color: "rgb(0, 200, 83)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: >-
+              {{ states('sensor.solis_s6_eh3p_today_energy_fed_into_grid_compensation') }} HUF
+          - secondary: "💰 Saved"
+          - icon: mdi:cash
+          - icon_color: "rgb(0, 200, 83)"
         grid_options:
           columns: 2
 

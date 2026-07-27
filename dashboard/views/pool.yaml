@@ -14,108 +14,108 @@ sections:
         grid_options:
           columns: 12
 
-      - type: custom:mushroom-entity-card
-        entity: switch.medence_szivattyu_biztositek
-        name: Szivattyú
-        icon: mdi:water-pump
-        tap_action:
-          action: toggle
-        layout: vertical
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          - entity: switch.medence_szivattyu_biztositek
+          - name: Szivattyú
+          - icon: mdi:water-pump
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.medence_cso_homero_probe_temperature') }}°C"
-        secondary: Water
-        icon: mdi:thermometer-water
-        icon_color: "{{ 'red' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 28 else 'orange' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 22 else 'green' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 16 else 'blue' }}"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.medence_cso_homero_probe_temperature') }}°C"
+          - secondary: Water
+          - icon: mdi:thermometer-water
+          - icon_color: "{{ 'red' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 28 else 'orange' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 22 else 'green' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 16 else 'blue' }}"
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('input_number.medence_utolso_homerseklet') }}°C"
-        secondary: Cached
-        icon: mdi:thermometer-check
-        icon_color: cyan
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('input_number.medence_utolso_homerseklet') }}°C"
+          - secondary: Cached
+          - icon: mdi:thermometer-check
+          - icon_color: cyan
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-entity-card
-        entity: switch.medence_vilagitas_biztositek
-        name: Fény
-        icon: mdi:swim
-        tap_action:
-          action: toggle
-        layout: vertical
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          - entity: switch.medence_vilagitas_biztositek
+          - name: Fény
+          - icon: mdi:swim
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.medence_szivattyu_biztositek_power') }} W"
-        secondary: Power
-        icon: mdi:flash
-        icon_color: yellow
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.medence_szivattyu_biztositek_power') }} W"
+          - secondary: Power
+          - icon: mdi:flash
+          - icon_color: yellow
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('input_number.pool_pump_daily_total_runtime') }}h/8h"
-        secondary: Runtime
-        icon: mdi:timer
-        icon_color: blue
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('input_number.pool_pump_daily_total_runtime') }}h/8h"
+          - secondary: Runtime
+          - icon: mdi:timer
+          - icon_color: blue
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.medence_cso_homero_battery') }}%"
-        secondary: Probe Battery
-        icon: mdi:battery
-        icon_color: "{{ 'green' if states('sensor.medence_cso_homero_battery')|int(0) > 60 else 'yellow' if states('sensor.medence_cso_homero_battery')|int(0) > 30 else 'red' }}"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.medence_cso_homero_battery') }}%"
+          - secondary: Probe Battery
+          - icon: mdi:battery
+          - icon_color: "{{ 'green' if states('sensor.medence_cso_homero_battery')|int(0) > 60 else 'yellow' if states('sensor.medence_cso_homero_battery')|int(0) > 30 else 'red' }}"
         grid_options:
           columns: 4
 
   # ── Pool Timer ──
   - type: grid
     cards:
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.pool_pump_stop_time') }}"
-        secondary: "Stop Time"
-        icon: mdi:clock-outline
-        icon_color: red
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.pool_pump_stop_time') }}"
+          - secondary: "Stop Time"
+          - icon: mdi:clock-outline
+          - icon_color: red
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "+1h"
-        secondary: Extend
-        icon: mdi:clock-plus
-        icon_color: blue
-        layout: vertical
-        tap_action:
-          action: perform-action
-          perform_action: input_button.press
-          target:
-            entity_id: input_button.pool_pump_extend_time
+      - type: custom:decluttering-card
+        template: action_chip
+        variables:
+          - primary: "+1h"
+          - secondary: Extend
+          - icon: mdi:clock-plus
+          - icon_color: blue
+          - perform_action: input_button.press
+          - target_entity: input_button.pool_pump_extend_time
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "-1h"
-        secondary: Reduce
-        icon: mdi:clock-minus
-        icon_color: orange
-        layout: vertical
-        tap_action:
-          action: perform-action
-          perform_action: input_button.press
-          target:
-            entity_id: input_button.pool_pump_reduce_time
+      - type: custom:decluttering-card
+        template: action_chip
+        variables:
+          - primary: "-1h"
+          - secondary: Reduce
+          - icon: mdi:clock-minus
+          - icon_color: orange
+          - perform_action: input_button.press
+          - target_entity: input_button.pool_pump_reduce_time
         grid_options:
           columns: 4
 
@@ -193,59 +193,61 @@ sections:
         grid_options:
           columns: 12
 
-      - type: custom:mushroom-entity-card
-        entity: switch.pince_terasz_hangulat_vilagitas
-        name: Terasz fény
-        icon: mdi:outdoor-lamp
-        tap_action:
-          action: toggle
-        layout: vertical
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          - entity: switch.pince_terasz_hangulat_vilagitas
+          - name: Terasz fény
+          - icon: mdi:outdoor-lamp
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-entity-card
-        entity: switch.medence_vilagitas_biztositek
-        name: Medence fény
-        icon: mdi:swim
-        tap_action:
-          action: toggle
-        layout: vertical
+      - type: custom:decluttering-card
+        template: entity_chip
+        variables:
+          - entity: switch.medence_vilagitas_biztositek
+          - name: Medence fény
+          - icon: mdi:swim
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.terasz_homero_temperature') }}°C"
-        secondary: Terasz
-        icon: mdi:thermometer
-        icon_color: "rgb(0, 188, 212)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.terasz_homero_temperature') }}°C"
+          - secondary: Terasz
+          - icon: mdi:thermometer
+          - icon_color: "rgb(0, 188, 212)"
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.medence_cso_homero_probe_temperature') }}°C"
-        secondary: Víz
-        icon: mdi:thermometer-water
-        icon_color: "{{ 'red' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 28 else 'orange' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 22 else 'green' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 16 else 'blue' }}"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.medence_cso_homero_probe_temperature') }}°C"
+          - secondary: Víz
+          - icon: mdi:thermometer-water
+          - icon_color: "{{ 'red' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 28 else 'orange' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 22 else 'green' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 16 else 'blue' }}"
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.terasz_homero_humidity') }}%"
-        secondary: Pára
-        icon: mdi:water-percent
-        icon_color: "rgb(33, 150, 243)"
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.terasz_homero_humidity') }}%"
+          - secondary: Pára
+          - icon: mdi:water-percent
+          - icon_color: "rgb(33, 150, 243)"
         grid_options:
           columns: 4
 
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.medence_szivattyu_biztositek_power') }} W"
-        secondary: Szivattyú
-        icon: mdi:water-pump
-        icon_color: yellow
-        layout: vertical
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.medence_szivattyu_biztositek_power') }} W"
+          - secondary: Szivattyú
+          - icon: mdi:water-pump
+          - icon_color: yellow
         grid_options:
           columns: 4
 

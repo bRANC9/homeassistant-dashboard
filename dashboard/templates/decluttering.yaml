@@ -10,7 +10,7 @@ sensor_chip:
     icon_color: "[[icon_color]]"
     layout: vertical
 
-# ── Entity chip: clickable entity toggle ──
+# ── Entity chip: clickable entity with toggle ──
 entity_chip:
   card:
     type: custom:mushroom-entity-card
@@ -21,7 +21,16 @@ entity_chip:
       action: toggle
     layout: vertical
 
-# ── Action chip: button with custom tap action ──
+# ── Entity chip display: entity display only (no tap_action) ──
+entity_chip_display:
+  card:
+    type: custom:mushroom-entity-card
+    entity: "[[entity]]"
+    name: "[[name]]"
+    icon: "[[icon]]"
+    layout: vertical
+
+# ── Action chip: button with perform-action tap ──
 action_chip:
   default:
     - icon_color: grey
@@ -38,7 +47,7 @@ action_chip:
         entity_id: "[[target_entity]]"
     layout: vertical
 
-# ── Service tile: app status with colored icon ──
+# ── Service tile: app/service status with colored icon ──
 service_tile:
   card:
     type: custom:mushroom-template-card
