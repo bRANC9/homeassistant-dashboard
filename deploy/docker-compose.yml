@@ -20,8 +20,7 @@ services:
       - WEBHOOK_SECRET=${WEBHOOK_SECRET}
       - HA_CONFIG_PATH=/ha-config
       - HA_TOKEN=${HA_TOKEN}
-      - HA_URL=${HA_URL:-http://localhost:8123}
-    command: "-hooks /etc/webhook/hooks.json -verbose"
+      - HA_URL=${HA_URL:-http://192.168.1.250:8123}
 
 volumes:
   deploy-data:
