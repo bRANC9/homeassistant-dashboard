@@ -10,7 +10,8 @@ RUN apk add --no-cache bash curl git python3 py3-pip openssh-client && \
 
 COPY deploy/deploy.sh /deploy/deploy.sh
 COPY deploy/validate.sh /deploy/validate.sh
-RUN chmod +x /deploy/deploy.sh /deploy/validate.sh
+COPY deploy/entrypoint.sh /deploy/entrypoint.sh
+RUN chmod +x /deploy/deploy.sh /deploy/validate.sh /deploy/entrypoint.sh
 
 COPY deploy/hooks.json /etc/webhook/hooks.json
 
@@ -21,5 +22,4 @@ USER webhook
 
 EXPOSE 9000
 
-ENTRYPOINT ["webhook"]
-CMD ["-hooks", "/etc/webhook/hooks.json", "-verbose"]
+ENTRYPOINT ["/deploy/entrypoint.sh"]
