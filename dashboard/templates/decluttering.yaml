@@ -56,3 +56,52 @@ service_tile:
     icon: "[[icon]]"
     icon_color: "[[icon_color]]"
     layout: vertical
+
+# ── Docker tile: TrueNAS app status with Start/Stop popup ──
+docker_tile:
+  card:
+    type: custom:mushroom-template-card
+    primary: "[[primary]]"
+    secondary: "[[secondary]]"
+    icon: "[[icon]]"
+    icon_color: "[[icon_color]]"
+    layout: vertical
+    tap_action:
+      action: fire-dom-event
+      browser_mod:
+        command: popup
+        data:
+          title: "[[primary]]"
+          size: wide
+          card:
+            type: custom:bubble-card
+            card_type: popup
+            name: "[[primary]]"
+            icon: "[[icon]]"
+            primary: "[[primary]]"
+            secondary: "[[secondary]]"
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-entity-card
+                    name: Start
+                    icon: mdi:play
+                    icon_color: green
+                    layout: vertical
+                    tap_action:
+                      action: perform-action
+                      perform_action: rest_command.truenas_start_app
+                      data:
+                        app_name: "[[app_name]]"
+                      confirmation: true
+                  - type: custom:mushroom-entity-card
+                    name: Stop
+                    icon: mdi:stop
+                    icon_color: red
+                    layout: vertical
+                    tap_action:
+                      action: perform-action
+                      perform_action: rest_command.truenas_stop_app
+                      data:
+                        app_name: "[[app_name]]"
+                      confirmation: true
