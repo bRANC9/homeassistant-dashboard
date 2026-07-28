@@ -404,22 +404,17 @@ sections:
         tap_action:
           action: fire-dom-event
           browser_mod:
-            command: popup
+            service: browser_mod.popup
             data:
               title: "Nappali Klíma"
               size: wide
-              card:
+              content:
                 type: custom:bubble-card
-                card_type: popup
+                card_type: button
+                entity: climate.nappali_klima
+                button_type: state
                 name: "Nappali Klíma"
                 icon: mdi:air-conditioner
-                entity: climate.nappali_klima
-                show_state: true
-                show_attribute: true
-                primary: "{{ states('climate.nappali_klima') }}"
-                secondary: >-
-                  {{ state_attr('climate.nappali_klima', 'current_temperature') }}°C
-                  → {{ state_attr('climate.nappali_klima', 'temperature') }}°C
         grid_options:
           columns: 3
 
@@ -430,22 +425,17 @@ sections:
         tap_action:
           action: fire-dom-event
           browser_mod:
-            command: popup
+            service: browser_mod.popup
             data:
               title: "Háló Klíma"
               size: wide
-              card:
+              content:
                 type: custom:bubble-card
-                card_type: popup
+                card_type: button
+                entity: climate.master_bedroom
+                button_type: state
                 name: "Háló Klíma"
                 icon: mdi:air-conditioner
-                entity: climate.master_bedroom
-                show_state: true
-                show_attribute: true
-                primary: "{{ states('climate.master_bedroom') }}"
-                secondary: >-
-                  {{ state_attr('climate.master_bedroom', 'current_temperature') }}°C
-                  → {{ state_attr('climate.master_bedroom', 'temperature') }}°C
         grid_options:
           columns: 3
 
@@ -456,22 +446,17 @@ sections:
         tap_action:
           action: fire-dom-event
           browser_mod:
-            command: popup
+            service: browser_mod.popup
             data:
               title: "Nappali Padlófűtés"
               size: wide
-              card:
+              content:
                 type: custom:bubble-card
-                card_type: popup
+                card_type: button
+                entity: climate.nappali_padlofutes
+                button_type: state
                 name: "Nappali Fűtés"
                 icon: mdi:heating-coil
-                entity: climate.nappali_padlofutes
-                show_state: true
-                show_attribute: true
-                primary: "{{ states('climate.nappali_padlofutes') }}"
-                secondary: >-
-                  {{ state_attr('climate.nappali_padlofutes', 'current_temperature') }}°C
-                  → {{ state_attr('climate.nappali_padlofutes', 'temperature') }}°C
         grid_options:
           columns: 3
 
@@ -482,22 +467,17 @@ sections:
         tap_action:
           action: fire-dom-event
           browser_mod:
-            command: popup
+            service: browser_mod.popup
             data:
               title: "Szoba Padlófűtés"
               size: wide
-              card:
+              content:
                 type: custom:bubble-card
-                card_type: popup
+                card_type: button
+                entity: climate.szoba_padlo_futes
+                button_type: state
                 name: "Szoba Fűtés"
                 icon: mdi:heating-coil
-                entity: climate.szoba_padlo_futes
-                show_state: true
-                show_attribute: true
-                primary: "{{ states('climate.szoba_padlo_futes') }}"
-                secondary: >-
-                  {{ state_attr('climate.szoba_padlo_futes', 'current_temperature') }}°C
-                  → {{ state_attr('climate.szoba_padlo_futes', 'temperature') }}°C
         grid_options:
           columns: 3
 
@@ -583,17 +563,12 @@ sections:
         tap_action:
           action: fire-dom-event
           browser_mod:
-            command: popup
+            service: browser_mod.popup
             data:
               title: "Fények"
               size: wide
-              card:
-                type: custom:bubble-card
-                card_type: popup
-                name: "Fények"
-                icon: mdi:lightbulb-group
-                primary: "Fények vezérlés"
-                secondary: ""
+              content:
+                type: vertical-stack
                 cards:
                   - type: horizontal-stack
                     cards:

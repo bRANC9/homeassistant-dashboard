@@ -69,17 +69,12 @@ docker_tile:
     tap_action:
       action: fire-dom-event
       browser_mod:
-        command: popup
+        service: browser_mod.popup
         data:
           title: "[[primary]]"
           size: wide
-          card:
-            type: custom:bubble-card
-            card_type: popup
-            name: "[[primary]]"
-            icon: "[[icon]]"
-            primary: "[[primary]]"
-            secondary: "[[secondary]]"
+          content:
+            type: vertical-stack
             cards:
               - type: horizontal-stack
                 cards:
