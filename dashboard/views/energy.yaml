@@ -204,8 +204,11 @@ sections:
           - entity: sensor.solis_s6_eh3p_today_energy_fed_into_grid_compensation
             name: "Export kompenzáció"
         grid_options:
-          columns: 6
+          columns: 8
 
+  # ── Forecast ──
+  - type: grid
+    cards:
       - type: custom:decluttering-card
         template: sensor_chip
         variables:
@@ -214,7 +217,7 @@ sections:
           - icon: mdi:solar-power
           - icon_color: yellow
         grid_options:
-          columns: 3
+          columns: 6
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -224,4 +227,31 @@ sections:
           - icon: mdi:solar-power
           - icon_color: orange
         grid_options:
-          columns: 3
+          columns: 6
+
+  # ── Top Consumers ──
+  - type: grid
+    cards:
+      - type: custom:auto-entities
+        card:
+          type: entities
+          title: "Top Fogyasztók"
+        filter:
+          include:
+            - entity_id:
+                - sensor.bojler_aram_mero_energy
+                - sensor.klima_aram_mero_energy
+                - sensor.iroda_aram_mero_energy
+                - sensor.pince_melyhuto_energy
+                - sensor.mosogep_energy
+                - sensor.medence_szivattyu_biztositek_energy
+                - sensor.konyha_huto_energy
+                - sensor.pince_nagy_huto_energy
+                - sensor.pince_huto_energy
+                - sensor.szaritogep_energy
+        sort:
+          method: state
+          numeric: true
+          descending: true
+        grid_options:
+          columns: 12
