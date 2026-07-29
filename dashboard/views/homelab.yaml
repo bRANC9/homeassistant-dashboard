@@ -110,6 +110,10 @@ sections:
             name: "TrueNAS update"
           - entity: sensor.zigbee2mqtt_bridge_version
             name: "Z2M verzió"
+          - entity: sensor.truenas_cpu_usage
+            name: "TrueNAS CPU"
+          - entity: sensor.truenas_memory_usage
+            name: "TrueNAS RAM"
         grid_options:
           columns: 8
 
@@ -302,26 +306,6 @@ sections:
           - primary: "Grafana"
           - icon: mdi:chart-line
           - app_name: "grafana"
-        grid_options:
-          columns: 3
-
-      - type: custom:decluttering-card
-        template: service_tile
-        variables:
-          - primary: "TrueNAS"
-          - secondary: "{{ 'CPU ' ~ states('sensor.truenas_cpu_usage') ~ '%' }}"
-          - icon: mdi:nas
-          - icon_color: "rgb(0, 188, 212)"
-        grid_options:
-          columns: 3
-
-      - type: custom:decluttering-card
-        template: service_tile
-        variables:
-          - primary: "TrueNAS RAM"
-          - secondary: "{{ states('sensor.truenas_memory_usage') }}%"
-          - icon: mdi:memory
-          - icon_color: "rgb(156, 39, 176)"
         grid_options:
           columns: 3
 
