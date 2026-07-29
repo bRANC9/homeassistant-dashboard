@@ -398,142 +398,142 @@ sections:
   - type: grid
     cards:
         - type: custom:mushroom-entity-card
-        entity: climate.nappali_klima
-        name: "Nappali klíma"
-        icon: mdi:air-conditioner
-        tap_action:
-          action: fire-dom-event
-          browser_mod:
-            service: browser_mod.popup
-            data:
-              title: "Nappali Klíma"
-              size: wide
-              content:
-                type: custom:bubble-card
-                card_type: climate
-                entity: climate.nappali_klima
-        grid_options:
-          columns: 3
+          entity: climate.nappali_klima
+          name: "Nappali klíma"
+          icon: mdi:air-conditioner
+          tap_action:
+            action: fire-dom-event
+            browser_mod:
+              service: browser_mod.popup
+              data:
+                title: "Nappali Klíma"
+                size: wide
+                content:
+                  type: custom:bubble-card
+                  card_type: climate
+                  entity: climate.nappali_klima
+          grid_options:
+            columns: 3
 
         - type: custom:mushroom-entity-card
-        entity: climate.master_bedroom
-        name: "Háló klíma"
-        icon: mdi:air-conditioner
-        tap_action:
-          action: fire-dom-event
-          browser_mod:
-            service: browser_mod.popup
-            data:
-              title: "Háló Klíma"
-              size: wide
-              content:
-                type: custom:bubble-card
-                card_type: climate
-                entity: climate.master_bedroom
-        grid_options:
-          columns: 3
+          entity: climate.master_bedroom
+          name: "Háló klíma"
+          icon: mdi:air-conditioner
+          tap_action:
+            action: fire-dom-event
+            browser_mod:
+              service: browser_mod.popup
+              data:
+                title: "Háló Klíma"
+                size: wide
+                content:
+                  type: custom:bubble-card
+                  card_type: climate
+                  entity: climate.master_bedroom
+          grid_options:
+            columns: 3
 
         - type: custom:mushroom-entity-card
-        entity: climate.nappali_padlofutes
-        name: "Nappali fűtés"
-        icon: mdi:heating-coil
-        tap_action:
-          action: fire-dom-event
-          browser_mod:
-            service: browser_mod.popup
-            data:
-              title: "Nappali Padlófűtés"
-              size: wide
-              content:
-                type: custom:bubble-card
-                card_type: climate
-                entity: climate.nappali_padlofutes
-        grid_options:
-          columns: 3
+          entity: climate.nappali_padlofutes
+          name: "Nappali fűtés"
+          icon: mdi:heating-coil
+          tap_action:
+            action: fire-dom-event
+            browser_mod:
+              service: browser_mod.popup
+              data:
+                title: "Nappali Padlófűtés"
+                size: wide
+                content:
+                  type: custom:bubble-card
+                  card_type: climate
+                  entity: climate.nappali_padlofutes
+          grid_options:
+            columns: 3
 
         - type: custom:mushroom-entity-card
-        entity: climate.szoba_padlo_futes
-        name: "Szoba fűtés"
-        icon: mdi:heating-coil
-        tap_action:
-          action: fire-dom-event
-          browser_mod:
-            service: browser_mod.popup
-            data:
-              title: "Szoba Padlófűtés"
-              size: wide
-              content:
-                type: custom:bubble-card
-                card_type: climate
-                entity: climate.szoba_padlo_futes
-        grid_options:
-          columns: 3
+          entity: climate.szoba_padlo_futes
+          name: "Szoba fűtés"
+          icon: mdi:heating-coil
+          tap_action:
+            action: fire-dom-event
+            browser_mod:
+              service: browser_mod.popup
+              data:
+                title: "Szoba Padlófűtés"
+                size: wide
+                content:
+                  type: custom:bubble-card
+                  card_type: climate
+                  entity: climate.szoba_padlo_futes
+          grid_options:
+            columns: 3
 
-      - type: custom:mushroom-title-card
-        title: "Hőmérsékletek"
-        subtitle: ""
-        grid_options:
-          columns: 12
+  - type: custom:mushroom-title-card
+    title: "Hőmérsékletek"
+    subtitle: ""
+    grid_options:
+      columns: 12
 
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "{{ states('sensor.nappali_homero_temperature') }}°C"
-          - secondary: Nappali
-          - icon: mdi:thermometer
-          - icon_color: "rgb(255, 152, 0)"
-        grid_options:
-          columns: 2
+  - type: custom:decluttering-card
+    template: sensor_chip
+    variables:
+      - primary: "{{ states('sensor.nappali_homero_temperature') }}°C"
+      - secondary: Nappali
+      - icon: mdi:thermometer
+      - icon_color: "rgb(255, 152, 0)"
+    grid_options:
+      columns: 2
 
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "{{ states('sensor.halo_homero_temperature') }}°C"
-          - secondary: Háló
-          - icon: mdi:thermometer
-          - icon_color: "rgb(156, 39, 176)"
-        grid_options:
-          columns: 2
+  - type: custom:decluttering-card
+    template: sensor_chip
+    variables:
+      - primary: "{{ states('sensor.halo_homero_temperature') }}°C"
+      - secondary: Háló
+      - icon: mdi:thermometer
+      - icon_color: "rgb(156, 39, 176)"
+    grid_options:
+      columns: 2
 
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "{{ states('sensor.gyerek_szoba_homero_temperature') }}°C"
-          - secondary: Gyerekszoba
-          - icon: mdi:thermometer
-          - icon_color: "rgb(33, 150, 243)"
-        grid_options:
-          columns: 2
+  - type: custom:decluttering-card
+    template: sensor_chip
+    variables:
+      - primary: "{{ states('sensor.gyerek_szoba_homero_temperature') }}°C"
+      - secondary: Gyerekszoba
+      - icon: mdi:thermometer
+      - icon_color: "rgb(33, 150, 243)"
+    grid_options:
+      columns: 2
 
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "{{ states('sensor.furdo_homero_temperature') }}°C"
-          - secondary: Fürdő
-          - icon: mdi:thermometer-water
-          - icon_color: "rgb(0, 188, 212)"
-        grid_options:
-          columns: 2
+  - type: custom:decluttering-card
+    template: sensor_chip
+    variables:
+      - primary: "{{ states('sensor.furdo_homero_temperature') }}°C"
+      - secondary: Fürdő
+      - icon: mdi:thermometer-water
+      - icon_color: "rgb(0, 188, 212)"
+    grid_options:
+      columns: 2
 
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "{{ states('sensor.pince_homero_temperature') }}°C"
-          - secondary: Pince
-          - icon: mdi:thermometer
-          - icon_color: "rgb(121, 85, 72)"
-        grid_options:
-          columns: 2
+  - type: custom:decluttering-card
+    template: sensor_chip
+    variables:
+      - primary: "{{ states('sensor.pince_homero_temperature') }}°C"
+      - secondary: Pince
+      - icon: mdi:thermometer
+      - icon_color: "rgb(121, 85, 72)"
+    grid_options:
+      columns: 2
 
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "{{ states('sensor.garazs_homero_temperature') }}°C"
-          - secondary: Garázs
-          - icon: mdi:thermometer
-          - icon_color: "rgb(96, 125, 139)"
-        grid_options:
-          columns: 2
+  - type: custom:decluttering-card
+    template: sensor_chip
+    variables:
+      - primary: "{{ states('sensor.garazs_homero_temperature') }}°C"
+      - secondary: Garázs
+      - icon: mdi:thermometer
+      - icon_color: "rgb(96, 125, 139)"
+    grid_options:
+      columns: 2
 
   # ── Lights & Alerts ──
   - type: grid
