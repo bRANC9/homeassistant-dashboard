@@ -123,8 +123,8 @@ docker_tile:
                   - type: custom:mushroom-template-card
                     primary: >-
                       {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
-      {% set d = a if a else {} %}
-      {{ d.get('[[app_name]]', {}).get('state', 'N/A') }}
+                      {% set d = a if a else {} %}
+                      {{ d.get('[[app_name]]', {}).get('state', 'N/A') }}
                     icon: mdi:information
                     icon_color: >-
                       {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
