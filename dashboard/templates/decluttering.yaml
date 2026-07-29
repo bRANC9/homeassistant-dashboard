@@ -63,11 +63,12 @@ docker_tile:
     type: custom:mushroom-template-card
     primary: "[[primary]]"
     secondary: >-
-      {% set s = state_attr('sensor.truenas_apps_state', '[[app_name]]') %}
-      {{ s | default('N/A', true) }}
+      {% set d = state_attr('sensor.truenas_apps_state', 'apps') | from_json %}
+      {{ d.get('[[app_name]]', {}).get('state', 'N/A') }}
     icon: "[[icon]]"
     icon_color: >-
-      {% set s = state_attr('sensor.truenas_apps_state', '[[app_name]]') %}
+      {% set d = state_attr('sensor.truenas_apps_state', 'apps') | from_json %}
+      {% set s = d.get('[[app_name]]', {}).get('state') %}
       {% if s == 'RUNNING' %} green {% elif s == 'DEPLOYING' %} orange {% elif s == 'CRASHED' %} purple {% elif s == 'STOPPED' %} red {% else %} grey {% endif %}
     layout: vertical
     tap_action:
@@ -115,19 +116,28 @@ docker_tile:
                       data:
                         entity_id: "binary_sensor.truenas_apps_[[app_name]]"
                       confirmation: true
-              - type: entities
-                title: Activity
-                entities:
-                  - type: attribute
-                    entity: sensor.truenas_apps_state
-                    attribute: "[[app_name]]"
-                    name: State
+              - type: vertical-stack
+                cards:
+                  - type: custom:mushroom-title-card
+                    title: Activity
+                    subtitle: ""
+                  - type: custom:mushroom-template-card
+                    primary: >-
+                      {% set d = state_attr('sensor.truenas_apps_state', 'apps') | from_json %}
+                      {{ d.get('[[app_name]]', {}).get('state', 'N/A') }}
                     icon: mdi:information
-                  - type: attribute
-                    entity: sensor.truenas_apps_state
-                    attribute: "[[app_name]]_containers"
-                    name: Containers
+                    icon_color: >-
+                      {% set d = state_attr('sensor.truenas_apps_state', 'apps') | from_json %}
+                      {% set s = d.get('[[app_name]]', {}).get('state') %}
+                      {% if s == 'RUNNING' %} green {% elif s == 'DEPLOYING' %} orange {% elif s == 'CRASHED' %} purple {% elif s == 'STOPPED' %} red {% else %} grey {% endif %}
+                    layout: vertical
+                  - type: custom:mushroom-template-card
+                    primary: >-
+                      {% set d = state_attr('sensor.truenas_apps_state', 'apps') | from_json %}
+                      Containers: {{ d.get('[[app_name]]', {}).get('containers', 0) }}
                     icon: mdi:docker
-                  - entity: "binary_sensor.truenas_apps_[[app_name]]"
+                    layout: vertical
+                  - type: custom:mushroom-entity-card
+                    entity: "binary_sensor.truenas_apps_[[app_name]]"
                     name: Binary State
                     icon: mdi:checkbox-marked-circle

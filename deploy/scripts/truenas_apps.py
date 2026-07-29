@@ -25,7 +25,9 @@ if api_header:
 result = {}
 for a in apps:
     aid = a["id"].replace("-", "_")
-    result[aid] = a.get("state", "UNKNOWN")
-    result[aid + "_containers"] = a.get("active_containers", 0)
-    result[aid + "_update_avail"] = a.get("upgrade_available", False)
-print(json.dumps(result))
+    result[aid] = {
+        "state": a.get("state", "UNKNOWN"),
+        "containers": a.get("active_containers", 0),
+        "update_avail": a.get("upgrade_available", False),
+    }
+print(json.dumps({"apps": result}))

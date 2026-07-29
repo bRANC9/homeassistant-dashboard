@@ -2,6 +2,8 @@ sensor:
   name: "TrueNAS Apps State"
   unique_id: truenas_apps_state
   command: 'python3 /config/www/helios-dashboard/scripts/truenas_apps.py'
-  value_template: "{{ value_json.keys() | list | length }}"
+  value_template: "{{ value_json.apps.keys() | list | length }}"
+  json_attributes:
+    - apps
   json_attributes_path: "$"
   scan_interval: 30
