@@ -5,7 +5,7 @@ type: sections
 theme: Helios
 max_columns: 12
 sections:
-  # ── Home Assistant ──
+  # ── Homelab ──
   - type: grid
     cards:
       - type: custom:mushroom-title-card
@@ -22,7 +22,7 @@ sections:
           - icon: mdi:home-assistant
           - icon_color: "rgb(0, 188, 212)"
         grid_options:
-          columns: 4
+          columns: 2
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -32,7 +32,7 @@ sections:
           - icon: mdi:zigbee
           - icon_color: "{{ states('sensor.z2m_connection_color') }}"
         grid_options:
-          columns: 4
+          columns: 2
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -49,7 +49,37 @@ sections:
               {% if is_state('update.truenas_ce_update', 'on') %} orange
               {% else %} green {% endif %}
         grid_options:
-          columns: 4
+          columns: 2
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "TrueNAS Apps"
+          - secondary: "{{ states('sensor.truenas_apps_state') }} fut"
+          - icon: mdi:docker
+          - icon_color: "rgb(0, 188, 212)"
+        grid_options:
+          columns: 2
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "TrueNAS Alerts"
+          - secondary: "{{ states('sensor.truenas_alerts') }} figyelmeztetés"
+          - icon: mdi:alert
+          - icon_color: "{{ 'orange' if states('sensor.truenas_alerts')|int > 0 else 'green' }}"
+        grid_options:
+          columns: 2
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "Uptime"
+          - secondary: "{{ relative_time(states('sensor.truenas_uptime')) }}"
+          - icon: mdi:clock-outline
+          - icon_color: "green"
+        grid_options:
+          columns: 2
 
   # ── Zigbee2MQTT ──
   - type: grid
@@ -309,21 +339,70 @@ sections:
         grid_options:
           columns: 3
 
-  # ── Devices ──
+  # ── Eszközök ──
   - type: grid
     cards:
-      - type: custom:auto-entities
-        card:
-          type: entities
-          title: "Eszközök"
-        filter:
-          - include:
-              domain: update
-          - include:
-              domain: sensor
-              attributes:
-                device_class: timestamp
-        sort:
-          method: name
+      - type: entities
+        title: "Eszközök"
+        subtitle: "HACS, TrueNAS app, és Zigbee eszköz frissítések"
+        entities:
+          - entity: update.truenas_ce_update
+            name: "TrueNAS CE"
+          - entity: update.hacs_update
+            name: "HACS"
+          - entity: update.mushroom_update
+            name: "Mushroom"
+          - entity: update.bubble_card_update
+            name: "Bubble Card"
+          - entity: update.auto_entities_update
+            name: "auto-entities"
+          - entity: update.decluttering_card_update
+            name: "decluttering-card"
+          - entity: update.mini_graph_card_update
+            name: "mini-graph-card"
+          - entity: update.apexcharts_card_update
+            name: "apexcharts-card"
+          - entity: update.button_card_update
+            name: "button-card"
+          - entity: update.card_mod_update
+            name: "card-mod"
+          - entity: update.kia_uvo_hyundai_bluelink_update
+            name: "Hyundai Bluelink"
+          - entity: update.clock_weather_card_update
+            name: "Clock Weather Card"
+          - entity: update.sunsynk_power_flow_card_update
+            name: "Sunsynk Power Flow"
+          - entity: update.power_wheel_card_update
+            name: "Power Wheel"
+          - entity: update.weather_chart_card_update
+            name: "Weather Chart"
+          - entity: update.scheduler_card_update
+            name: "Scheduler Card"
+          - entity: update.simple_swipe_card_update
+            name: "Swipe Card"
+          - entity: update.stack_in_card_update
+            name: "Stack In Card"
+          - entity: update.timer_bar_card_update
+            name: "Timer Bar"
+          - entity: update.layout_card_update
+            name: "layout-card"
+          - entity: update.flex_table_highly_customizable_data_visualization_update
+            name: "Flex Table"
+          - entity: update.browser_mod_update
+            name: "browser_mod"
+          - entity: update.zigbee2mqtt_networkmap_card_update
+            name: "Z2M Networkmap"
+          - entity: update.local_tuya_update_2
+            name: "Local Tuya"
+          - entity: update.solis_modbus_integration_update
+            name: "Solis Modbus"
+          - entity: update.ha_washdata_update
+            name: "WashData"
+          - entity: update.home_connect_local_update
+            name: "Home Connect Local"
+          - entity: update.hass_agent_2_integration_media_player_notifications_update
+            name: "HASS.Agent 2"
+          - entity: update.selora_ai_update
+            name: "Selora AI"
         grid_options:
           columns: 12
