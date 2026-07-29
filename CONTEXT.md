@@ -30,6 +30,8 @@ dashboard/
     deployment_version.yaml — build verzió (__HELIOS_BUILD__ placeholder)
   themes/
     helios.yaml           — Mushroom theme
+  command_line/
+    truenas_apps.yaml     — REST sensor config (TrueNAS app állapotok lekérése)
 deploy/
   Dockerfile              — almir/webhook + bash/curl/git/python3/pyyaml
   docker-compose.yml      — container konfig, HA config mount, user: root
@@ -38,8 +40,10 @@ deploy/
   validate.sh             — YAML validáció HA tag-ekkel
   hooks.json              — webhook trigger: X-GitHub-Event: push
   setup.sh                — első beállítás
+  scripts/
+    truenas_apps.py       — Python script: TrueNAS API → JSON (app state, containers)
   templates/
-    templates.yaml        — template szenzorok (TrueNAS app status, EV colors, pool, stb.)
+    templates.yaml        — template szenzorok (EV colors, pool, Z2M, TrueNAS update)
 .github/workflows/
   docker-build.yml        — CI: build + push to GHCR, majd webhook notify
 docs/
@@ -68,7 +72,8 @@ docs/
 - **HA (külső, Pangolin)**: `https://home.kerekmuvek.hu`
 - **TrueNAS Web UI**: `https://192.168.1.250:444` vagy `http://192.168.1.250:88`
 - **TrueNAS API (REST)**: `http://192.168.1.250:88/api/v2.0/` (HTTP, self-signed cert miatt)
-  - ApiKey: **(nem használjuk — TrueNAS CE integration app_start/app_stop service-ekkel)**
+  - REST sensor használja app állapot lekérésre: `command_line` → `deploy/scripts/truenas_apps.py`
+  - API key `secrets.yaml`-ban: `truenas_api_header: "Bearer <key>"`
 - **Webhook deploy URL**: `https://ha-dash-deploy.kerekmuvek.hu/hooks/ha-dashboard-deploy`
 - **GitHub repo**: `https://github.com/bRANC9/homeassistant-dashboard` (public)
 - **GHCR image**: `ghcr.io/branc9/homeassistant-dashboard/ha-dashboard-webhook:latest`
@@ -81,7 +86,13 @@ docs/
 - Docker container név konvenció: `ix-{app_name}-{service_name}`
 - TrueNAS API app control: `POST /app/start`, `POST /app/stop` (nincs `/app/restart`)
 - **App control HA-ból: `truenas_ce.app_start` / `truenas_ce.app_stop`** (TrueNAS CE integration, target: `binary_sensor.truenas_apps_<name>`)
+- **App restart**: `script.truenas_app_restart` (stop → 5s delay → start)
 - `truenas_ce.system_refresh` — azonnali állapotfrissítés
+- **App state lekérés**: `command_line` sensor + `deploy/scripts/truenas_apps.py` (Python script, API key a secrets.yaml-ból)
+  - `sensor.truenas_apps_state` — JSON attribútumokban: `<app_name>` → RUNNING/STOPPED/DEPLOYING/CRASHED, `<app_name>_containers`, `<app_name>_update_avail`
+  - scan_interval: 30s
+- `docker_tile` template: state/color-t a `[[app_name]]`-ből számolja (`state_attr` a REST sensor attribútumaiból)
+- Per-app color template szenzorok **eltávolítva** — a `docker_tile` template inline számolja a színt
 - HA container: `https://home.kerekmuvek.hu` (külső URL a docker-compose-ban)
 
 ## TrueNAS Control (saját HACS integration)
@@ -123,9 +134,20 @@ browser_mod, TrueNAS CE (HACS), template szenzorok, rest_command (már nem haszn
 
 ## Jelenlegi állapot
 - HA verzió: 2026.7.4
-- Utolsó commit (pusholva): 037b513
+- Utolsó commit (pusholva): 037b513 → bővítve REST sensor + restart script
 - Utolsó deploy-olt commit: c628fb1 (webhook nem deploy-olta a legújabb commit-okat — kézi deploy kell: `docker exec ha-dashboard-webhook bash /deploy/deploy.sh`)
+- REST sensor (`sensor.truenas_apps_state`) folyamatosan lekéri a TrueNAS app állapotokat (30 másodpercenként)
+- `script.truenas_app_restart` létrehozva HA-ban
 - HA deprecated REST API warning — 38 hívás/24h; JSON-RPC 2.0 WebSocket-re kell váltani 26.04 előtt
+
+## Mit csináltunk eddig (session history condensed)
+- Teljes dashboard struktúra kialakítva (7 view, decluttering template-k, deploy pipeline)
+- TrueNAS CE integration telepítve → app control `truenas_ce.app_start/stop`
+- `command_line` REST sensor létrehozva TrueNAS API-hoz (real app states: RUNNING, DEPLOYING, STOPPED, CRASHED)
+- `docker_tile` template frissítve: Restart gomb, Activity szekció, inline state/color számolás
+- Régi per-app binary_sensor alapú color szenzorok eltávolítva
+- `script.truenas_app_restart` létrehozva HA-ban (stop → delay → start)
+- API key `secrets.yaml`-ban (user által beállítva TrueNAS-on)
 
 ## Build verzió
 - A `deployment_version.yaml` card a Homelab view-ban mutatja a deploy-olt commit hash-t
@@ -134,7 +156,10 @@ browser_mod, TrueNAS CE (HACS), template szenzorok, rest_command (már nem haszn
 
 ## Ismert hibák / TODO
 1. ~~**Deploy mechanism issues** — webhook 200-at ad de nem frissül; repo újra publikálva, safe.directory fix~~ (javítva)
-2. ~~**HA scripts needed** — restart script (stop → delay → start) a TrueNAS API-n keresztül~~ → **megoldva**: `truenas_ce.app_start` / `truenas_ce.app_stop`
+2. ~~**HA scripts needed** — restart script (stop → delay → start) a TrueNAS API-n keresztül~~ → **megoldva**: `script.truenas_app_restart`
 3. **HA REST API deprecated** — deploy.sh átírása JSON-RPC 2.0 WebSocket-re 26.04 előtt
-4. **rest_command-ok eltávolítása a TrueNAS configuration.yaml-ből** — `rest_command.truenas_start_app` / `truenas_stop_app` már nem használt, API key is mehet
-5. **`horizontal-stack` a popup tartalomban** — a Fények popup `vertical-stack` → `horizontal-stack`-et használ, ami popup-on belül OK, de sections view-ban nem
+4. **rest_command-ok eltávolítása a TrueNAS configuration.yaml-ből** — már nem használt, de a régi API key-es bejegyzések ott vannak
+5. ~~**`horizontal-stack` a popup tartalomban**~~ (nem releváns)
+6. **`secrets.yaml`-ban `truenas_api_header` beállítva** — user által TrueNAS-on (nem commit-olva)
+7. **`command_line: !include www/helios-dashboard/command_line/truenas_apps.yaml` hozzáadása a configuration.yaml-hez** — user által TrueNAS-on
+8. **Old `rest_command` API kulcs eltávolítása** — user feladata TrueNAS-on

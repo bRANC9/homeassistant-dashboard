@@ -52,6 +52,8 @@ log "Copying dashboard to $DASHBOARD_DST ..."
 mkdir -p "$DASHBOARD_DST/views"
 mkdir -p "$DASHBOARD_DST/cards"
 mkdir -p "$DASHBOARD_DST/templates"
+mkdir -p "$DASHBOARD_DST/command_line"
+mkdir -p "$DASHBOARD_DST/scripts"
 mkdir -p "$HA_CONFIG/themes"
 
 cp "$DASHBOARD_SRC/dashboard.yaml" "$DASHBOARD_DST/"
@@ -66,6 +68,14 @@ done
 
 for template in "$DASHBOARD_SRC/templates/"*.yaml; do
     [ -f "$template" ] && cp "$template" "$DASHBOARD_DST/templates/"
+done
+
+for cmdline in "$DASHBOARD_SRC/command_line/"*.yaml; do
+    [ -f "$cmdline" ] && cp "$cmdline" "$DASHBOARD_DST/command_line/"
+done
+
+for script in "$REPO_DIR/deploy/scripts/"*.py; do
+    [ -f "$script" ] && cp "$script" "$DASHBOARD_DST/scripts/"
 done
 
 # Replace the source placeholder only in the deployed copy. This keeps the
