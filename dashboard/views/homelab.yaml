@@ -245,7 +245,7 @@ sections:
         template: docker_tile
         variables:
           - primary: "Mosquitto"
-          - icon: mdi:broker
+          - icon: mdi:message-text-outline
           - app_name: "mosquitto"
         grid_options:
           columns: 3

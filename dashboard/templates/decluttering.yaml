@@ -64,7 +64,7 @@ docker_tile:
     primary: "[[primary]]"
     secondary: >-
       {% set s = state_attr('sensor.truenas_apps_state', '[[app_name]]') %}
-      {{ s | default('N/A') }}
+      {{ s | default('N/A', true) }}
     icon: "[[icon]]"
     icon_color: >-
       {% set s = state_attr('sensor.truenas_apps_state', '[[app_name]]') %}
