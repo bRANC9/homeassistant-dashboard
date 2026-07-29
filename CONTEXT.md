@@ -68,7 +68,7 @@ docs/
 - **HA (külső, Pangolin)**: `https://home.kerekmuvek.hu`
 - **TrueNAS Web UI**: `https://192.168.1.250:444` vagy `http://192.168.1.250:88`
 - **TrueNAS API (REST)**: `http://192.168.1.250:88/api/v2.0/` (HTTP, self-signed cert miatt)
-  - ApiKey: `REDACTED`
+  - ApiKey: **(TrueNAS UI-ban nézd meg / regeneráld!)**
 - **Webhook deploy URL**: `https://ha-dash-deploy.kerekmuvek.hu/hooks/ha-dashboard-deploy`
 - **GitHub repo**: `https://github.com/bRANC9/homeassistant-dashboard` (public)
 - **GHCR image**: `ghcr.io/branc9/homeassistant-dashboard/ha-dashboard-webhook:latest`
