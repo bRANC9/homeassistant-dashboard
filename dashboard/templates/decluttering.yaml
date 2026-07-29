@@ -151,7 +151,7 @@ docker_tile:
                       {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
                       {% set d = a if a else {} %}
                       {% set v = d.get('[[app_name]]', {}) %}
-                      {{ v.get('active_workloads', 0) }} workload(s)
+                      {{ v.get('containers', 0) }} container(s)
                     icon: mdi:docker
               - type: horizontal-stack
                 cards:

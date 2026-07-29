@@ -29,8 +29,11 @@ for a in apps:
         "name", "id", "state", "upgrade_available", "latest_version",
         "image_updates_available", "custom_app", "migrated",
         "human_version", "version",
-        "active_workloads", "portals"
+        "portals"
     ]}
+    # active_workloads returns a dict, extract just the container count
+    aw = a.get("active_workloads", {}) or {}
+    entry["containers"] = aw.get("containers", 0) if isinstance(aw, dict) else aw
     # truncate notes to 200 chars to avoid attribute size issues
     notes = a.get("notes", "")
     entry["notes"] = notes[:200] if notes else ""
