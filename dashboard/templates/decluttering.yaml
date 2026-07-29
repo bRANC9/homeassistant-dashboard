@@ -63,11 +63,13 @@ docker_tile:
     type: custom:mushroom-template-card
     primary: "[[primary]]"
     secondary: >-
-      {% set d = state_attr('sensor.truenas_apps_state', 'apps') | from_json %}
+      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+      {% set d = a | from_json if a else {} %}
       {{ d.get('[[app_name]]', {}).get('state', 'N/A') }}
     icon: "[[icon]]"
     icon_color: >-
-      {% set d = state_attr('sensor.truenas_apps_state', 'apps') | from_json %}
+      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+      {% set d = a | from_json if a else {} %}
       {% set s = d.get('[[app_name]]', {}).get('state') %}
       {% if s == 'RUNNING' %} green {% elif s == 'DEPLOYING' %} orange {% elif s == 'CRASHED' %} purple {% elif s == 'STOPPED' %} red {% else %} grey {% endif %}
     layout: vertical
@@ -123,17 +125,20 @@ docker_tile:
                     subtitle: ""
                   - type: custom:mushroom-template-card
                     primary: >-
-                      {% set d = state_attr('sensor.truenas_apps_state', 'apps') | from_json %}
+                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                      {% set d = a | from_json if a else {} %}
                       {{ d.get('[[app_name]]', {}).get('state', 'N/A') }}
                     icon: mdi:information
                     icon_color: >-
-                      {% set d = state_attr('sensor.truenas_apps_state', 'apps') | from_json %}
+                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                      {% set d = a | from_json if a else {} %}
                       {% set s = d.get('[[app_name]]', {}).get('state') %}
                       {% if s == 'RUNNING' %} green {% elif s == 'DEPLOYING' %} orange {% elif s == 'CRASHED' %} purple {% elif s == 'STOPPED' %} red {% else %} grey {% endif %}
                     layout: vertical
                   - type: custom:mushroom-template-card
                     primary: >-
-                      {% set d = state_attr('sensor.truenas_apps_state', 'apps') | from_json %}
+                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                      {% set d = a | from_json if a else {} %}
                       Containers: {{ d.get('[[app_name]]', {}).get('containers', 0) }}
                     icon: mdi:docker
                     layout: vertical
