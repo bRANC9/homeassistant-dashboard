@@ -27,7 +27,9 @@ for a in apps:
     aid = a["id"].replace("-", "_")
     result[aid] = {
         "state": a.get("state", "UNKNOWN"),
-        "containers": a.get("active_containers", 0),
+        "workloads": a.get("active_workloads", 0),
+        "version": a.get("human_version") or a.get("version", ""),
         "update_avail": a.get("upgrade_available", False),
+        "portals": a.get("portals", []),
     }
 print(json.dumps({"apps": result}))

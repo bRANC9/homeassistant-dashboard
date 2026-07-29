@@ -139,7 +139,11 @@ docker_tile:
                     primary: >-
                       {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
                       {% set d = a | from_json if a else {} %}
-                      Containers: {{ d.get('[[app_name]]', {}).get('containers', 0) }}
+                      v{{ d.get('[[app_name]]', {}).get('version', '?') }}
+                    secondary: >-
+                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                      {% set d = a | from_json if a else {} %}
+                      {{ d.get('[[app_name]]', {}).get('workloads', 0) }} workload(s)
                     icon: mdi:docker
                     layout: vertical
                   - type: custom:mushroom-entity-card
