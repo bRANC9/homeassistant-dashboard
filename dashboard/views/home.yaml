@@ -397,7 +397,7 @@ sections:
   # ── Climate & Rooms ──
   - type: grid
     cards:
-      - type: custom:mushroom-entity-card
+        - type: custom:mushroom-entity-card
         entity: climate.nappali_klima
         name: "Nappali klíma"
         icon: mdi:air-conditioner
@@ -410,15 +410,12 @@ sections:
               size: wide
               content:
                 type: custom:bubble-card
-                card_type: button
+                card_type: climate
                 entity: climate.nappali_klima
-                button_type: state
-                name: "Nappali Klíma"
-                icon: mdi:air-conditioner
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-entity-card
+        - type: custom:mushroom-entity-card
         entity: climate.master_bedroom
         name: "Háló klíma"
         icon: mdi:air-conditioner
@@ -431,15 +428,12 @@ sections:
               size: wide
               content:
                 type: custom:bubble-card
-                card_type: button
+                card_type: climate
                 entity: climate.master_bedroom
-                button_type: state
-                name: "Háló Klíma"
-                icon: mdi:air-conditioner
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-entity-card
+        - type: custom:mushroom-entity-card
         entity: climate.nappali_padlofutes
         name: "Nappali fűtés"
         icon: mdi:heating-coil
@@ -452,15 +446,12 @@ sections:
               size: wide
               content:
                 type: custom:bubble-card
-                card_type: button
+                card_type: climate
                 entity: climate.nappali_padlofutes
-                button_type: state
-                name: "Nappali Fűtés"
-                icon: mdi:heating-coil
         grid_options:
           columns: 3
 
-      - type: custom:mushroom-entity-card
+        - type: custom:mushroom-entity-card
         entity: climate.szoba_padlo_futes
         name: "Szoba fűtés"
         icon: mdi:heating-coil
@@ -473,11 +464,8 @@ sections:
               size: wide
               content:
                 type: custom:bubble-card
-                card_type: button
+                card_type: climate
                 entity: climate.szoba_padlo_futes
-                button_type: state
-                name: "Szoba Fűtés"
-                icon: mdi:heating-coil
         grid_options:
           columns: 3
 
