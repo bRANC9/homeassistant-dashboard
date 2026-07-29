@@ -107,17 +107,21 @@ sections:
           offset: -24h
         header:
           show: true
-          title: "Grid (W)"
+          title: "Grid & Consumption (W)"
         series:
           - entity: sensor.solis_s6_eh3p_meter_total_active_power
             name: "Grid"
             invert: true
             color: "#2196f3"
             unit: W
+          - entity: sensor.solis_s6_eh3p_household_load_power
+            name: "Fogyasztás"
+            color: "#ff5722"
+            unit: W
         grid_options:
           columns: 12
 
-  # ── Battery ──
+  # ── Battery SOC ──
   - type: grid
     cards:
       - type: custom:apexcharts-card
@@ -126,13 +130,27 @@ sections:
           offset: -24h
         header:
           show: true
-          title: "Battery SOC (%) & Power (W)"
+          title: "Battery SOC (%)"
         series:
           - entity: sensor.solis_s6_eh3p_battery_soc
             name: "SOC"
             type: column
             color: "#4caf50"
             unit: "%"
+        grid_options:
+          columns: 12
+
+  # ── Battery Power ──
+  - type: grid
+    cards:
+      - type: custom:apexcharts-card
+        graph_span: 24h
+        span:
+          offset: -24h
+        header:
+          show: true
+          title: "Battery Power (W)"
+        series:
           - entity: sensor.solis_s6_eh3p_battery_power
             name: "Power"
             color: "#ffc0cb"
@@ -175,10 +193,10 @@ sections:
         points_per_hour: 2
         animate: true
         line_width: 3
+        height: 200
         show:
           labels: true
           legend: true
-          extrema: true
         entities:
           - entity: sensor.bojler_aram_mero_power
             name: Bojler
@@ -224,7 +242,7 @@ sections:
           - entity: sensor.solis_s6_eh3p_today_energy_fed_into_grid_compensation
             name: "Export kompenzáció"
         grid_options:
-          columns: 8
+          columns: 12
 
   # ── Top Consumers ──
   - type: grid
@@ -242,5 +260,25 @@ sections:
           - sensor.pince_nagy_huto_energy
           - sensor.pince_huto_energy
           - sensor.szaritogep_energy
+        grid_options:
+          columns: 12
+
+  # ── Top Consumers Instant ──
+  - type: grid
+    cards:
+      - type: entities
+        title: "Pillanatnyi Fogyasztók (W)"
+        entities:
+          - sensor.klima_aram_mero_power
+          - sensor.iroda_aram_mero_power
+          - sensor.mosogep_power
+          - sensor.bojler_aram_mero_power
+          - sensor.medence_szivattyu_biztositek_power
+          - sensor.pince_melyhuto_power
+          - sensor.szaritogep_power
+          - sensor.konyha_huto_power
+          - sensor.pince_huto_power
+          - sensor.pince_nagy_huto_power
+          - sensor.tamfal_jelerosito_aram_mero_kapcsolo_power
         grid_options:
           columns: 12

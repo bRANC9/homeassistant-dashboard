@@ -78,6 +78,10 @@ for script in "$REPO_DIR/deploy/scripts/"*.py; do
     [ -f "$script" ] && cp "$script" "$DASHBOARD_DST/scripts/"
 done
 
+for tpl in "$REPO_DIR/deploy/templates/"*.yaml; do
+    [ -f "$tpl" ] && cp "$tpl" "$DASHBOARD_DST/templates/"
+done
+
 # Replace the source placeholder only in the deployed copy. This keeps the
 # repository deterministic while the Homelab view shows the running build.
 grep -rl "__HELIOS_BUILD__" "$DASHBOARD_DST" 2>/dev/null | while read -r f; do
