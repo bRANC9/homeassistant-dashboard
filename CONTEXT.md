@@ -68,7 +68,7 @@ docs/
 - **HA (külső, Pangolin)**: `https://home.kerekmuvek.hu`
 - **TrueNAS Web UI**: `https://192.168.1.250:444` vagy `http://192.168.1.250:88`
 - **TrueNAS API (REST)**: `http://192.168.1.250:88/api/v2.0/` (HTTP, self-signed cert miatt)
-  - ApiKey: **(TrueNAS UI-ban nézd meg / regeneráld!)**
+  - ApiKey: **(nem használjuk — TrueNAS CE integration app_start/app_stop service-ekkel)**
 - **Webhook deploy URL**: `https://ha-dash-deploy.kerekmuvek.hu/hooks/ha-dashboard-deploy`
 - **GitHub repo**: `https://github.com/bRANC9/homeassistant-dashboard` (public)
 - **GHCR image**: `ghcr.io/branc9/homeassistant-dashboard/ha-dashboard-webhook:latest`
@@ -80,6 +80,8 @@ docs/
 - Watchtower fut (automatikus container update)
 - Docker container név konvenció: `ix-{app_name}-{service_name}`
 - TrueNAS API app control: `POST /app/start`, `POST /app/stop` (nincs `/app/restart`)
+- **App control HA-ból: `truenas_ce.app_start` / `truenas_ce.app_stop`** (TrueNAS CE integration, target: `binary_sensor.truenas_apps_<name>`)
+- `truenas_ce.system_refresh` — azonnali állapotfrissítés
 - HA container: `https://home.kerekmuvek.hu` (külső URL a docker-compose-ban)
 
 ## TrueNAS Control (saját HACS integration)
@@ -111,7 +113,7 @@ docs/
 decluttering-card, mushroom-card, bubble-card, mini-graph-card, apexcharts-card, auto-entities, button-card, card-mod, layout-card
 
 ## Integrációk (telepítve)
-browser_mod, TrueNAS CE (HACS), template szenzorok, rest_command
+browser_mod, TrueNAS CE (HACS), template szenzorok, rest_command (már nem használjuk — TrueNAS CE app_start/app_stop váltotta ki)
 
 ## Notify entitások
 - `notify.sm_s921b` — telefon
@@ -132,7 +134,7 @@ browser_mod, TrueNAS CE (HACS), template szenzorok, rest_command
 
 ## Ismert hibák / TODO
 1. ~~**Deploy mechanism issues** — webhook 200-at ad de nem frissül; repo újra publikálva, safe.directory fix~~ (javítva)
-2. **HA scripts needed** — restart script (stop → delay → start) a TrueNAS API-n keresztül → **megoldva**: `truenas_apps.restart_app` service
+2. ~~**HA scripts needed** — restart script (stop → delay → start) a TrueNAS API-n keresztül~~ → **megoldva**: `truenas_ce.app_start` / `truenas_ce.app_stop`
 3. **HA REST API deprecated** — deploy.sh átírása JSON-RPC 2.0 WebSocket-re 26.04 előtt
-4. **Docker socket** — csak monitoringra (`command_line` sensor), control TrueNAS API-n keresztül
+4. **rest_command-ok eltávolítása a TrueNAS configuration.yaml-ből** — `rest_command.truenas_start_app` / `truenas_stop_app` már nem használt, API key is mehet
 5. **`horizontal-stack` a popup tartalomban** — a Fények popup `vertical-stack` → `horizontal-stack`-et használ, ami popup-on belül OK, de sections view-ban nem

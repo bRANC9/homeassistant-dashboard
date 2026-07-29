@@ -85,9 +85,9 @@ docker_tile:
                     layout: vertical
                     tap_action:
                       action: perform-action
-                      perform_action: rest_command.truenas_start_app
-                      data:
-                        app_name: "[[app_name]]"
+                      perform_action: truenas_ce.app_start
+                      target:
+                        entity_id: "binary_sensor.truenas_apps_[[app_name]]"
                       confirmation: true
                   - type: custom:mushroom-template-card
                     primary: Stop
@@ -96,7 +96,7 @@ docker_tile:
                     layout: vertical
                     tap_action:
                       action: perform-action
-                      perform_action: rest_command.truenas_stop_app
-                      data:
-                        app_name: "[[app_name]]"
+                      perform_action: truenas_ce.app_stop
+                      target:
+                        entity_id: "binary_sensor.truenas_apps_[[app_name]]"
                       confirmation: true
