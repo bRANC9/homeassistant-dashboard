@@ -82,17 +82,30 @@ docs/
 - TrueNAS API app control: `POST /app/start`, `POST /app/stop` (nincs `/app/restart`)
 - HA container: `https://home.kerekmuvek.hu` (külső URL a docker-compose-ban)
 
-## TrueNAS Apps Manager (saját HACS integration)
-- **Repo**: `https://github.com/bRANC9/ha-truenas-apps` (külön repo)
-- **Helyi másolat**: `G:\PycharmProjects\ha-truenas-apps`
-- Switch entitások: `switch.truenas_app_<name>` (start/stop)
-- Binary sensor: `binary_sensor.truenas_app_<name>` (running)
-- Version sensor: `sensor.truenas_app_<name>_version`
-- Service: `truenas_apps.restart_app` (stop → delay → start)
-- Dual transport: WebSocket (JSON-RPC 2.0) elsődleges, REST fallback
-- TrueNAS 26: WS → `wss://<host>:<ws_port>/api/current`
-- TrueNAS 25.10: REST → `http{s}://<host>:<port>/api/v2.0/app`
-- Auto-detect: első adatfrissítéskor kipróbálja WS-t, ha nem megy → REST
+## TrueNAS Control (saját HACS integration)
+- **Repo (WS-only, TrueNAS 26+)**: `https://github.com/bRANC9/ha-truenas-control`
+- **Helyi másolat**: `G:\PycharmProjects\ha-truenas-control`
+- **Domain**: `truenas_ws` — WebSocket JSON-RPC 2.0, nincs REST
+- **Port**: 9443 (TrueNAS 26 default API port)
+- **Entitások**:
+  - `sensor.truenas_ws_version` — TrueNAS verzió
+  - `sensor.truenas_ws_cpu_usage` — CPU %
+  - `sensor.truenas_ws_memory_usage` — Memória %
+  - `sensor.truenas_ws_pool_<name>_usage` — Pool használat %
+  - `sensor.truenas_ws_pool_<name>_available` — Pool szabad hely
+  - `sensor.truenas_ws_disk_<name>_temperature` — Diszk hőmérséklet
+  - `sensor.truenas_ws_app_<name>_version` — App verzió
+  - `binary_sensor.truenas_ws_app_<name>` — App fut?
+  - `binary_sensor.truenas_ws_pool_<name>_healthy` — Pool egészséges?
+  - `binary_sensor.truenas_ws_service_<name>` — Service fut?
+  - `switch.truenas_ws_app_<name>` — App start/stop
+- **Service**: `truenas_ws.restart_app` (stop → delay → start)
+- Teendő: renderelés után add hozzá HACS-hez custom repo-ként
+
+## TrueNAS Apps Manager (régi, REST alapú)
+- **Repo**: `https://github.com/bRANC9/ha-truenas-apps` (külön repo, v0.3.0-ig)
+- Dual transport (WS+REST), de deprecated — TrueNAS 26-hoz a fenti kell
+- Eltávolítandó HA-ból amint a `truenas_ws` működik
 
 ## HACS custom card-ok (telepítve)
 decluttering-card, mushroom-card, bubble-card, mini-graph-card, apexcharts-card, auto-entities, button-card, card-mod, layout-card
