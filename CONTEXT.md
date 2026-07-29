@@ -100,6 +100,11 @@ browser_mod, TrueNAS CE (HACS), template szenzorok, rest_command
 - Utolsó deploy-olt commit: c628fb1 (webhook nem deploy-olta a legújabb commit-okat — kézi deploy kell: `docker exec ha-dashboard-webhook bash /deploy/deploy.sh`)
 - HA deprecated REST API warning — 38 hívás/24h; JSON-RPC 2.0 WebSocket-re kell váltani 26.04 előtt
 
+## Build verzió
+- A `deployment_version.yaml` card a Homelab view-ban mutatja a deploy-olt commit hash-t
+- Minden push után a deploy script (`deploy.sh`) a `__HELIOS_BUILD__` helyére teszi a rövid commit hash-t
+- A deploy után a Homelab view alján látszik: "Helios Dashboard — {hash}"
+
 ## Ismert hibák / TODO
 1. **Deploy mechanism issues** — webhook 200-at ad de nem frissül; valószínűleg Docker volume git pull probléma; repo publikus, de `git config --global safe.directory` kellhet
 2. **HA scripts needed** — restart script (stop → delay → start) a TrueNAS API-n keresztül, mivel nincs `/app/restart` endpoint
