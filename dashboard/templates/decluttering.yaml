@@ -135,10 +135,17 @@ docker_tile:
                     primary: >-
                       {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
                       {% set d = a if a else {} %}
-                      {% set p = d.get('[[app_name]]', {}).get('portals', []) %}
-                      {% if p %}{{ p | join(', ') }}{% else %}—{% endif %}
+                      {% set v = d.get('[[app_name]]', {}) %}
+                      {% set u = v.get('portal_url', '') %}
+                      {% if u %}{{ u }}{% else %}
+                        {% set p = v.get('ports', []) %}
+                        {% if p %}:{{ p | join(', :') }}{% else %}—{% endif %}
+                      {% endif %}
                     secondary: Portals
                     icon: mdi:web
+                    tap_action:
+                      action: url
+                      url_path: "{{ (state_attr('sensor.truenas_apps_state', 'apps') or {}).get('[[app_name]]', {}).get('portal_url', '') }}"
               - type: horizontal-stack
                 cards:
                   - type: custom:mushroom-template-card

@@ -28,12 +28,31 @@ for a in apps:
     entry = {k: a.get(k) for k in [
         "name", "id", "state", "upgrade_available", "latest_version",
         "image_updates_available", "custom_app", "migrated",
-        "human_version", "version",
-        "portals"
+        "human_version", "version"
     ]}
-    # active_workloads returns a dict, extract just the container count
+    # active_workloads returns a dict, extract container count and ports
     aw = a.get("active_workloads", {}) or {}
-    entry["containers"] = aw.get("containers", 0) if isinstance(aw, dict) else aw
+    if isinstance(aw, dict):
+        entry["containers"] = aw.get("containers", 0)
+        ports = []
+        for p in aw.get("used_ports", []):
+            for hp in p.get("host_ports", []):
+                if hp.get("host_port"):
+                    ports.append(hp["host_port"])
+        entry["ports"] = ports[:3]  # max 3 ports
+    else:
+        entry["containers"] = aw
+        entry["ports"] = []
+    # extract first portal URL
+    portals = a.get("portals", {}) or {}
+    entry["portal_url"] = ""
+    if isinstance(portals, dict):
+        for v in portals.values():
+            if v:
+                entry["portal_url"] = v
+                break
+    elif isinstance(portals, list) and portals:
+        entry["portal_url"] = portals[0]
     # truncate notes to 200 chars to avoid attribute size issues
     notes = a.get("notes", "")
     entry["notes"] = notes[:200] if notes else ""
