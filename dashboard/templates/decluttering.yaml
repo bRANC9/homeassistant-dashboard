@@ -144,8 +144,10 @@ docker_tile:
                     secondary: Portals
                     icon: mdi:web
                     tap_action:
-                      action: url
-                      url_path: "{{ (state_attr('sensor.truenas_apps_state', 'apps') or {}).get('[[app_name]]', {}).get('portal_url', '') }}"
+                      action: perform-action
+                      perform_action: script.portal_open
+                      data:
+                        app_name: "[[app_name]]"
               - type: horizontal-stack
                 cards:
                   - type: custom:mushroom-template-card
