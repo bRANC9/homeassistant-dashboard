@@ -25,10 +25,14 @@ if api_header:
 result = {}
 for a in apps:
     aid = a["id"].replace("-", "_")
-    result[aid] = {k: a.get(k) for k in [
+    entry = {k: a.get(k) for k in [
         "name", "id", "state", "upgrade_available", "latest_version",
         "image_updates_available", "custom_app", "migrated",
-        "human_version", "version", "metadata", "active_workloads",
-        "notes", "portals"
+        "human_version", "version",
+        "active_workloads", "portals"
     ]}
+    # truncate notes to 200 chars to avoid attribute size issues
+    notes = a.get("notes", "")
+    entry["notes"] = notes[:200] if notes else ""
+    result[aid] = entry
 print(json.dumps({"apps": result}))
