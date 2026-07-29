@@ -100,33 +100,21 @@ log "Dashboard files copied."
 #       show_in_sidebar: true
 #       filename: www/helios-dashboard/dashboard.yaml
 
-# ── 4. HA reload ────────────────────────────────────────────
-log "Reloading Home Assistant dashboard..."
+# ── 4. HA notifications (optional) ────────────────────────────
+log "Notifying HA..."
 if [ -n "${HA_TOKEN:-}" ]; then
-    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
-        -X POST \
-        -H "Authorization: Bearer $HA_TOKEN" \
-        -H "Content-Type: application/json" \
-        "${HA_URL}/api/services/lovelace/reload" 2>/dev/null || echo "000")
-
-    if [ "$HTTP_CODE" = "200" ]; then
-        log "HA dashboard reloaded successfully."
-    else
-        log "WARNING: HA reload returned HTTP $HTTP_CODE"
-    fi
-
-    # Notifications
     for TARGET in sm_s921b desktop_nia5fgv; do
-        curl -s -X POST \
+        CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST \
             -H "Authorization: Bearer $HA_TOKEN" \
             -H "Content-Type: application/json" \
             -d "{\"message\": \"Dashboard deployed: $COMMIT\", \"title\": \"Helios Deploy\"}" \
-            "${HA_URL}/api/services/notify/${TARGET}" > /dev/null 2>&1 || true
+            "${HA_URL}/api/services/notify/${TARGET}" 2>/dev/null || echo "000")
+        log "notify.${TARGET}: HTTP $CODE"
     done
-    log "Notifications sent."
 else
-    log "WARNING: HA_TOKEN not set, skipping HA refresh."
-    log "Manual: HA → Developer Tools → Services → lovelace.reload"
+    log "HA_TOKEN not set, skipping notifications."
+    log "NOTE: YAML dashboard auto-reloads on browser refresh (HA 2026+)."
 fi
 
 log "=== Deploy completed ==="

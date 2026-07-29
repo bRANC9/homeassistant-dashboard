@@ -108,18 +108,4 @@ template:
           {% else %} red {% endif %}
         icon: mdi:zigbee
 
-      # ── TrueNAS update text ──
-      - name: "TrueNAS Update Text"
-        state: >-
-          {% if is_state('update.truenas_ce_update', 'on') %} Update available
-          {% else %} Up to date {% endif %}
-        icon: mdi:update
-
-      # ── TrueNAS update color ──
-      - name: "TrueNAS Update Color"
-        state: >-
-          {% if is_state('update.truenas_ce_update', 'on') %} orange
-          {% else %} green {% endif %}
-        icon: mdi:update
-
 
