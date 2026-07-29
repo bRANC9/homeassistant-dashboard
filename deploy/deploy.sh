@@ -55,6 +55,7 @@ mkdir -p "$DASHBOARD_DST/templates"
 mkdir -p "$DASHBOARD_DST/command_line"
 mkdir -p "$DASHBOARD_DST/scripts"
 mkdir -p "$HA_CONFIG/themes"
+mkdir -p "$HA_CONFIG/templates"
 
 cp "$DASHBOARD_SRC/dashboard.yaml" "$DASHBOARD_DST/"
 
@@ -79,7 +80,7 @@ for script in "$REPO_DIR/deploy/scripts/"*.py; do
 done
 
 for tpl in "$REPO_DIR/deploy/templates/"*.yaml; do
-    [ -f "$tpl" ] && cp "$tpl" "$DASHBOARD_DST/templates/"
+    [ -f "$tpl" ] && cp "$tpl" "$HA_CONFIG/templates/"
 done
 
 # Replace the source placeholder only in the deployed copy. This keeps the
