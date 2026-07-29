@@ -146,7 +146,28 @@ docker_tile:
                       {{ d.get('[[app_name]]', {}).get('workloads', 0) }} workload(s)
                     icon: mdi:docker
                     layout: vertical
+                  - type: custom:mushroom-template-card
+                    primary: >-
+                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                      {% set d = a | from_json if a else {} %}
+                      {% set p = d.get('[[app_name]]', {}).get('portals', []) %}
+                      {% if p %}{{ p | join(', ') }}{% else %}none{% endif %}
+                    secondary: Portals
+                    icon: mdi:web
+                    layout: vertical
+                  - type: custom:mushroom-template-card
+                    primary: >-
+                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                      {% set d = a | from_json if a else {} %}
+                      {% if d.get('[[app_name]]', {}).get('update_avail') %}Available{% else %}Up to date{% endif %}
+                    secondary: Update
+                    icon: mdi:update
+                    icon_color: >-
+                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                      {% set d = a | from_json if a else {} %}
+                      {% if d.get('[[app_name]]', {}).get('update_avail') %} orange {% else %} green {% endif %}
+                    layout: vertical
                   - type: custom:mushroom-entity-card
                     entity: "binary_sensor.truenas_apps_[[app_name]]"
-                    name: Binary State
+                    name: Binary (CE)
                     icon: mdi:checkbox-marked-circle
