@@ -135,6 +135,16 @@ docker_tile:
                     primary: >-
                       {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
                       {% set d = a if a else {} %}
+                      {% set p = d.get('[[app_name]]', {}).get('portals', []) %}
+                      {% if p %}{{ p | join(', ') }}{% else %}—{% endif %}
+                    secondary: Portals
+                    icon: mdi:web
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-template-card
+                    primary: >-
+                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                      {% set d = a if a else {} %}
                       {% set v = d.get('[[app_name]]', {}) %}
                       {{ v.get('human_version') or v.get('version', '?') }}
                     secondary: >-
@@ -149,14 +159,6 @@ docker_tile:
                     primary: >-
                       {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
                       {% set d = a if a else {} %}
-                      {% set p = d.get('[[app_name]]', {}).get('portals', []) %}
-                      {% if p %}{{ p | join(', ') }}{% else %}—{% endif %}
-                    secondary: Portals
-                    icon: mdi:web
-                  - type: custom:mushroom-template-card
-                    primary: >-
-                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
-                      {% set d = a if a else {} %}
                       {% if d.get('[[app_name]]', {}).get('upgrade_available') %}Available{% else %}Up to date{% endif %}
                     secondary: Update
                     icon: mdi:update
@@ -164,16 +166,6 @@ docker_tile:
                       {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
                       {% set d = a if a else {} %}
                       {% if d.get('[[app_name]]', {}).get('upgrade_available') %} orange {% else %} green {% endif %}
-              - type: horizontal-stack
-                cards:
-                  - type: custom:mushroom-template-card
-                    primary: >-
-                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
-                      {% set d = a if a else {} %}
-                      {% set n = d.get('[[app_name]]', {}).get('notes', '') %}
-                      {{ n if n else '—' }}
-                    secondary: Notes
-                    icon: mdi:note-text
                   - type: custom:mushroom-template-card
                     primary: >-
                       {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
@@ -182,24 +174,6 @@ docker_tile:
                       {{ v.get('latest_version', '?') }}
                     secondary: Latest
                     icon: mdi:cloud-download
-              - type: horizontal-stack
-                cards:
-                  - type: custom:mushroom-template-card
-                    primary: >-
-                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
-                      {% set d = a if a else {} %}
-                      {% set v = d.get('[[app_name]]', {}) %}
-                      {% if v.get('image_updates_available') %}Yes{% else %}No{% endif %}
-                    secondary: Image updates
-                    icon: mdi:image
-                  - type: custom:mushroom-template-card
-                    primary: >-
-                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
-                      {% set d = a if a else {} %}
-                      {% set v = d.get('[[app_name]]', {}) %}
-                      Custom: {{ v.get('custom_app', '?') }} · Migrated: {{ v.get('migrated', '?') }}
-                    secondary: Flags
-                    icon: mdi:flag
               - type: custom:mushroom-entity-card
                 entity: "binary_sensor.truenas_apps_[[app_name]]"
                 name: Binary (CE)
