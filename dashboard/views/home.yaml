@@ -499,7 +499,6 @@ sections:
                       - sensor.halo_homero_temperature
                       - sensor.gyerek_szoba_homero_temperature
                       - sensor.furdo_homero_temperature
-                      - sensor.garazs_homero_temperature
                   - type: custom:mini-graph-card
                     name: "Hőmérséklet (24h)"
                     hours_to_show: 24
@@ -522,9 +521,6 @@ sections:
                       - entity: sensor.furdo_homero_temperature
                         name: Fürdő
                         color: "#00bcd4"
-                      - entity: sensor.garazs_homero_temperature
-                        name: Garázs
-                        color: "#607d8b"
         grid_options:
           columns: 4
 
@@ -550,7 +546,6 @@ sections:
                       - sensor.halo_homero_humidity
                       - sensor.gyerek_szoba_homero_humidity
                       - sensor.furdo_homero_humidity
-                      - sensor.garazs_homero_humidity
                   - type: custom:mini-graph-card
                     name: "Páratartalom (24h)"
                     hours_to_show: 24
@@ -573,9 +568,6 @@ sections:
                       - entity: sensor.furdo_homero_humidity
                         name: Fürdő
                         color: "#00bcd4"
-                      - entity: sensor.garazs_homero_humidity
-                        name: Garázs
-                        color: "#607d8b"
         grid_options:
           columns: 4
 
