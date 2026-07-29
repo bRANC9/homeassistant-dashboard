@@ -121,6 +121,9 @@ sections:
             name: "AdGuard Home DNS"
           - entity: switch.truenas_cron_jobs_update_cloudflare_enabled
             name: "Cloudflare DDNS"
+          - entity: button.truenas_cron_jobs_update_cloudflare_run
+            name: "Cloudflare futtatás"
+            icon: mdi:refresh
         grid_options:
           columns: 8
 
