@@ -22,7 +22,7 @@ sections:
           - icon: mdi:home-assistant
           - icon_color: "rgb(0, 188, 212)"
         grid_options:
-          columns: 2
+          columns: 4
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -32,7 +32,7 @@ sections:
           - icon: mdi:zigbee
           - icon_color: "{{ states('sensor.z2m_connection_color') }}"
         grid_options:
-          columns: 2
+          columns: 4
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -42,7 +42,7 @@ sections:
           - icon: mdi:nas
           - icon_color: "{{ 'orange' if is_state('update.truenas_ce_update', 'on') else 'green' }}"
         grid_options:
-          columns: 2
+          columns: 4
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -52,7 +52,7 @@ sections:
           - icon: mdi:docker
           - icon_color: "rgb(0, 188, 212)"
         grid_options:
-          columns: 2
+          columns: 4
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -62,7 +62,7 @@ sections:
           - icon: mdi:alert
           - icon_color: "{{ 'orange' if states('sensor.truenas_alerts')|int > 0 else 'green' }}"
         grid_options:
-          columns: 2
+          columns: 4
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -72,7 +72,28 @@ sections:
           - icon: mdi:clock-outline
           - icon_color: "green"
         grid_options:
-          columns: 2
+          columns: 4
+
+      - type: custom:mushroom-entity-card
+        entity: switch.truenas_cron_jobs_update_cloudflare_enabled
+        name: "Cloudflare DDNS"
+        icon: mdi:cloud
+        layout: vertical
+        grid_options:
+          columns: 4
+
+      - type: custom:mushroom-template-card
+        primary: "Cloudflare futtatás"
+        icon: mdi:refresh
+        icon_color: grey
+        layout: vertical
+        tap_action:
+          action: perform-action
+          perform_action: button.press
+          target:
+            entity_id: button.truenas_cron_jobs_update_cloudflare_run
+        grid_options:
+          columns: 4
 
       - type: custom:mushroom-template-card
         primary: "Helios Dashboard"
@@ -160,11 +181,6 @@ sections:
             name: "Pangolin reverse proxy"
           - entity: binary_sensor.truenas_apps_adguard_home
             name: "AdGuard Home DNS"
-          - entity: switch.truenas_cron_jobs_update_cloudflare_enabled
-            name: "Cloudflare DDNS"
-          - entity: button.truenas_cron_jobs_update_cloudflare_run
-            name: "Cloudflare futtatás"
-            icon: mdi:refresh
         grid_options:
           columns: 8
 
