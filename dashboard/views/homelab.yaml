@@ -25,41 +25,10 @@ sections:
           columns: 6
 
       - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "Zigbee2MQTT"
-          - secondary: "{{ states('sensor.zigbee2mqtt_bridge_version') }}"
-          - icon: mdi:zigbee
-          - icon_color: "{{ states('sensor.z2m_connection_color') }}"
-        grid_options:
-          columns: 6
-
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "TrueNAS"
-          - secondary: "{{ states('sensor.truenas_update_text') }}"
-          - icon: mdi:nas
-          - icon_color: "{{ states('sensor.truenas_update_color') }}"
-        grid_options:
-          columns: 6
-
-      - !include ../cards/deployment_version.yaml
-
-  # ── Zigbee2MQTT ──
-  - type: grid
-    cards:
-      - type: custom:mushroom-title-card
-        title: "Zigbee2MQTT"
-        subtitle: ""
-        grid_options:
-          columns: 12
-
-      - type: custom:decluttering-card
         template: entity_chip
         variables:
           - entity: binary_sensor.zigbee2mqtt_bridge_connection_state
-          - name: Bridge State
+          - name: "Z2M · {{ states('sensor.zigbee2mqtt_bridge_version') }}"
           - icon: mdi:zigbee
         grid_options:
           columns: 4
@@ -68,7 +37,7 @@ sections:
         template: entity_chip
         variables:
           - entity: button.zigbee2mqtt_bridge_restart
-          - name: Restart
+          - name: Z2M Restart
           - icon: mdi:restart
         grid_options:
           columns: 4
@@ -84,10 +53,22 @@ sections:
 
       - type: custom:mushroom-select-card
         entity: select.zigbee2mqtt_bridge_log_level
-        name: Log Level
+        name: Z2M Log Level
         icon: mdi:file-document
         grid_options:
           columns: 12
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "TrueNAS"
+          - secondary: "{{ states('sensor.truenas_update_text') }}"
+          - icon: mdi:nas
+          - icon_color: "{{ states('sensor.truenas_update_color') }}"
+        grid_options:
+          columns: 6
+
+      - !include ../cards/deployment_version.yaml
 
   # ── System Health ──
   - type: grid
@@ -122,7 +103,7 @@ sections:
           - entity: switch.truenas_cron_jobs_update_cloudflare_enabled
             name: "Cloudflare DDNS"
         grid_options:
-          columns: 4
+          columns: 8
 
       # ── TrueNAS Docker Apps ──
   - type: grid
