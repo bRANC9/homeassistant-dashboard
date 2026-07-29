@@ -111,13 +111,11 @@ template:
       # ── Indoor average temperature (nappali, háló, gyerekszoba, fürdő) ──
       - name: "Indoor Average Temperature"
         state: >-
-          {% set rooms = [
-            'sensor.nappali_homero_temperature',
-            'sensor.halo_homero_temperature',
-            'sensor.gyerek_szoba_homero_temperature',
-            'sensor.furdo_homero_temperature'
-          ] %}
-          {% set values = rooms | map('states') | map('float', 'unknown') | list %}
+          {% set n = states('sensor.nappali_homero_temperature') | float('unknown') %}
+          {% set h = states('sensor.halo_homero_temperature') | float('unknown') %}
+          {% set g = states('sensor.gyerek_szoba_homero_temperature') | float('unknown') %}
+          {% set f = states('sensor.furdo_homero_temperature') | float('unknown') %}
+          {% set values = [n, h, g, f] %}
           {% set valid = values | select('ne', 'unknown') | list %}
           {% if valid | count > 0 %}
             {{ (valid | sum / (valid | count)) | round(1) }}
@@ -129,13 +127,11 @@ template:
       # ── Indoor average humidity (nappali, háló, gyerekszoba, fürdő) ──
       - name: "Indoor Average Humidity"
         state: >-
-          {% set rooms = [
-            'sensor.nappali_homero_humidity',
-            'sensor.halo_homero_humidity',
-            'sensor.gyerek_szoba_homero_humidity',
-            'sensor.furdo_homero_humidity'
-          ] %}
-          {% set values = rooms | map('states') | map('float', 'unknown') | list %}
+          {% set n = states('sensor.nappali_homero_humidity') | float('unknown') %}
+          {% set h = states('sensor.halo_homero_humidity') | float('unknown') %}
+          {% set g = states('sensor.gyerek_szoba_homero_humidity') | float('unknown') %}
+          {% set f = states('sensor.furdo_homero_humidity') | float('unknown') %}
+          {% set values = [n, h, g, f] %}
           {% set valid = values | select('ne', 'unknown') | list %}
           {% if valid | count > 0 %}
             {{ (valid | sum / (valid | count)) | round(1) }}

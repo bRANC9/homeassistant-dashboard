@@ -68,6 +68,110 @@ sections:
         grid_options:
           columns: 4
 
+      - type: custom:mushroom-template-card
+        primary: "{{ states('sensor.indoor_avg_temperature') }}°C"
+        secondary: "Átlag hőmérséklet"
+        icon: mdi:thermometer
+        icon_color: "rgb(255, 152, 0)"
+        tap_action:
+          action: fire-dom-event
+          browser_mod:
+            service: browser_mod.popup
+            data:
+              title: "Beltéri hőmérséklet"
+              size: wide
+              content:
+                type: vertical-stack
+                cards:
+                  - type: entities
+                    title: "Szobák"
+                    entities:
+                      - sensor.nappali_homero_temperature
+                      - sensor.halo_homero_temperature
+                      - sensor.gyerek_szoba_homero_temperature
+                      - sensor.furdo_homero_temperature
+                  - type: custom:mini-graph-card
+                    name: "Hőmérséklet (24h)"
+                    hours_to_show: 24
+                    points_per_hour: 2
+                    line_width: 3
+                    show:
+                      labels: true
+                      legend: true
+                      extrema: true
+                    entities:
+                      - entity: sensor.nappali_homero_temperature
+                        name: Nappali
+                        color: "#ff9800"
+                      - entity: sensor.gyerek_szoba_homero_temperature
+                        name: Gyerekszoba
+                        color: "#2196f3"
+                      - entity: sensor.halo_homero_temperature
+                        name: Háló
+                        color: "#9c27b0"
+                      - entity: sensor.furdo_homero_temperature
+                        name: Fürdő
+                        color: "#00bcd4"
+        grid_options:
+          columns: 4
+
+      - type: custom:mushroom-template-card
+        primary: "{{ states('sensor.indoor_avg_humidity') }}%"
+        secondary: "Átlag páratartalom"
+        icon: mdi:water-percent
+        icon_color: "rgb(0, 188, 212)"
+        tap_action:
+          action: fire-dom-event
+          browser_mod:
+            service: browser_mod.popup
+            data:
+              title: "Beltéri páratartalom"
+              size: wide
+              content:
+                type: vertical-stack
+                cards:
+                  - type: entities
+                    title: "Szobák"
+                    entities:
+                      - sensor.nappali_homero_humidity
+                      - sensor.halo_homero_humidity
+                      - sensor.gyerek_szoba_homero_humidity
+                      - sensor.furdo_homero_humidity
+                  - type: custom:mini-graph-card
+                    name: "Páratartalom (24h)"
+                    hours_to_show: 24
+                    points_per_hour: 2
+                    line_width: 3
+                    show:
+                      labels: true
+                      legend: true
+                      extrema: true
+                    entities:
+                      - entity: sensor.nappali_homero_humidity
+                        name: Nappali
+                        color: "#ff9800"
+                      - entity: sensor.gyerek_szoba_homero_humidity
+                        name: Gyerekszoba
+                        color: "#2196f3"
+                      - entity: sensor.halo_homero_humidity
+                        name: Háló
+                        color: "#9c27b0"
+                      - entity: sensor.furdo_homero_humidity
+                        name: Fürdő
+                        color: "#00bcd4"
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.pince_homero_temperature') }}°C"
+          - secondary: Pince
+          - icon: mdi:thermometer
+          - icon_color: "rgb(121, 85, 72)"
+        grid_options:
+          columns: 4
+
   # ── Power Flow ──
   - type: grid
     cards:
@@ -468,118 +572,6 @@ sections:
                   entity: climate.szoba_padlo_futes
           grid_options:
             columns: 3
-
-  - type: grid
-    cards:
-      - type: custom:mushroom-title-card
-        title: "Hőmérsékletek"
-        subtitle: ""
-        grid_options:
-          columns: 12
-
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.indoor_avg_temperature') }}°C"
-        secondary: "Átlag hőmérséklet"
-        icon: mdi:thermometer
-        icon_color: "rgb(255, 152, 0)"
-        tap_action:
-          action: fire-dom-event
-          browser_mod:
-            service: browser_mod.popup
-            data:
-              title: "Beltéri hőmérséklet"
-              size: wide
-              content:
-                type: vertical-stack
-                cards:
-                  - type: entities
-                    title: "Szobák"
-                    entities:
-                      - sensor.nappali_homero_temperature
-                      - sensor.halo_homero_temperature
-                      - sensor.gyerek_szoba_homero_temperature
-                      - sensor.furdo_homero_temperature
-                  - type: custom:mini-graph-card
-                    name: "Hőmérséklet (24h)"
-                    hours_to_show: 24
-                    points_per_hour: 2
-                    line_width: 3
-                    show:
-                      labels: true
-                      legend: true
-                      extrema: true
-                    entities:
-                      - entity: sensor.nappali_homero_temperature
-                        name: Nappali
-                        color: "#ff9800"
-                      - entity: sensor.gyerek_szoba_homero_temperature
-                        name: Gyerekszoba
-                        color: "#2196f3"
-                      - entity: sensor.halo_homero_temperature
-                        name: Háló
-                        color: "#9c27b0"
-                      - entity: sensor.furdo_homero_temperature
-                        name: Fürdő
-                        color: "#00bcd4"
-        grid_options:
-          columns: 4
-
-      - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.indoor_avg_humidity') }}%"
-        secondary: "Átlag páratartalom"
-        icon: mdi:water-percent
-        icon_color: "rgb(0, 188, 212)"
-        tap_action:
-          action: fire-dom-event
-          browser_mod:
-            service: browser_mod.popup
-            data:
-              title: "Beltéri páratartalom"
-              size: wide
-              content:
-                type: vertical-stack
-                cards:
-                  - type: entities
-                    title: "Szobák"
-                    entities:
-                      - sensor.nappali_homero_humidity
-                      - sensor.halo_homero_humidity
-                      - sensor.gyerek_szoba_homero_humidity
-                      - sensor.furdo_homero_humidity
-                  - type: custom:mini-graph-card
-                    name: "Páratartalom (24h)"
-                    hours_to_show: 24
-                    points_per_hour: 2
-                    line_width: 3
-                    show:
-                      labels: true
-                      legend: true
-                      extrema: true
-                    entities:
-                      - entity: sensor.nappali_homero_humidity
-                        name: Nappali
-                        color: "#ff9800"
-                      - entity: sensor.gyerek_szoba_homero_humidity
-                        name: Gyerekszoba
-                        color: "#2196f3"
-                      - entity: sensor.halo_homero_humidity
-                        name: Háló
-                        color: "#9c27b0"
-                      - entity: sensor.furdo_homero_humidity
-                        name: Fürdő
-                        color: "#00bcd4"
-        grid_options:
-          columns: 4
-
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "{{ states('sensor.pince_homero_temperature') }}°C"
-          - secondary: Pince
-          - icon: mdi:thermometer
-          - icon_color: "rgb(121, 85, 72)"
-        grid_options:
-          columns: 4
 
   # ── Lights & Alerts ──
   - type: grid
