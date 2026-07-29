@@ -25,13 +25,10 @@ if api_header:
 result = {}
 for a in apps:
     aid = a["id"].replace("-", "_")
-    result[aid] = {
-        "state": a.get("state", "UNKNOWN"),
-        "workloads": a.get("active_workloads", 0),
-        "version": a.get("version", ""),
-        "human_version": a.get("human_version", ""),
-        "notes": a.get("notes", ""),
-        "update_avail": a.get("upgrade_available", False),
-        "portals": a.get("portals", []),
-    }
+    result[aid] = {k: a.get(k) for k in [
+        "name", "id", "state", "upgrade_available", "latest_version",
+        "image_updates_available", "custom_app", "migrated",
+        "human_version", "version", "metadata", "active_workloads",
+        "notes", "portals"
+    ]}
 print(json.dumps({"apps": result}))
