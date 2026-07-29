@@ -38,16 +38,9 @@ sections:
         template: sensor_chip
         variables:
           - primary: "TrueNAS"
-          - secondary: >-
-              {% if is_state('update.truenas_ce_update', 'on') %}
-                Update available
-              {% else %}
-                {{ state_attr('update.truenas_ce_update', 'installed_version') }} ✓
-              {% endif %}
+          - secondary: "{{ state_attr('update.truenas_ce_update', 'installed_version', 'v2.4.1') }}"
           - icon: mdi:nas
-          - icon_color: >-
-              {% if is_state('update.truenas_ce_update', 'on') %} orange
-              {% else %} green {% endif %}
+          - icon_color: "{{ 'orange' if is_state('update.truenas_ce_update', 'on') else 'green' }}"
         grid_options:
           columns: 2
 
@@ -80,6 +73,15 @@ sections:
           - icon_color: "green"
         grid_options:
           columns: 2
+
+      - type: custom:mushroom-template-card
+        primary: "Helios Dashboard"
+        secondary: "Build __HELIOS_BUILD__"
+        icon: mdi:source-commit
+        icon_color: green
+        layout: vertical
+        grid_options:
+          columns: 12
 
   # ── Zigbee2MQTT ──
   - type: grid
@@ -123,8 +125,6 @@ sections:
         icon: mdi:file-document
         grid_options:
           columns: 12
-
-      - !include ../cards/deployment_version.yaml
 
   # ── System Health ──
   - type: grid
