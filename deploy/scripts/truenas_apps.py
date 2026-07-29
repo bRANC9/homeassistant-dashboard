@@ -1,6 +1,6 @@
-import json, os, urllib.request
+import json, os, ssl, urllib.request
+ctx = ssl._create_unverified_context()
 
-# Read API key from secrets.yaml
 api_header = ""
 try:
     with open("/config/secrets.yaml") as f:
@@ -10,24 +10,22 @@ try:
 except Exception:
     pass
 
-if not api_header:
-    print(json.dumps({"error": "no api key"}))
-else:
+apps = []
+if api_header:
     req = urllib.request.Request(
         "http://192.168.1.250:88/api/v2.0/app",
         headers={"Authorization": api_header}
     )
     try:
-        with urllib.request.urlopen(req, timeout=10) as resp:
+        with urllib.request.urlopen(req, timeout=10, context=ctx) as resp:
             apps = json.loads(resp.read())
-    except Exception as e:
-        print(json.dumps({"error": f"api: {e}"}))
-        apps = []
+    except Exception:
+        pass
 
-    result = {}
-    for a in apps:
-        aid = a["id"].replace("-", "_")
-        result[aid] = a.get("state", "UNKNOWN")
-        result[aid + "_containers"] = a.get("active_containers", 0)
-        result[aid + "_update_avail"] = a.get("upgrade_available", False)
-    print(json.dumps(result))
+result = {}
+for a in apps:
+    aid = a["id"].replace("-", "_")
+    result[aid] = a.get("state", "UNKNOWN")
+    result[aid + "_containers"] = a.get("active_containers", 0)
+    result[aid + "_update_avail"] = a.get("upgrade_available", False)
+print(json.dumps(result))
