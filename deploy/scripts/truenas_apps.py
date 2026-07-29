@@ -28,7 +28,9 @@ for a in apps:
     result[aid] = {
         "state": a.get("state", "UNKNOWN"),
         "workloads": a.get("active_workloads", 0),
-        "version": a.get("human_version") or a.get("version", ""),
+        "version": a.get("version", ""),
+        "human_version": a.get("human_version", ""),
+        "notes": a.get("notes", ""),
         "update_avail": a.get("upgrade_available", False),
         "portals": a.get("portals", []),
     }
