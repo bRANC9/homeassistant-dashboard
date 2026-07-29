@@ -22,7 +22,7 @@ sections:
           - icon: mdi:home-assistant
           - icon_color: "rgb(0, 188, 212)"
         grid_options:
-          columns: 6
+          columns: 4
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -32,19 +32,24 @@ sections:
           - icon: mdi:zigbee
           - icon_color: "{{ states('sensor.z2m_connection_color') }}"
         grid_options:
-          columns: 6
+          columns: 4
 
       - type: custom:decluttering-card
         template: sensor_chip
         variables:
           - primary: "TrueNAS"
-          - secondary: "{{ states('sensor.truenas_update_text') }}"
+          - secondary: >-
+              {% if is_state('update.truenas_ce_update', 'on') %}
+                Update available
+              {% else %}
+                {{ state_attr('update.truenas_ce_update', 'installed_version') }} ✓
+              {% endif %}
           - icon: mdi:nas
-          - icon_color: "{{ states('sensor.truenas_update_color') }}"
+          - icon_color: >-
+              {% if is_state('update.truenas_ce_update', 'on') %} orange
+              {% else %} green {% endif %}
         grid_options:
-          columns: 6
-
-      - !include ../cards/deployment_version.yaml
+          columns: 4
 
   # ── Zigbee2MQTT ──
   - type: grid
@@ -88,6 +93,8 @@ sections:
         icon: mdi:file-document
         grid_options:
           columns: 12
+
+      - !include ../cards/deployment_version.yaml
 
   # ── System Health ──
   - type: grid
