@@ -82,6 +82,18 @@ docs/
 - TrueNAS API app control: `POST /app/start`, `POST /app/stop` (nincs `/app/restart`)
 - HA container: `https://home.kerekmuvek.hu` (külső URL a docker-compose-ban)
 
+## TrueNAS Apps Manager (saját HACS integration)
+- **Repo**: `https://github.com/bRANC9/ha-truenas-apps` (külön repo)
+- **Helyi másolat**: `G:\PycharmProjects\ha-truenas-apps`
+- Switch entitások: `switch.truenas_app_<name>` (start/stop)
+- Binary sensor: `binary_sensor.truenas_app_<name>` (running)
+- Version sensor: `sensor.truenas_app_<name>_version`
+- Service: `truenas_apps.restart_app` (stop → delay → start)
+- Dual transport: WebSocket (JSON-RPC 2.0) elsődleges, REST fallback
+- TrueNAS 26: WS → `wss://<host>:<ws_port>/api/current`
+- TrueNAS 25.10: REST → `http{s}://<host>:<port>/api/v2.0/app`
+- Auto-detect: első adatfrissítéskor kipróbálja WS-t, ha nem megy → REST
+
 ## HACS custom card-ok (telepítve)
 decluttering-card, mushroom-card, bubble-card, mini-graph-card, apexcharts-card, auto-entities, button-card, card-mod, layout-card
 
@@ -106,8 +118,8 @@ browser_mod, TrueNAS CE (HACS), template szenzorok, rest_command
 - A deploy után a Homelab view alján látszik: "Helios Dashboard — {hash}"
 
 ## Ismert hibák / TODO
-1. **Deploy mechanism issues** — webhook 200-at ad de nem frissül; valószínűleg Docker volume git pull probléma; repo publikus, de `git config --global safe.directory` kellhet
-2. **HA scripts needed** — restart script (stop → delay → start) a TrueNAS API-n keresztül, mivel nincs `/app/restart` endpoint
+1. ~~**Deploy mechanism issues** — webhook 200-at ad de nem frissül; repo újra publikálva, safe.directory fix~~ (javítva)
+2. **HA scripts needed** — restart script (stop → delay → start) a TrueNAS API-n keresztül → **megoldva**: `truenas_apps.restart_app` service
 3. **HA REST API deprecated** — deploy.sh átírása JSON-RPC 2.0 WebSocket-re 26.04 előtt
 4. **Docker socket** — csak monitoringra (`command_line` sensor), control TrueNAS API-n keresztül
 5. **`horizontal-stack` a popup tartalomban** — a Fények popup `vertical-stack` → `horizontal-stack`-et használ, ami popup-on belül OK, de sections view-ban nem
