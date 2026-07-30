@@ -29,7 +29,7 @@ sections:
           - primary: "{{ states('sensor.medence_cso_homero_probe_temperature') }}°C"
           - secondary: Water
           - icon: mdi:thermometer-water
-          - icon_color: "{{ 'red' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 28 else 'orange' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 22 else 'green' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 16 else 'blue' }}"
+          - icon_color: "{{ states('sensor.pool_water_temp_color') }}"
         grid_options:
           columns: 3
 
@@ -78,7 +78,7 @@ sections:
           - primary: "{{ states('sensor.medence_cso_homero_battery') }}%"
           - secondary: Probe Battery
           - icon: mdi:battery
-          - icon_color: "{{ 'green' if states('sensor.medence_cso_homero_battery')|int(0) > 60 else 'yellow' if states('sensor.medence_cso_homero_battery')|int(0) > 30 else 'red' }}"
+          - icon_color: "{{ states('sensor.pool_probe_battery_color') }}"
         grid_options:
           columns: 4
 
@@ -227,7 +227,7 @@ sections:
           - primary: "{{ states('sensor.medence_cso_homero_probe_temperature') }}°C"
           - secondary: Víz
           - icon: mdi:thermometer-water
-          - icon_color: "{{ 'red' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 28 else 'orange' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 22 else 'green' if states('sensor.medence_cso_homero_probe_temperature')|float(0) > 16 else 'blue' }}"
+          - icon_color: "{{ states('sensor.pool_water_temp_color') }}"
         grid_options:
           columns: 4
 

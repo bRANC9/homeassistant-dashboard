@@ -21,7 +21,7 @@ sections:
           - primary: "{{ states('sensor.ioniq_5_ev_battery_level') }}%"
           - secondary: "{{ states('sensor.ioniq_5_ev_range') }} km"
           - icon: mdi:car-electric
-          - icon_color: "{{ 'green' if states('sensor.ioniq_5_ev_battery_level')|int(0) > 80 else 'yellow' if states('sensor.ioniq_5_ev_battery_level')|int(0) > 40 else 'red' }}"
+          - icon_color: "{{ states('sensor.ev_battery_color_name') }}"
         grid_options:
           columns: 4
 

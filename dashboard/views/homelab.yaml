@@ -38,7 +38,7 @@ sections:
         template: sensor_chip
         variables:
           - primary: "TrueNAS"
-          - secondary: "{{ state_attr('update.truenas_ce_update', 'installed_version', 'v2.4.1') }}"
+          - secondary: "{{ state_attr('update.truenas_ce_update', 'installed_version') | default('---') }}"
           - icon: mdi:nas
           - icon_color: "{{ 'orange' if is_state('update.truenas_ce_update', 'on') else 'green' }}"
         grid_options:
@@ -48,7 +48,7 @@ sections:
         template: sensor_chip
         variables:
           - primary: "TrueNAS Apps"
-          - secondary: "{{ states('sensor.truenas_apps_state') }} fut"
+          - secondary: "{{ states('sensor.truenas_apps_state') }} app"
           - icon: mdi:docker
           - icon_color: "rgb(0, 188, 212)"
         grid_options:
@@ -68,7 +68,8 @@ sections:
         template: sensor_chip
         variables:
           - primary: "Uptime"
-          - secondary: "{{ relative_time(states('sensor.truenas_uptime')) }}"
+          - secondary: >-
+              {{ relative_time(now() - timedelta(seconds=states('sensor.truenas_uptime') | int(0))) }}
           - icon: mdi:clock-outline
           - icon_color: "green"
         grid_options:
@@ -166,7 +167,7 @@ sections:
           - entity: sensor.truenas_memory_usage
             name: "TrueNAS RAM"
         grid_options:
-          columns: 8
+          columns: 6
 
       - type: entities
         title: "Hálózat"
@@ -182,7 +183,7 @@ sections:
           - entity: binary_sensor.truenas_apps_adguard_home
             name: "AdGuard Home DNS"
         grid_options:
-          columns: 8
+          columns: 6
 
       # ── TrueNAS Docker Apps ──
   - type: grid

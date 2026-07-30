@@ -250,16 +250,26 @@ sections:
       - type: entities
         title: "Top Fogyasztók"
         entities:
-          - sensor.iroda_aram_mero_energy
-          - sensor.bojler_aram_mero_energy
-          - sensor.mosogep_energy
-          - sensor.medence_szivattyu_biztositek_energy
-          - sensor.klima_aram_mero_energy
-          - sensor.pince_melyhuto_energy
-          - sensor.konyha_huto_energy
-          - sensor.pince_nagy_huto_energy
-          - sensor.pince_huto_energy
-          - sensor.szaritogep_energy
+          - entity: sensor.iroda_aram_mero_energy
+            name: "Iroda"
+          - entity: sensor.bojler_aram_mero_energy
+            name: "Bojler"
+          - entity: sensor.mosogep_energy
+            name: "Mosógép"
+          - entity: sensor.medence_szivattyu_biztositek_energy
+            name: "Medence szivattyú"
+          - entity: sensor.klima_aram_mero_energy
+            name: "Klíma"
+          - entity: sensor.pince_melyhuto_energy
+            name: "Mélyhűtő"
+          - entity: sensor.konyha_huto_energy
+            name: "Konyha hűtő"
+          - entity: sensor.pince_nagy_huto_energy
+            name: "Pince nagy hűtő"
+          - entity: sensor.pince_huto_energy
+            name: "Pince hűtő"
+          - entity: sensor.szaritogep_energy
+            name: "Szarítógép"
         grid_options:
           columns: 12
 
@@ -269,16 +279,27 @@ sections:
       - type: entities
         title: "Pillanatnyi Fogyasztók (W)"
         entities:
-          - sensor.klima_aram_mero_power
-          - sensor.iroda_aram_mero_power
-          - sensor.mosogep_power
-          - sensor.bojler_aram_mero_power
-          - sensor.medence_szivattyu_biztositek_power
-          - sensor.pince_melyhuto_power
-          - sensor.szaritogep_power
-          - sensor.konyha_huto_power
-          - sensor.pince_huto_power
-          - sensor.pince_nagy_huto_power
-          - sensor.tamfal_jelerosito_aram_mero_kapcsolo_power
+          - entity: sensor.klima_aram_mero_power
+            name: "Klíma"
+          - entity: sensor.iroda_aram_mero_power
+            name: "Iroda"
+          - entity: sensor.mosogep_power
+            name: "Mosógép"
+          - entity: sensor.bojler_aram_mero_power
+            name: "Bojler"
+          - entity: sensor.medence_szivattyu_biztositek_power
+            name: "Medence szivattyú"
+          - entity: sensor.pince_melyhuto_power
+            name: "Mélyhűtő"
+          - entity: sensor.szaritogep_power
+            name: "Szarítógép"
+          - entity: sensor.konyha_huto_power
+            name: "Konyha hűtő"
+          - entity: sensor.pince_huto_power
+            name: "Pince hűtő"
+          - entity: sensor.pince_nagy_huto_power
+            name: "Pince nagy hűtő"
+          - entity: sensor.tamfal_jelerosito_aram_mero_kapcsolo_power
+            name: "Támfal jelző"
         grid_options:
           columns: 12

@@ -144,8 +144,15 @@ docker_tile:
                     icon: mdi:web
                     show_state: false
                     tap_action:
-                      action: url
-                      url_path: "{{ state_attr('sensor.truenas_apps_state', 'apps').get('[[app_name]]', {}).get('portal_url', '') }}"
+                      action: >-
+                        {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                        {% set d = a if a else {} %}
+                        {% set u = d.get('[[app_name]]', {}).get('portal_url', '') %}
+                        {% if u %}url{% else %}none{% endif %}
+                      url_path: >-
+                        {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                        {% set d = a if a else {} %}
+                        {{ d.get('[[app_name]]', {}).get('portal_url', 'http://localhost') }}
               - type: horizontal-stack
                 cards:
                   - type: custom:mushroom-template-card
