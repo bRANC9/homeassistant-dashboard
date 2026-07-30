@@ -155,36 +155,76 @@ docker_tile:
                     icon: mdi:docker
                     icon_color: cyan
                     layout: vertical
-                  - type: custom:mushroom-template-card
-                    primary: >-
+              - type: horizontal-stack
+                cards:
+                  - type: custom:button-card
+                    name: >-
+                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                      {% set d = a if a else {} %}
+                      {% set v = d.get('[[app_name]]', {}) %}
+                      {% set u = v.get('portal_url', '') %}
+                      {% if u %}Portál{% else %}Nincs portál{% endif %}
+                    label: >-
+                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                      {% set d = a if a else {} %}
+                      {% set v = d.get('[[app_name]]', {}) %}
+                      {% set u = v.get('portal_url', '') %}
+                      {% if u %}{{ u }}{% else %}—{% endif %}
+                    icon: mdi:web
+                    show_state: false
+                    tap_action:
+                      action: >-
+                        {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                        {% set d = a if a else {} %}
+                        {% set u = d.get('[[app_name]]', {}).get('portal_url', '') %}
+                        {% if u %}url{% else %}none{% endif %}
+                      url_path: >-
+                        {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                        {% set d = a if a else {} %}
+                        {{ d.get('[[app_name]]', {}).get('portal_url', 'about:blank') }}
+                  - type: custom:button-card
+                    name: Frissítés
+                    label: >-
                       {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
                       {% set d = a if a else {} %}
                       {% set v = d.get('[[app_name]]', {}) %}
                       {% set nv = v.get('latest_version') %}
                       {% set hv = v.get('docker_hub_version') %}
                       {% set up = v.get('upgrade_available') %}
-                      {% if up and (nv or hv) %}{{ nv or hv }}{% elif up %}Elérhető{% else %}—{% endif %}
-                    secondary: Frissítés
+                      {% if up and (nv or hv) %}{{ nv or hv }}{% elif up %}Elérhető{% else %}Nincs{% endif %}
                     icon: mdi:update
-                    icon_color: >-
+                    show_state: false
+                    tap_action:
+                      action: >-
+                        {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                        {% set d = a if a else {} %}
+                        {% set v = d.get('[[app_name]]', {}) %}
+                        {% set url = v.get('docker_hub_url', '') %}
+                        {% if url %}url{% else %}none{% endif %}
+                      url_path: >-
+                        {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                        {% set d = a if a else {} %}
+                        {{ d.get('[[app_name]]', {}).get('docker_hub_url', 'about:blank') }}
+                  - type: custom:button-card
+                    name: Docker Hub
+                    label: >-
                       {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
                       {% set d = a if a else {} %}
                       {% set v = d.get('[[app_name]]', {}) %}
-                      {% if v.get('upgrade_available') %}orange{% else %}grey{% endif %}
-                    layout: vertical
-              - type: horizontal-stack
-                cards:
-                  - type: custom:mushroom-template-card
-                    primary: >-
-                      {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
-                      {% set d = a if a else {} %}
-                      {% set v = d.get('[[app_name]]', {}) %}
-                      {% set u = v.get('portal_url', '') %}
-                      {% if u %}{{ u }}{% else %}—{% endif %}
-                    secondary: Portál
-                    icon: mdi:web
-                    icon_color: "{{ 'green' if state_attr('sensor.truenas_apps_state', 'apps', {}).get('[[app_name]]', {}).get('portal_url') else 'grey' }}"
-                    layout: vertical
+                      {% set img = v.get('docker_image', '') %}
+                      {% if img %}{{ img }}{% else %}—{% endif %}
+                    icon: mdi:open-in-new
+                    show_state: false
+                    tap_action:
+                      action: >-
+                        {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                        {% set d = a if a else {} %}
+                        {% set url = d.get('[[app_name]]', {}).get('docker_hub_url', '') %}
+                        {% if url %}url{% else %}none{% endif %}
+                      url_path: >-
+                        {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                        {% set d = a if a else {} %}
+                        {{ d.get('[[app_name]]', {}).get('docker_hub_url', 'about:blank') }}
               - type: custom:mushroom-entity-card
                 entity: "binary_sensor.truenas_apps_[[app_name]]"
                 name: Binary (CE)
