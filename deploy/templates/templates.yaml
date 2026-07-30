@@ -106,6 +106,14 @@
         {% else %} red {% endif %}
       icon: mdi:zigbee
 
+    # ── TrueNAS Docker apps with updates count ──
+    - name: "TrueNAS Apps With Updates"
+      state: >-
+        {% set apps = state_attr('sensor.truenas_apps_state', 'apps') %}
+        {% if apps %}{{ apps.values() | selectattr('upgrade_available') | list | length }}{% else %}0{% endif %}
+      icon: mdi:docker
+      unit_of_measurement: "frissítés"
+
     # ── Indoor average temperature (nappali, háló, gyerekszoba, fürdő) ──
     - name: "Indoor Average Temperature"
       state: >-
