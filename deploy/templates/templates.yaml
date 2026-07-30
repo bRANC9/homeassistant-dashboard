@@ -1,143 +1,139 @@
-template:
+- sensor:
 
-  - sensor:
+    # ── Battery SOC colors ──
+    - name: "Battery SOC Color RGB"
+      state: >-
+        {% set v = states('sensor.solis_s6_eh3p_battery_soc')|int(0) %}
+        {% if v > 70 %} rgb(76, 175, 80)
+        {% elif v > 40 %} rgb(255, 193, 7)
+        {% else %} rgb(244, 67, 54) {% endif %}
+      icon: mdi:battery
 
-      # ── Battery SOC colors ──
-      - name: "Battery SOC Color RGB"
-        state: >-
-          {% set v = states('sensor.solis_s6_eh3p_battery_soc')|int(0) %}
-          {% if v > 70 %} rgb(76, 175, 80)
-          {% elif v > 40 %} rgb(255, 193, 7)
-          {% else %} rgb(244, 67, 54) {% endif %}
-        icon: mdi:battery
+    - name: "Battery SOC Color Name"
+      state: >-
+        {% set v = states('sensor.solis_s6_eh3p_battery_soc')|int(0) %}
+        {% if v > 70 %} green
+        {% elif v > 40 %} yellow
+        {% else %} red {% endif %}
+      icon: mdi:battery
 
-      - name: "Battery SOC Color Name"
-        state: >-
-          {% set v = states('sensor.solis_s6_eh3p_battery_soc')|int(0) %}
-          {% if v > 70 %} green
-          {% elif v > 40 %} yellow
-          {% else %} red {% endif %}
-        icon: mdi:battery
+    # ── EV Battery colors ──
+    - name: "EV Battery Color RGB"
+      state: >-
+        {% set v = states('sensor.ioniq_5_ev_battery_level')|int(0) %}
+        {% if v > 70 %} rgb(156, 39, 176)
+        {% elif v > 40 %} rgb(255, 193, 7)
+        {% else %} rgb(244, 67, 54) {% endif %}
+      icon: mdi:car-electric
 
-      # ── EV Battery colors ──
-      - name: "EV Battery Color RGB"
-        state: >-
-          {% set v = states('sensor.ioniq_5_ev_battery_level')|int(0) %}
-          {% if v > 70 %} rgb(156, 39, 176)
-          {% elif v > 40 %} rgb(255, 193, 7)
-          {% else %} rgb(244, 67, 54) {% endif %}
-        icon: mdi:car-electric
+    - name: "EV Battery Color Name"
+      state: >-
+        {% set v = states('sensor.ioniq_5_ev_battery_level')|int(0) %}
+        {% if v > 80 %} green
+        {% elif v > 40 %} yellow
+        {% else %} red {% endif %}
+      icon: mdi:car-electric
 
-      - name: "EV Battery Color Name"
-        state: >-
-          {% set v = states('sensor.ioniq_5_ev_battery_level')|int(0) %}
-          {% if v > 80 %} green
-          {% elif v > 40 %} yellow
-          {% else %} red {% endif %}
-        icon: mdi:car-electric
+    # ── Charger status text ──
+    - name: "EV Charger Status Text"
+      state: >-
+        {% if is_state('sensor.22k07_charging_station_work_state', 'charger_charging') %}
+          Charging {{ states('sensor.22k07_charging_station_charging_power') }}W
+        {% elif is_state('sensor.22k07_charging_station_work_state', 'charger_free') %}
+          Ready
+        {% else %}
+          {{ states('sensor.22k07_charging_station_work_state') }}
+        {% endif %}
+      icon: mdi:ev-station
 
-      # ── Charger status text ──
-      - name: "EV Charger Status Text"
-        state: >-
-          {% if is_state('sensor.22k07_charging_station_work_state', 'charger_charging') %}
-            Charging {{ states('sensor.22k07_charging_station_charging_power') }}W
-          {% elif is_state('sensor.22k07_charging_station_work_state', 'charger_free') %}
-            Ready
-          {% else %}
-            {{ states('sensor.22k07_charging_station_work_state') }}
-          {% endif %}
-        icon: mdi:ev-station
+    # ── EV Surplus color ──
+    - name: "EV Surplus Color"
+      state: >-
+        {% set v = states('sensor.ev_usable_surplus')|float(0) %}
+        {% if v > 2 %} green
+        {% elif v > 0 %} yellow
+        {% else %} red {% endif %}
+      icon: mdi:solar-power
 
-      # ── EV Surplus color ──
-      - name: "EV Surplus Color"
-        state: >-
-          {% set v = states('sensor.ev_usable_surplus')|float(0) %}
-          {% if v > 2 %} green
-          {% elif v > 0 %} yellow
-          {% else %} red {% endif %}
-        icon: mdi:solar-power
+    # ── Pool pump status text ──
+    - name: "Pool Pump Status Text"
+      state: >-
+        {% if is_state('switch.medence_szivattyu_biztositek', 'on') %}
+          Pump ON → {{ states('input_datetime.pool_pump_stop_time')[11:16] }}
+        {% else %}
+          Pump OFF
+        {% endif %}
+      icon: mdi:water-pump
 
-      # ── Pool pump status text ──
-      - name: "Pool Pump Status Text"
-        state: >-
-          {% if is_state('switch.medence_szivattyu_biztositek', 'on') %}
-            Pump ON → {{ states('input_datetime.pool_pump_stop_time')[11:16] }}
-          {% else %}
-            Pump OFF
-          {% endif %}
-        icon: mdi:water-pump
+    # ── Pool pump stop time formatted ──
+    - name: "Pool Pump Stop Time"
+      state: "{{ states('input_datetime.pool_pump_stop_time')[11:16] }}"
+      icon: mdi:clock-outline
 
-      # ── Pool pump stop time formatted ──
-      - name: "Pool Pump Stop Time"
-        state: "{{ states('input_datetime.pool_pump_stop_time')[11:16] }}"
-        icon: mdi:clock-outline
+    # ── Pool water temp color ──
+    - name: "Pool Water Temp Color"
+      state: >-
+        {% set v = states('sensor.medence_cso_homero_probe_temperature')|float(0) %}
+        {% if v > 28 %} red
+        {% elif v > 22 %} orange
+        {% elif v > 16 %} green
+        {% else %} blue {% endif %}
+      icon: mdi:thermometer-water
 
-      # ── Pool water temp color ──
-      - name: "Pool Water Temp Color"
-        state: >-
-          {% set v = states('sensor.medence_cso_homero_probe_temperature')|float(0) %}
-          {% if v > 28 %} red
-          {% elif v > 22 %} orange
-          {% elif v > 16 %} green
-          {% else %} blue {% endif %}
-        icon: mdi:thermometer-water
+    # ── Pool probe battery color ──
+    - name: "Pool Probe Battery Color"
+      state: >-
+        {% set v = states('sensor.medence_cso_homero_battery')|int(0) %}
+        {% if v > 60 %} green
+        {% elif v > 30 %} yellow
+        {% else %} red {% endif %}
+      icon: mdi:battery
 
-      # ── Pool probe battery color ──
-      - name: "Pool Probe Battery Color"
-        state: >-
-          {% set v = states('sensor.medence_cso_homero_battery')|int(0) %}
-          {% if v > 60 %} green
-          {% elif v > 30 %} yellow
-          {% else %} red {% endif %}
-        icon: mdi:battery
+    # ── Terrace temp color ──
+    - name: "Terrace Temp Color"
+      state: >-
+        {% set v = states('sensor.terasz_homero_temperature')|float(0) %}
+        {% if v > 30 %} red
+        {% elif v > 20 %} orange
+        {% elif v > 10 %} green
+        {% else %} blue {% endif %}
+      icon: mdi:thermometer
 
-      # ── Terrace temp color ──
-      - name: "Terrace Temp Color"
-        state: >-
-          {% set v = states('sensor.terasz_homero_temperature')|float(0) %}
-          {% if v > 30 %} red
-          {% elif v > 20 %} orange
-          {% elif v > 10 %} green
-          {% else %} blue {% endif %}
-        icon: mdi:thermometer
+    # ── Z2M connection color ──
+    - name: "Z2M Connection Color"
+      state: >-
+        {% if is_state('binary_sensor.zigbee2mqtt_bridge_connection_state', 'on') %} green
+        {% else %} red {% endif %}
+      icon: mdi:zigbee
 
-      # ── Z2M connection color ──
-      - name: "Z2M Connection Color"
-        state: >-
-          {% if is_state('binary_sensor.zigbee2mqtt_bridge_connection_state', 'on') %} green
-          {% else %} red {% endif %}
-        icon: mdi:zigbee
+    # ── Indoor average temperature (nappali, háló, gyerekszoba, fürdő) ──
+    - name: "Indoor Average Temperature"
+      state: >-
+        {% set n = states('sensor.nappali_homero_temperature') | float('unknown') %}
+        {% set h = states('sensor.halo_homero_temperature') | float('unknown') %}
+        {% set g = states('sensor.gyerek_szoba_homero_temperature') | float('unknown') %}
+        {% set f = states('sensor.furdo_homero_temperature') | float('unknown') %}
+        {% set values = [n, h, g, f] %}
+        {% set valid = values | select('ne', 'unknown') | list %}
+        {% if valid | count > 0 %}
+          {{ (valid | sum / (valid | count)) | round(1) }}
+        {% else %}unknown{% endif %}
+      unit_of_measurement: "°C"
+      device_class: temperature
+      icon: mdi:thermometer
 
-      # ── Indoor average temperature (nappali, háló, gyerekszoba, fürdő) ──
-      - name: "Indoor Average Temperature"
-        state: >-
-          {% set n = states('sensor.nappali_homero_temperature') | float('unknown') %}
-          {% set h = states('sensor.halo_homero_temperature') | float('unknown') %}
-          {% set g = states('sensor.gyerek_szoba_homero_temperature') | float('unknown') %}
-          {% set f = states('sensor.furdo_homero_temperature') | float('unknown') %}
-          {% set values = [n, h, g, f] %}
-          {% set valid = values | select('ne', 'unknown') | list %}
-          {% if valid | count > 0 %}
-            {{ (valid | sum / (valid | count)) | round(1) }}
-          {% else %}unknown{% endif %}
-        unit_of_measurement: "°C"
-        device_class: temperature
-        icon: mdi:thermometer
-
-      # ── Indoor average humidity (nappali, háló, gyerekszoba, fürdő) ──
-      - name: "Indoor Average Humidity"
-        state: >-
-          {% set n = states('sensor.nappali_homero_humidity') | float('unknown') %}
-          {% set h = states('sensor.halo_homero_humidity') | float('unknown') %}
-          {% set g = states('sensor.gyerek_szoba_homero_humidity') | float('unknown') %}
-          {% set f = states('sensor.furdo_homero_humidity') | float('unknown') %}
-          {% set values = [n, h, g, f] %}
-          {% set valid = values | select('ne', 'unknown') | list %}
-          {% if valid | count > 0 %}
-            {{ (valid | sum / (valid | count)) | round(1) }}
-          {% else %}unknown{% endif %}
-        unit_of_measurement: "%"
-        device_class: humidity
-        icon: mdi:water-percent
-
-
+    # ── Indoor average humidity (nappali, háló, gyerekszoba, fürdő) ──
+    - name: "Indoor Average Humidity"
+      state: >-
+        {% set n = states('sensor.nappali_homero_humidity') | float('unknown') %}
+        {% set h = states('sensor.halo_homero_humidity') | float('unknown') %}
+        {% set g = states('sensor.gyerek_szoba_homero_humidity') | float('unknown') %}
+        {% set f = states('sensor.furdo_homero_humidity') | float('unknown') %}
+        {% set values = [n, h, g, f] %}
+        {% set valid = values | select('ne', 'unknown') | list %}
+        {% if valid | count > 0 %}
+          {{ (valid | sum / (valid | count)) | round(1) }}
+        {% else %}unknown{% endif %}
+      unit_of_measurement: "%"
+      device_class: humidity
+      icon: mdi:water-percent
