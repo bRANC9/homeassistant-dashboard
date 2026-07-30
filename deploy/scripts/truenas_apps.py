@@ -49,20 +49,23 @@ def query_docker_hub(image):
         return None
     if "/" not in image:
         image = "library/" + image
-    url = "https://hub.docker.com/v2/repositories/" + image + "/tags/?page_size=30&ordering=last_updated"
+    url = "https://hub.docker.com/v2/repositories/" + image + "/tags/?page_size=100&ordering=last_updated"
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "HeliosDashboard/1.0"})
         with urllib.request.urlopen(req, timeout=5, context=ctx) as resp:
             data = json.loads(resp.read())
-        skip = ("latest", "beta", "alpha", "rc", "nightly", "edge", "dev", "test")
+        import re
+        skip = ("latest", "beta", "alpha", "rc", "nightly", "edge", "dev", "test",
+                "unstable", "stable", "openssl", "armhf", "amd64", "aarch64",
+                "preview", "canary", "snapshot", "head", "master", "main", "develop")
         for tag in data.get("results", []):
             name = tag.get("name", "")
-            if len(name) > 30:
-                continue
             low = name.lower()
             if any(s in low for s in skip):
                 continue
             if "sha-" in low:
+                continue
+            if not re.match(r'^v?\d+\.\d+', low):
                 continue
             return name
     except Exception:
