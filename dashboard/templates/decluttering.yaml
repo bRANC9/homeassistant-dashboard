@@ -84,7 +84,7 @@ docker_tile:
         service: browser_mod.popup
         data:
           title: "[[primary]]"
-          size: medium
+          size: large
           content:
             type: vertical-stack
             cards:
@@ -134,6 +134,9 @@ docker_tile:
                         entity_id: "binary_sensor.truenas_apps_[[app_name]]"
                       confirmation: true
               - type: markdown
+                card_mod:
+                  style: |
+                    ha-card { width: 100%; }
                 content: |
                   {% set a = state_attr('sensor.truenas_apps_state', 'apps') -%}
                   {% set d = a if a else {} -%}
