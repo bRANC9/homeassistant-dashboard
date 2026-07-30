@@ -84,7 +84,7 @@ docker_tile:
         service: browser_mod.popup
         data:
           title: "[[primary]]"
-          size: wide
+          size: medium
           content:
             type: vertical-stack
             cards:

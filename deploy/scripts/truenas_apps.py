@@ -10,6 +10,19 @@ try:
 except Exception:
     pass
 
+def api_get(path):
+    if not api_header:
+        return None
+    req = urllib.request.Request(
+        "http://192.168.1.250:88" + path,
+        headers={"Authorization": api_header}
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=10, context=ctx) as resp:
+            return json.loads(resp.read())
+    except Exception:
+        return None
+
 def query_docker_hub(image):
     if not image:
         return None
@@ -35,31 +48,23 @@ def query_docker_hub(image):
         pass
     return None
 
-def extract_docker_image(a):
-    cfg = a.get("config") or {}
+def extract_image_from_config(cfg):
+    if not cfg:
+        return None
     for key in ("image", "docker_image", "container_image"):
         val = cfg.get(key)
-        if val:
+        if val and isinstance(val, str):
             return val
-    img = a.get("image")
-    if img:
-        return img
-    ver = a.get("human_version") or a.get("version") or ""
-    if "_custom" in ver:
-        return None
+    images = cfg.get("images")
+    if isinstance(images, list) and images:
+        first = images[0]
+        if isinstance(first, dict):
+            return first.get("image") or first.get("repository")
+        if isinstance(first, str):
+            return first
     return None
 
-apps = []
-if api_header:
-    req = urllib.request.Request(
-        "http://192.168.1.250:88/api/v2.0/app",
-        headers={"Authorization": api_header}
-    )
-    try:
-        with urllib.request.urlopen(req, timeout=10, context=ctx) as resp:
-            apps = json.loads(resp.read())
-    except Exception:
-        pass
+apps = api_get("/api/v2.0/app") or []
 
 result = {}
 for a in apps:
@@ -92,17 +97,27 @@ for a in apps:
         entry["portal_url"] = portals[0]
     notes = a.get("notes", "")
     entry["notes"] = notes[:200] if notes else ""
-    docker_image = extract_docker_image(a)
+    docker_image = extract_image_from_config(a.get("config"))
+    if not docker_image:
+        docker_image = a.get("image")
     entry["docker_image"] = docker_image or ""
     entry["docker_hub_version"] = ""
     entry["docker_hub_url"] = ""
     is_custom = a.get("custom_app", False)
     has_native_update = bool(entry.get("latest_version"))
-    if is_custom and not has_native_update and docker_image:
-        hub_ver = query_docker_hub(docker_image)
-        if hub_ver:
-            entry["docker_hub_version"] = hub_ver
-            normalized = docker_image if "/" in docker_image else "library/" + docker_image
-            entry["docker_hub_url"] = "https://hub.docker.com/r/" + normalized + "/tags"
+    if is_custom and not has_native_update:
+        if not docker_image:
+            detail = api_get("/api/v2.0/app/" + str(a.get("id", "")))
+            if detail:
+                docker_image = extract_image_from_config(detail.get("config"))
+                if not docker_image:
+                    docker_image = detail.get("image")
+        if docker_image:
+            entry["docker_image"] = docker_image
+            hub_ver = query_docker_hub(docker_image)
+            if hub_ver:
+                entry["docker_hub_version"] = hub_ver
+                normalized = docker_image if "/" in docker_image else "library/" + docker_image
+                entry["docker_hub_url"] = "https://hub.docker.com/r/" + normalized + "/tags"
     result[aid] = entry
 print(json.dumps({"apps": result}))
