@@ -10,6 +10,45 @@ try:
 except Exception:
     pass
 
+def query_docker_hub(image):
+    if not image:
+        return None
+    if "/" not in image:
+        image = "library/" + image
+    url = "https://hub.docker.com/v2/repositories/" + image + "/tags/?page_size=30&ordering=last_updated"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "HeliosDashboard/1.0"})
+        with urllib.request.urlopen(req, timeout=5, context=ctx) as resp:
+            data = json.loads(resp.read())
+        skip = ("latest", "beta", "alpha", "rc", "nightly", "edge", "dev", "test")
+        for tag in data.get("results", []):
+            name = tag.get("name", "")
+            if len(name) > 30:
+                continue
+            low = name.lower()
+            if any(s in low for s in skip):
+                continue
+            if "sha-" in low:
+                continue
+            return name
+    except Exception:
+        pass
+    return None
+
+def extract_docker_image(a):
+    cfg = a.get("config") or {}
+    for key in ("image", "docker_image", "container_image"):
+        val = cfg.get(key)
+        if val:
+            return val
+    img = a.get("image")
+    if img:
+        return img
+    ver = a.get("human_version") or a.get("version") or ""
+    if "_custom" in ver:
+        return None
+    return None
+
 apps = []
 if api_header:
     req = urllib.request.Request(
@@ -30,8 +69,7 @@ for a in apps:
         "image_updates_available", "custom_app", "migrated",
         "human_version", "version"
     ]}
-    # active_workloads returns a dict, extract container count and ports
-    aw = a.get("active_workloads", {}) or {}
+    aw = a.get("active_workloads") or {}
     if isinstance(aw, dict):
         entry["containers"] = aw.get("containers", 0)
         ports = []
@@ -39,12 +77,11 @@ for a in apps:
             for hp in p.get("host_ports", []):
                 if hp.get("host_port"):
                     ports.append(hp["host_port"])
-        entry["ports"] = ports[:3]  # max 3 ports
+        entry["ports"] = ports[:3]
     else:
         entry["containers"] = aw
         entry["ports"] = []
-    # extract first portal URL
-    portals = a.get("portals", {}) or {}
+    portals = a.get("portals") or {}
     entry["portal_url"] = ""
     if isinstance(portals, dict):
         for v in portals.values():
@@ -53,8 +90,19 @@ for a in apps:
                 break
     elif isinstance(portals, list) and portals:
         entry["portal_url"] = portals[0]
-    # truncate notes to 200 chars to avoid attribute size issues
     notes = a.get("notes", "")
     entry["notes"] = notes[:200] if notes else ""
+    docker_image = extract_docker_image(a)
+    entry["docker_image"] = docker_image or ""
+    entry["docker_hub_version"] = ""
+    entry["docker_hub_url"] = ""
+    is_custom = a.get("custom_app", False)
+    has_native_update = bool(entry.get("latest_version"))
+    if is_custom and not has_native_update and docker_image:
+        hub_ver = query_docker_hub(docker_image)
+        if hub_ver:
+            entry["docker_hub_version"] = hub_ver
+            normalized = docker_image if "/" in docker_image else "library/" + docker_image
+            entry["docker_hub_url"] = "https://hub.docker.com/r/" + normalized + "/tags"
     result[aid] = entry
 print(json.dumps({"apps": result}))

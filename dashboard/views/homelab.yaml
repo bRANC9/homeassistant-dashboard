@@ -386,11 +386,16 @@ sections:
           {% set ns.updates = ns.updates + [data] %}
           {% endfor %}
           {% if ns.updates %}
-          | Alkalmazás | Verzió | Új
-          |---|---|---|
+          | Alkalmazás | Verzió | Új | Forrás |
+          |---|---|---|---|
           {% for d in ns.updates %}
-          | {{ d.get('name') or '?' }} | {{ d.get('human_version') or '?' }} | {{ d.get('latest_version') or '?' }}
-          {% endfor %}
+          {% set nv = d.get('latest_version') %}
+          {% set hv = d.get('docker_hub_version') %}
+          {% set url = d.get('docker_hub_url') %}
+          {% set ver = nv or hv or '?' %}
+          {% if url %}| [{{ d.get('name') or '?' }}]({{ url }}) | {{ d.get('human_version') or '?' }} | {{ ver }} | Docker Hub |
+          {% else %}| {{ d.get('name') or '?' }} | {{ d.get('human_version') or '?' }} | {{ ver }} | TrueNAS |
+          {% endif %}{% endfor %}
           {% else %}
           Nincs függő frissítés.
           {% endif %}
