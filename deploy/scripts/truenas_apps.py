@@ -120,4 +120,16 @@ for a in apps:
                 normalized = docker_image if "/" in docker_image else "library/" + docker_image
                 entry["docker_hub_url"] = "https://hub.docker.com/r/" + normalized + "/tags"
     result[aid] = entry
-print(json.dumps({"apps": result}))
+
+alerts_raw = api_get("/api/v2.0/alert") or []
+alerts = []
+for al in alerts_raw:
+    if al.get("dismissed"):
+        continue
+    alerts.append({
+        "level": al.get("level", "INFO"),
+        "title": al.get("source") or al.get("klass", ""),
+        "message": (al.get("formatted") or al.get("text") or "")[:200],
+    })
+
+print(json.dumps({"apps": result, "alerts": alerts}))

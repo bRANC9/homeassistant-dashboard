@@ -5,5 +5,6 @@ sensor:
   value_template: "{{ value_json.apps.keys() | list | length }}"
   json_attributes:
     - apps
+    - alerts
   json_attributes_path: "$"
   scan_interval: 30

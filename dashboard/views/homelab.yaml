@@ -54,13 +54,34 @@ sections:
         grid_options:
           columns: 4
 
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "TrueNAS Alerts"
-          - secondary: "{{ states('sensor.truenas_alerts') }} figyelmeztetés"
-          - icon: mdi:alert
-          - icon_color: "{{ 'orange' if states('sensor.truenas_alerts')|int > 0 else 'green' }}"
+      - type: custom:mushroom-template-card
+        primary: "TrueNAS Alerts"
+        secondary: "{{ states('sensor.truenas_alerts') }} figyelmeztetés"
+        icon: mdi:alert
+        icon_color: "{{ 'orange' if states('sensor.truenas_alerts')|int > 0 else 'green' }}"
+        layout: vertical
+        tap_action:
+          action: fire-dom-event
+          browser_mod:
+            service: browser_mod.popup
+            data:
+              title: "TrueNAS Alerts"
+              size: medium
+              content:
+                type: markdown
+                content: |
+                  {% set alerts = state_attr('sensor.truenas_apps_state', 'alerts') %}
+                  {% if alerts %}
+                  {% for al in alerts %}
+                  {% set lvl = al.get('level', 'INFO') %}
+                  {% if lvl == 'CRITICAL' %}🔴{% elif lvl == 'WARNING' %}🟠{% else %}ℹ️{% endif %} **{{ al.get('title', '?') }}**
+                  {{ al.get('message', '') }}
+
+                  ---
+                  {% endfor %}
+                  {% else %}
+                  Nincsenek figyelmeztetések.
+                  {% endif %}
         grid_options:
           columns: 4
 
