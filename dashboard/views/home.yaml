@@ -176,7 +176,7 @@ sections:
   - type: grid
     cards:
       - type: custom:sunsynk-power-flow-card
-        card_height: "580px"
+        card_height: "400px"
         card_width: "100%"
         decimal_places: 2
         decimal_places_energy: 1
@@ -605,7 +605,7 @@ sections:
           - binary_sensor.truenas_disk_pool_issues
           - binary_sensor.gw018_dm_problem
         grid_options:
-          columns: 12
+          columns: 6
 
   # ── Energy Daily Summary ──
   - type: grid

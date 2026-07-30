@@ -20,11 +20,11 @@ sections:
         template: sensor_chip
         variables:
           - primary: "{{ states('sensor.solis_s6_eh3p_pv_today_energy_generation') }} kWh"
-          - secondary: "PV Today"
+          - secondary: "PV"
           - icon: mdi:solar-power
           - icon_color: yellow
         grid_options:
-          columns: 2
+          columns: 3
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -34,7 +34,7 @@ sections:
           - icon: mdi:home-lightning-bolt
           - icon_color: blue
         grid_options:
-          columns: 2
+          columns: 3
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -44,7 +44,7 @@ sections:
           - icon: mdi:battery-charging
           - icon_color: green
         grid_options:
-          columns: 2
+          columns: 3
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -54,7 +54,7 @@ sections:
           - icon: mdi:battery-minus
           - icon_color: orange
         grid_options:
-          columns: 2
+          columns: 3
 
       - type: custom:decluttering-card
         template: sensor_chip
@@ -64,17 +64,17 @@ sections:
           - icon: mdi:solar-power
           - icon_color: yellow
         grid_options:
-          columns: 2
+          columns: 3
 
       - type: custom:decluttering-card
         template: sensor_chip
         variables:
           - primary: "{{ states('sensor.energy_production_today_2') }} kWh"
-          - secondary: "Nyugat forecast"
+          - secondary: "Nyugat"
           - icon: mdi:solar-power
           - icon_color: orange
         grid_options:
-          columns: 2
+          columns: 3
 
   # ── PV Production Chart ──
   - type: grid
@@ -86,6 +86,7 @@ sections:
         header:
           show: true
           title: "PV Power (W)"
+        card_height: 200
         series:
           - entity: sensor.solis_s6_eh3p_pv_power_1
             name: "Dél"
@@ -108,6 +109,7 @@ sections:
         header:
           show: true
           title: "Grid & Consumption (W)"
+        card_height: 200
         series:
           - entity: sensor.solis_s6_eh3p_meter_total_active_power
             name: "Grid"
@@ -131,6 +133,7 @@ sections:
         header:
           show: true
           title: "Battery SOC (%)"
+        card_height: 200
         series:
           - entity: sensor.solis_s6_eh3p_battery_soc
             name: "SOC"
@@ -150,6 +153,7 @@ sections:
         header:
           show: true
           title: "Battery Power (W)"
+        card_height: 200
         series:
           - entity: sensor.solis_s6_eh3p_battery_power
             name: "Power"
@@ -168,6 +172,7 @@ sections:
         header:
           show: true
           title: "Household Load (W)"
+        card_height: 200
         series:
           - entity: sensor.solis_s6_eh3p_household_load_power
             name: "Essential"

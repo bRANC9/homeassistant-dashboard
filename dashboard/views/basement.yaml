@@ -108,16 +108,17 @@ sections:
     cards:
       - type: custom:mini-graph-card
         entities:
-          - entity: sensor.solis_s6_eh3p_battery_voltage
-            name: Voltage
-            y_axis: secondary
-            color: "#ff9800"
           - entity: sensor.solis_s6_eh3p_battery_soc
             name: SOC
             color: "#4caf50"
           - entity: sensor.garazs_homero_temperature
             name: Hőmérséklet
+            y_axis: secondary
             color: "#ff5722"
+          - entity: sensor.solis_s6_eh3p_battery_voltage
+            name: Voltage
+            y_axis: secondary
+            color: "#ff9800"
         name: "Battery & Garage (24h)"
         hours_to_show: 24
         line_width: 3

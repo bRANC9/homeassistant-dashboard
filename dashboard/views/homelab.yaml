@@ -201,7 +201,7 @@ sections:
           - icon: mdi:home-assistant
           - app_name: "homeassistant"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -210,7 +210,7 @@ sections:
           - icon: mdi:zigbee
           - app_name: "zigbee2mqtt"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -219,7 +219,7 @@ sections:
           - icon: mdi:filmstrip-box
           - app_name: "jellyfin"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -228,7 +228,7 @@ sections:
           - icon: mdi:cctv
           - app_name: "frigate"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -237,7 +237,7 @@ sections:
           - icon: mdi:image-multiple
           - app_name: "immich"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -246,7 +246,7 @@ sections:
           - icon: mdi:shield-home
           - app_name: "pangolin"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -255,7 +255,7 @@ sections:
           - icon: mdi:shield-check
           - app_name: "adguard_home"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -264,7 +264,7 @@ sections:
           - icon: mdi:chip
           - app_name: "esphome"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -273,7 +273,7 @@ sections:
           - icon: mdi:download
           - app_name: "transmission"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -282,7 +282,7 @@ sections:
           - icon: mdi:television
           - app_name: "sonarr"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -291,7 +291,7 @@ sections:
           - icon: mdi:movie
           - app_name: "radarr"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -300,7 +300,7 @@ sections:
           - icon: mdi:chart-line
           - app_name: "netdata"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -309,7 +309,7 @@ sections:
           - icon: mdi:message-text-outline
           - app_name: "mosquitto"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -318,7 +318,7 @@ sections:
           - icon: mdi:movie-open
           - app_name: "seerr"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -327,7 +327,7 @@ sections:
           - icon: mdi:magnify
           - app_name: "jackett"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -336,7 +336,7 @@ sections:
           - icon: mdi:update
           - app_name: "watchtower"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -345,7 +345,7 @@ sections:
           - icon: mdi:cloud
           - app_name: "azure_agent"
         grid_options:
-          columns: 3
+          columns: 4
 
       - type: custom:decluttering-card
         template: docker_tile
@@ -354,7 +354,7 @@ sections:
           - icon: mdi:chart-line
           - app_name: "grafana"
         grid_options:
-          columns: 3
+          columns: 4
 
   # ── Docker frissítések ──
   - type: grid
