@@ -88,6 +88,16 @@ docker_tile:
           content:
             type: vertical-stack
             cards:
+              - type: custom:mushroom-title-card
+                title: >-
+                  [[primary]] —
+                  {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
+                  {% set d = a if a else {} %}
+                  {% set v = d.get('[[app_name]]', {}) %}
+                  {% set s = v.get('state', 'N/A') %}
+                  {% set up = v.get('upgrade_available') or v.get('docker_hub_version') %}
+                  {% if s == 'RUNNING' %}{% if up %}Frissíthető{% else %}Fut{% endif %}{% else %}{{ s }}{% endif %}
+                subtitle: ""
               - type: horizontal-stack
                 cards:
                   - type: custom:mushroom-template-card
@@ -124,7 +134,7 @@ docker_tile:
                         entity_id: "binary_sensor.truenas_apps_[[app_name]]"
                       confirmation: true
               - type: markdown
-                content: >-
+                content: |
                   {% set a = state_attr('sensor.truenas_apps_state', 'apps') %}
                   {% set d = a if a else {} %}
                   {% set v = d.get('[[app_name]]', {}) %}
@@ -138,15 +148,13 @@ docker_tile:
                   {% set up = v.get('upgrade_available') or hv %}
 
                   | | |
-                  |---|---|
+                  |:--|--|
                   | **Állapot** | {{ s }} |
                   | **Verzió** | {{ ver }} |
                   | **Containerek** | {{ cs }} |
                   {% if u %}| **Portál** | [{{ u }}]({{ u }}) |{% endif %}
-                  {% if up %}
-                  | **Frissítés** | {{ nv or hv or '?' }} |
+                  {% if up %}| **Frissítés** | {{ nv or hv or '?' }} |{% endif %}
                   {% if hu %}| **Docker Hub** | [Megnyitás ↗]({{ hu }}) |{% endif %}
-                  {% endif %}
               - type: custom:mushroom-entity-card
                 entity: "binary_sensor.truenas_apps_[[app_name]]"
                 name: Binary (CE)
