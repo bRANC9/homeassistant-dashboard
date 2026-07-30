@@ -67,7 +67,7 @@ docker_tile:
       {% set d = a if a else {} %}
       {% set v = d.get('[[app_name]]', {}) %}
       {% set s = v.get('state', 'N/A') %}
-      {% set up = v.get('upgrade_available') or v.get('docker_hub_version') %}
+      {% set up = v.get('upgrade_available') %}
       {% if up %}{{ s }} •{% else %}{{ s }}{% endif %}
     icon: "[[icon]]"
     icon_color: >-
@@ -75,7 +75,7 @@ docker_tile:
       {% set d = a if a else {} %}
       {% set v = d.get('[[app_name]]', {}) %}
       {% set s = v.get('state') %}
-      {% set up = v.get('upgrade_available') or v.get('docker_hub_version') %}
+      {% set up = v.get('upgrade_available') %}
       {% if up %}orange{% elif s == 'RUNNING' %}green{% elif s == 'DEPLOYING' %}orange{% elif s == 'CRASHED' %}purple{% elif s == 'STOPPED' %}red{% else %}grey{% endif %}
     layout: vertical
     tap_action:
@@ -95,7 +95,7 @@ docker_tile:
                   {% set d = a if a else {} %}
                   {% set v = d.get('[[app_name]]', {}) %}
                   {% set s = v.get('state', 'N/A') %}
-                  {% set up = v.get('upgrade_available') or v.get('docker_hub_version') %}
+                  {% set up = v.get('upgrade_available') %}
                   {% if s == 'RUNNING' %}{% if up %}Frissíthető{% else %}Fut{% endif %}{% else %}{{ s }}{% endif %}
                 subtitle: ""
               - type: horizontal-stack
@@ -147,8 +147,8 @@ docker_tile:
                   {% set u = v.get('portal_url', '') -%}
                   {% set nv = v.get('latest_version') -%}
                   {% set hv = v.get('docker_hub_version') -%}
-                  {% set hu = v.get('docker_hub_url', '') -%}
-                  {% set up = v.get('upgrade_available') or hv -%}
+                  {% set up = v.get('upgrade_available') -%}
+                  {% set new_ver = nv or hv -%}
                   | | |
                   |:--|--|
                   | **Állapot** | {{ s }} |
@@ -157,11 +157,10 @@ docker_tile:
                   {%- if u %}
                   | **Portál** | [{{ u }}]({{ u }}) |
                   {%- endif %}
-                  {%- if up %}
-                  | **Frissítés** | {{ nv or hv or '?' }} |
-                  {%- endif %}
-                  {%- if hu %}
-                  | **Docker Hub** | [Megnyitás ↗]({{ hu }}) |
+                  {%- if up and new_ver %}
+                  | **Frissítés** | {{ new_ver }} |
+                  {%- elif up %}
+                  | **Frissítés** | Elérhető |
                   {%- endif %}
               - type: custom:mushroom-entity-card
                 entity: "binary_sensor.truenas_apps_[[app_name]]"

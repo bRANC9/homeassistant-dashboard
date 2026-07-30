@@ -113,7 +113,7 @@
         {% set ns = namespace(count=0) %}
         {% if apps %}
         {% for aid, data in apps.items() %}
-        {% if data.get('upgrade_available') or data.get('docker_hub_version') %}
+        {% if data.get('upgrade_available') %}
         {% set ns.count = ns.count + 1 %}
         {% endif %}
         {% endfor %}

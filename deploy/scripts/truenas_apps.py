@@ -1,4 +1,4 @@
-import json, os, ssl, urllib.request
+import json, os, ssl, re, urllib.request
 ctx = ssl._create_unverified_context()
 
 api_header = ""
@@ -54,7 +54,6 @@ def query_docker_hub(image):
         req = urllib.request.Request(url, headers={"User-Agent": "HeliosDashboard/1.0"})
         with urllib.request.urlopen(req, timeout=5, context=ctx) as resp:
             data = json.loads(resp.read())
-        import re
         skip = ("latest", "beta", "alpha", "rc", "nightly", "edge", "dev", "test",
                 "unstable", "stable", "openssl", "armhf", "amd64", "aarch64",
                 "preview", "canary", "snapshot", "head", "master", "main", "develop")
@@ -144,7 +143,6 @@ for a in apps:
     entry["notes"] = notes[:200] if notes else ""
     is_custom = a.get("custom_app", False)
     has_native_update = bool(entry.get("latest_version"))
-    entry["docker_image"] = ""
     entry["docker_hub_version"] = ""
     entry["docker_hub_url"] = ""
     if is_custom and not has_native_update:
