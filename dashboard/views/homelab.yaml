@@ -388,7 +388,7 @@ sections:
           | Alkalmazás | Verzió | Új
           |---|---|---|
           {% for d in ns.updates %}
-          | {{ d.get('name', '?') }} | {{ d.get('human_version', '?') }} | {{ d.get('latest_version', '?') }}
+          | {{ d.get('name') or '?' }} | {{ d.get('human_version') or '?' }} | {{ d.get('latest_version') or '?' }}
           {% endfor %}
           {% else %}
           Nincs függő frissítés.

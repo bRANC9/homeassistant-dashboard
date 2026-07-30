@@ -110,7 +110,15 @@
     - name: "TrueNAS Apps With Updates"
       state: >-
         {% set apps = state_attr('sensor.truenas_apps_state', 'apps') %}
-        {% if apps %}{{ apps.values() | selectattr('upgrade_available') | list | length }}{% else %}0{% endif %}
+        {% set ns = namespace(count=0) %}
+        {% if apps %}
+        {% for aid, data in apps.items() %}
+        {% if data.get('upgrade_available') %}
+        {% set ns.count = ns.count + 1 %}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {{ ns.count }}
       icon: mdi:docker
       unit_of_measurement: "frissítés"
 
