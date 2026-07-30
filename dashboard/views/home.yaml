@@ -498,80 +498,49 @@ sections:
         grid_options:
           columns: 6
 
-  # ── Climate & Rooms ──
+  # ── Fűtés / Klíma ──
   - type: grid
     cards:
-        - type: custom:mushroom-entity-card
-          entity: climate.nappali_klima
-          name: "Nappali klíma"
-          icon: mdi:air-conditioner
-          tap_action:
-            action: fire-dom-event
-            browser_mod:
-              service: browser_mod.popup
-              data:
-                title: "Nappali Klíma"
-                size: wide
-                content:
-                  type: custom:bubble-card
-                  card_type: climate
-                  entity: climate.nappali_klima
-          grid_options:
-            columns: 3
+      - type: custom:mushroom-title-card
+        title: "Fűtés / Klíma"
+        subtitle: ""
+        grid_options:
+          columns: 12
 
-        - type: custom:mushroom-entity-card
-          entity: climate.master_bedroom
-          name: "Háló klíma"
-          icon: mdi:air-conditioner
-          tap_action:
-            action: fire-dom-event
-            browser_mod:
-              service: browser_mod.popup
-              data:
-                title: "Háló Klíma"
-                size: wide
-                content:
-                  type: custom:bubble-card
-                  card_type: climate
-                  entity: climate.master_bedroom
-          grid_options:
-            columns: 3
-
-        - type: custom:mushroom-entity-card
-          entity: climate.nappali_padlofutes
-          name: "Nappali fűtés"
-          icon: mdi:heating-coil
-          tap_action:
-            action: fire-dom-event
-            browser_mod:
-              service: browser_mod.popup
-              data:
-                title: "Nappali Padlófűtés"
-                size: wide
-                content:
-                  type: custom:bubble-card
-                  card_type: climate
-                  entity: climate.nappali_padlofutes
-          grid_options:
-            columns: 3
-
-        - type: custom:mushroom-entity-card
-          entity: climate.szoba_padlo_futes
-          name: "Szoba fűtés"
-          icon: mdi:heating-coil
-          tap_action:
-            action: fire-dom-event
-            browser_mod:
-              service: browser_mod.popup
-              data:
-                title: "Szoba Padlófűtés"
-                size: wide
-                content:
-                  type: custom:bubble-card
-                  card_type: climate
-                  entity: climate.szoba_padlo_futes
-          grid_options:
-            columns: 3
+      - type: custom:mushroom-template-card
+        primary: "Fűtés / Klíma vezérlés"
+        secondary: "Érintse meg a vezérléshez"
+        icon: mdi:radiator
+        icon_color: orange
+        layout: vertical
+        tap_action:
+          action: fire-dom-event
+          browser_mod:
+            service: browser_mod.popup
+            data:
+              title: "Fűtés / Klíma"
+              size: wide
+              content:
+                type: vertical-stack
+                cards:
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:mushroom-climate-card
+                        entity: climate.nappali_klima
+                        name: Nappali klíma
+                      - type: custom:mushroom-climate-card
+                        entity: climate.master_bedroom
+                        name: Háló klíma
+                  - type: horizontal-stack
+                    cards:
+                      - type: custom:mushroom-climate-card
+                        entity: climate.nappali_padlofutes
+                        name: Nappali fűtés
+                      - type: custom:mushroom-climate-card
+                        entity: climate.szoba_padlo_futes
+                        name: Szoba fűtés
+        grid_options:
+          columns: 12
 
   # ── Lights & Alerts ──
   - type: grid
