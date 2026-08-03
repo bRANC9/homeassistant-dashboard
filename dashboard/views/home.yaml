@@ -498,14 +498,14 @@ sections:
         grid_options:
           columns: 6
 
-  # ── Fűtés / Klíma ──
+  # ── Fűtés / Klíma + Fények & Riasztások ──
   - type: grid
     cards:
       - type: custom:mushroom-title-card
         title: "Fűtés / Klíma"
         subtitle: ""
         grid_options:
-          columns: 12
+          columns: 4
 
       - type: custom:mushroom-template-card
         primary: "Fűtés / Klíma vezérlés"
@@ -540,16 +540,13 @@ sections:
                         entity: climate.szoba_padlo_futes
                         name: Szoba fűtés
         grid_options:
-          columns: 12
+          columns: 4
 
-  # ── Lights & Alerts ──
-  - type: grid
-    cards:
       - type: custom:mushroom-title-card
         title: "Fények"
         subtitle: ""
         grid_options:
-          columns: 12
+          columns: 4
 
       - type: custom:mushroom-entity-card
         entity: light.konyha_csap_vilagitas
@@ -597,15 +594,21 @@ sections:
                         name: Nappali
                         icon: mdi:floor-lamp
         grid_options:
-          columns: 12
+          columns: 4
+
+      - type: custom:mushroom-title-card
+        title: "Riasztások"
+        subtitle: ""
+        grid_options:
+          columns: 4
 
       - type: entities
-        title: "Riasztások"
+        title: ""
         entities:
           - binary_sensor.truenas_disk_pool_issues
           - binary_sensor.gw018_dm_problem
         grid_options:
-          columns: 6
+          columns: 4
 
   # ── Energy Daily Summary ──
   - type: grid

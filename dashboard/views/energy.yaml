@@ -80,13 +80,16 @@ sections:
   - type: grid
     cards:
       - type: custom:apexcharts-card
+        section_mode: true
         graph_span: 24h
         span:
           offset: -24h
         header:
           show: true
           title: "PV Power (W)"
-        card_height: 200
+        apex_config:
+          chart:
+            height: 300px
         series:
           - entity: sensor.solis_s6_eh3p_pv_power_1
             name: "Dél"
@@ -103,13 +106,16 @@ sections:
   - type: grid
     cards:
       - type: custom:apexcharts-card
+        section_mode: true
         graph_span: 24h
         span:
           offset: -24h
         header:
           show: true
           title: "Grid & Consumption (W)"
-        card_height: 200
+        apex_config:
+          chart:
+            height: 300px
         series:
           - entity: sensor.solis_s6_eh3p_meter_total_active_power
             name: "Grid"
@@ -127,13 +133,16 @@ sections:
   - type: grid
     cards:
       - type: custom:apexcharts-card
+        section_mode: true
         graph_span: 24h
         span:
           offset: -24h
         header:
           show: true
           title: "Battery SOC (%)"
-        card_height: 200
+        apex_config:
+          chart:
+            height: 300px
         series:
           - entity: sensor.solis_s6_eh3p_battery_soc
             name: "SOC"
@@ -147,13 +156,16 @@ sections:
   - type: grid
     cards:
       - type: custom:apexcharts-card
+        section_mode: true
         graph_span: 24h
         span:
           offset: -24h
         header:
           show: true
           title: "Battery Power (W)"
-        card_height: 200
+        apex_config:
+          chart:
+            height: 300px
         series:
           - entity: sensor.solis_s6_eh3p_battery_power
             name: "Power"
@@ -166,13 +178,16 @@ sections:
   - type: grid
     cards:
       - type: custom:apexcharts-card
+        section_mode: true
         graph_span: 24h
         span:
           offset: -24h
         header:
           show: true
           title: "Household Load (W)"
-        card_height: 200
+        apex_config:
+          chart:
+            height: 300px
         series:
           - entity: sensor.solis_s6_eh3p_household_load_power
             name: "Essential"
