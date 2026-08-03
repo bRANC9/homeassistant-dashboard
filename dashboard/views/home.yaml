@@ -221,7 +221,7 @@ sections:
           pv1_max_power: 2975
           pv2_max_power: 4250
         load:
-          show_aux: false
+          show_aux: true
           show_daily: true
           animation_speed: 8
           max_power: 6000
@@ -237,6 +237,11 @@ sections:
           load3_max_threshold: 2000
           load3_icon: mdi:water-boiler
           load3_name: Bojler
+          aux_name: Backup
+          aux_icon: mdi:home-lightning-bolt
+          aux_loads: 1
+          aux1_name: Ház
+          aux1_icon: mdi:home
         grid:
           show_daily_buy: true
           no_grid_colour: "#ff0000"
@@ -259,6 +264,7 @@ sections:
           battery_voltage_183: sensor.solis_s6_eh3p_battery_voltage
           battery_current_191: sensor.solis_s6_eh3p_battery_current
           essential_power: sensor.solis_s6_eh3p_household_load_power
+          aux_power: sensor.solis_s6_eh3p_household_load_power
           grid_ct_power_172: sensor.solis_s6_eh3p_meter_total_active_power
           pv1_voltage_109: sensor.solis_s6_eh3p_pv_voltage_1
           pv1_current_110: sensor.solis_s6_eh3p_pv_current_1
