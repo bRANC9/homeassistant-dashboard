@@ -529,22 +529,18 @@ sections:
               content:
                 type: vertical-stack
                 cards:
-                  - type: horizontal-stack
-                    cards:
-                      - type: custom:mushroom-climate-card
-                        entity: climate.nappali_klima
-                        name: Nappali klíma
-                      - type: custom:mushroom-climate-card
-                        entity: climate.master_bedroom
-                        name: Háló klíma
-                  - type: horizontal-stack
-                    cards:
-                      - type: custom:mushroom-climate-card
-                        entity: climate.nappali_padlofutes
-                        name: Nappali fűtés
-                      - type: custom:mushroom-climate-card
-                        entity: climate.szoba_padlo_futes
-                        name: Szoba fűtés
+                  - type: custom:mushroom-climate-card
+                    entity: climate.nappali_klima
+                    name: Nappali klíma
+                  - type: custom:mushroom-climate-card
+                    entity: climate.master_bedroom
+                    name: Háló klíma
+                  - type: custom:mushroom-climate-card
+                    entity: climate.nappali_padlofutes
+                    name: Nappali fűtés
+                  - type: custom:mushroom-climate-card
+                    entity: climate.szoba_padlo_futes
+                    name: Szoba fűtés
         grid_options:
           columns: 4
 
