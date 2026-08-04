@@ -532,15 +532,19 @@ sections:
                   - type: custom:mushroom-climate-card
                     entity: climate.nappali_klima
                     name: Nappali klíma
+                    show_temperature_control: true
                   - type: custom:mushroom-climate-card
                     entity: climate.master_bedroom
                     name: Háló klíma
+                    show_temperature_control: true
                   - type: custom:mushroom-climate-card
                     entity: climate.nappali_padlofutes
                     name: Nappali fűtés
+                    show_temperature_control: true
                   - type: custom:mushroom-climate-card
                     entity: climate.szoba_padlo_futes
                     name: Szoba fűtés
+                    show_temperature_control: true
         grid_options:
           columns: 4
 
