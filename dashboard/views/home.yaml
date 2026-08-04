@@ -69,7 +69,7 @@ sections:
           columns: 4
 
       - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.indoor_avg_temperature') }}°C"
+        primary: "{{ states('sensor.indoor_average_temperature') }}°C"
         secondary: "Átlag hőmérséklet"
         icon: mdi:thermometer
         icon_color: "rgb(255, 152, 0)"
@@ -116,7 +116,7 @@ sections:
           columns: 4
 
       - type: custom:mushroom-template-card
-        primary: "{{ states('sensor.indoor_avg_humidity') }}%"
+        primary: "{{ states('sensor.indoor_average_humidity') }}%"
         secondary: "Átlag páratartalom"
         icon: mdi:water-percent
         icon_color: "rgb(0, 188, 212)"
@@ -169,6 +169,80 @@ sections:
           - secondary: Pince
           - icon: mdi:thermometer
           - icon_color: "rgb(121, 85, 72)"
+        grid_options:
+          columns: 4
+
+  # ── Energy Daily Summary ──
+  - type: grid
+    cards:
+      - type: custom:mushroom-title-card
+        title: "Napi Energia Összesítés"
+        subtitle: >-
+          ☀ {{ states('sensor.solis_s6_eh3p_pv_today_energy_generation') }} kWh | 
+          🏠 {{ states('sensor.solis_s6_eh3p_today_energy_consumption') }} kWh
+        grid_options:
+          columns: 12
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.solis_s6_eh3p_pv_today_energy_generation') }} kWh"
+          - secondary: "☀ Solar"
+          - icon: mdi:solar-power
+          - icon_color: "rgb(244, 196, 48)"
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.solis_s6_eh3p_today_energy_consumption') }} kWh"
+          - secondary: "🏠 Load"
+          - icon: mdi:home-lightning-bolt
+          - icon_color: "rgb(100, 180, 246)"
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: "{{ states('sensor.solis_s6_eh3p_battery_soc') }}%"
+          - secondary: "🔋 Battery"
+          - icon: mdi:battery
+          - icon_color: "{{ states('sensor.battery_soc_color_rgb') }}"
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: >-
+              {{ states('sensor.solis_s6_eh3p_today_energy_imported_from_grid') }} kWh
+          - secondary: "⚡ Import"
+          - icon: mdi:transmission-tower-import
+          - icon_color: "rgb(255, 152, 0)"
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: >-
+              {{ states('sensor.solis_s6_eh3p_today_energy_fed_into_grid') }} kWh
+          - secondary: "⚡ Export"
+          - icon: mdi:transmission-tower-export
+          - icon_color: "rgb(76, 175, 80)"
+        grid_options:
+          columns: 4
+
+      - type: custom:decluttering-card
+        template: sensor_chip
+        variables:
+          - primary: >-
+              {{ states('sensor.solis_s6_eh3p_today_energy_fed_into_grid_compensation') }} HUF
+          - secondary: "💰 Saved"
+          - icon: mdi:cash
+          - icon_color: "rgb(0, 200, 83)"
         grid_options:
           columns: 4
 
@@ -385,7 +459,7 @@ sections:
         icon: mdi:current-ac
         display_mode: slider
         grid_options:
-          columns: 4
+          columns: 12
 
   # ── Pool & Weather ──
   - type: grid
@@ -615,79 +689,5 @@ sections:
           - binary_sensor.gw018_dm_problem
         grid_options:
           columns: 4
-
-  # ── Energy Daily Summary ──
-  - type: grid
-    cards:
-      - type: custom:mushroom-title-card
-        title: "Napi Energia Összesítés"
-        subtitle: >-
-          ☀ {{ states('sensor.solis_s6_eh3p_pv_today_energy_generation') }} kWh | 
-          🏠 {{ states('sensor.solis_s6_eh3p_today_energy_consumption') }} kWh
-        grid_options:
-          columns: 12
-
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "{{ states('sensor.solis_s6_eh3p_pv_today_energy_generation') }} kWh"
-          - secondary: "☀ Solar"
-          - icon: mdi:solar-power
-          - icon_color: "rgb(244, 196, 48)"
-        grid_options:
-          columns: 2
-
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "{{ states('sensor.solis_s6_eh3p_today_energy_consumption') }} kWh"
-          - secondary: "🏠 Load"
-          - icon: mdi:home-lightning-bolt
-          - icon_color: "rgb(100, 180, 246)"
-        grid_options:
-          columns: 2
-
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: "{{ states('sensor.solis_s6_eh3p_battery_soc') }}%"
-          - secondary: "🔋 Battery"
-          - icon: mdi:battery
-          - icon_color: "{{ states('sensor.battery_soc_color_rgb') }}"
-        grid_options:
-          columns: 2
-
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: >-
-              {{ states('sensor.solis_s6_eh3p_today_energy_imported_from_grid') }} kWh
-          - secondary: "⚡ Import"
-          - icon: mdi:transmission-tower-import
-          - icon_color: "rgb(255, 152, 0)"
-        grid_options:
-          columns: 2
-
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: >-
-              {{ states('sensor.solis_s6_eh3p_today_energy_fed_into_grid') }} kWh
-          - secondary: "⚡ Export"
-          - icon: mdi:transmission-tower-export
-          - icon_color: "rgb(76, 175, 80)"
-        grid_options:
-          columns: 2
-
-      - type: custom:decluttering-card
-        template: sensor_chip
-        variables:
-          - primary: >-
-              {{ states('sensor.solis_s6_eh3p_today_energy_fed_into_grid_compensation') }} HUF
-          - secondary: "💰 Saved"
-          - icon: mdi:cash
-          - icon_color: "rgb(0, 200, 83)"
-        grid_options:
-          columns: 2
 
 
