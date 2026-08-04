@@ -177,7 +177,7 @@ sections:
           - primary: "{{ states('sensor.ev_usable_surplus') }} kW"
           - secondary: "Surplus"
           - icon: mdi:solar-power
-          - icon_color: "{{ 'green' if states('sensor.ev_usable_surplus')|float(0) > 2 else 'yellow' if states('sensor.ev_usable_surplus')|float(0) > 0 else 'red' }}"
+          - icon_color: "{{ states('sensor.ev_surplus_color') }}"
         grid_options:
           columns: 4
 

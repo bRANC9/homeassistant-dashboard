@@ -19,6 +19,15 @@
         "envname": "WEBHOOK_REF",
         "source": "header",
         "name": "X-GitHub-Event"
+      },
+      {
+        "envname": "PAYLOAD",
+        "source": "payload"
+      },
+      {
+        "envname": "X_HUB_SIGNATURE_256",
+        "source": "header",
+        "name": "X-Hub-Signature-256"
       }
     ]
   }

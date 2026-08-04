@@ -71,7 +71,8 @@ docs/
 - **HA (belső)**: `http://192.168.1.250:8123`
 - **HA (külső, Pangolin)**: `https://home.kerekmuvek.hu`
 - **TrueNAS Web UI**: `https://192.168.1.250:444` vagy `http://192.168.1.250:88`
-- **TrueNAS API (REST)**: `http://192.168.1.250:88/api/v2.0/` (HTTP, self-signed cert miatt)
+- **TrueNAS API (WS)**: `wss://192.168.1.250:444/websocket` (legacy DDP, `Sec-WebSocket-Protocol: truenas_api_v2`)
+  - REST fallback: `http://192.168.1.250:88/api/v2.0/`
   - REST sensor használja app állapot lekérésre: `command_line` → `deploy/scripts/truenas_apps.py`
   - API key `secrets.yaml`-ban: `truenas_api_header: "Bearer <key>"`
 - **Webhook deploy URL**: `https://ha-dash-deploy.kerekmuvek.hu/hooks/ha-dashboard-deploy`
@@ -89,6 +90,7 @@ docs/
 - **App restart**: `script.truenas_app_restart` (stop → 5s delay → start)
 - `truenas_ce.system_refresh` — azonnali állapotfrissítés
 - **App state lekérés**: `command_line` sensor + `deploy/scripts/truenas_apps.py` (Python script, API key a secrets.yaml-ból)
+  - **WebSocket first** (`truenas_ws.py` modul), REST fallback; Docker Hub tag cache (24h TTL) a rate limit ellen
   - `sensor.truenas_apps_state` — JSON attribútumokban: `<app_name>` → RUNNING/STOPPED/DEPLOYING/CRASHED, `<app_name>_containers`, `<app_name>_update_avail`
   - scan_interval: 30s
 - `docker_tile` template: state/color-t a `[[app_name]]`-ből számolja (`state_attr` a REST sensor attribútumaiból)
@@ -138,7 +140,9 @@ browser_mod, TrueNAS CE (HACS), template szenzorok, rest_command (már nem haszn
 - Utolsó deploy-olt commit: c628fb1 (webhook nem deploy-olta a legújabb commit-okat — kézi deploy kell: `docker exec ha-dashboard-webhook bash /deploy/deploy.sh`)
 - REST sensor (`sensor.truenas_apps_state`) folyamatosan lekéri a TrueNAS app állapotokat (30 másodpercenként)
 - `script.truenas_app_restart` létrehozva HA-ban
-- HA deprecated REST API warning — 38 hívás/24h; JSON-RPC 2.0 WebSocket-re kell váltani 26.04 előtt
+- **Webhook HMAC validáció aktív** (deploy.sh): `X-Hub-Signature-256` ellenőrzés `WEBHOOK_SECRET`-tel, `PAYLOAD` + signature env-ként a hooks.json-ból
+- `truenas_apps.py` + `truenas_cron.py` **WebSocketre átírva** (legacy DDP, `truenas_ws.py` modul), REST csak fallback → a REST API warning megszűnik
+- Docker Hub tag lookup cache (24h TTL) a rate limit ellen
 
 ## Mit csináltunk eddig (session history condensed)
 - Teljes dashboard struktúra kialakítva (7 view, decluttering template-k, deploy pipeline)
@@ -157,7 +161,7 @@ browser_mod, TrueNAS CE (HACS), template szenzorok, rest_command (már nem haszn
 ## Ismert hibák / TODO
 1. ~~**Deploy mechanism issues** — webhook 200-at ad de nem frissül; repo újra publikálva, safe.directory fix~~ (javítva)
 2. ~~**HA scripts needed** — restart script (stop → delay → start) a TrueNAS API-n keresztül~~ → **megoldva**: `script.truenas_app_restart`
-3. **HA REST API deprecated** — deploy.sh átírása JSON-RPC 2.0 WebSocket-re 26.04 előtt
+3. ~~**HA REST API deprecated** — deploy.sh átírása JSON-RPC 2.0 WebSocket-re 26.04 előtt~~ → **megoldva**: a TrueNAS scriptek WS-re átírva (`truenas_ws.py`, legacy DDP `wss://192.168.1.250:444/websocket`); REST csak fallback
 4. **rest_command-ok eltávolítása a TrueNAS configuration.yaml-ből** — már nem használt, de a régi API key-es bejegyzések ott vannak
 5. ~~**`horizontal-stack` a popup tartalomban**~~ (nem releváns)
 6. **`secrets.yaml`-ban `truenas_api_header` beállítva** — user által TrueNAS-on (nem commit-olva)

@@ -19,6 +19,25 @@ log() {
 log "=== Deploy started ==="
 log "Event: ${WEBHOOK_REF:-push}"
 
+# ── 0. Webhook HMAC verification ─────────────────────────────
+# Ha a WEBHOOK_SECRET be van állítva (setup.sh generálja), a GitHub
+# X-Hub-Signature-256 fejlécet ellenőrizzük a nyers payload alapján.
+# A webhook a PAYLOAD és X_HUB_SIGNATURE_256 env-eket adja át (hooks.json).
+if [ -n "${WEBHOOK_SECRET:-}" ]; then
+    log "Verifying webhook signature..."
+    if ! python3 -c "import hashlib, hmac, os, sys; \
+sig=os.environ.get('X_HUB_SIGNATURE_256', ''); \
+payload=os.environ.get('PAYLOAD', ''); \
+expected='sha256=' + hmac.new(os.environ.get('WEBHOOK_SECRET', '').encode(), payload.encode(), hashlib.sha256).hexdigest(); \
+sys.exit(0 if hmac.compare_digest(sig, expected) else 1)"; then
+        log "ERROR: Webhook signature mismatch — aborting deploy."
+        exit 1
+    fi
+    log "Webhook signature OK."
+else
+    log "WARNING: WEBHOOK_SECRET not set, skipping signature check."
+fi
+
 # ── 1. Git pull ──────────────────────────────────────────────
 cd "$REPO_DIR"
 

@@ -54,6 +54,8 @@
 - `device_tracker.ioniq_5_location` — Vehicle location
 - `lock.ioniq_5_door_lock` — Door lock control
 - `climate.ioniq_5_climate_control` — Cabin climate
+- `switch.ioniq_5_ioniq_5_climate` — Cabin climate (switch, used by EV view)
+- `switch.ioniq_5_ioniq_5_ev_charging` — EV charging (switch)
 
 ### Charging Station (Wallbox 22k07)
 - `sensor.22k07_charging_station_charging_power` — Charge power (W)
@@ -67,6 +69,7 @@
 - `input_number.ev_target_soc` — Target SOC (%)
 - `sensor.ev_target_soc_effective` — Effective target SOC
 - `sensor.ev_usable_surplus` — Available surplus (kWh)
+- `sensor.ev_surplus_color` — Surplus color (green > 2kW, yellow > 0kW, red otherwise)
 - `sensor.ev_power_kw` — EV power (kW)
 - `sensor.ev_energy_available` — Available energy for EV
 - `sensor.ev_charging_amps_suggested` — Suggested charge current
@@ -144,7 +147,17 @@
 ## Homelab
 
 ### TrueNAS
-- `update.truenas_update` — Available updates
+- `update.truenas_ce_update` — TrueNAS CE update (used in Homelab view)
+- `update.truenas_control_websocket_update` — TrueNAS Control (WebSocket) integration update
+- `sensor.truenas_apps_state` — JSON with per-app states (`apps`, `alerts` attrs)
+- `sensor.truenas_apps_with_updates` — Count of apps with pending update
+- `sensor.truenas_alerts` — Active alert count
+- `sensor.truenas_uptime` — Last boot timestamp (device_class: uptime)
+- `sensor.truenas_cpu_usage` / `sensor.truenas_memory_usage` — CPU / memory %
+- `sensor.truenas_network_enp2s0_link` — Network link (binary_sensor)
+- `sensor.truenas_network_enp2s0_rx` / `sensor.truenas_network_enp2s0_tx` — Traffic
+- `switch.truenas_cron_jobs_update_cloudflare_enabled` — Cron job enable (Homelab view)
+- `button.truenas_cron_jobs_update_cloudflare_run` — Cron job trigger (Homelab view)
 
 ### Zigbee2MQTT
 - `binary_sensor.zigbee2mqtt_bridge_connection_state` — Bridge state

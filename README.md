@@ -115,4 +115,7 @@ lovelace:
 | `deploy/deploy.sh` | Git pull → validate → copy → HA reload |
 | `deploy/validate.sh` | YAML szintaktikai ellenőrzés |
 | `deploy/setup.sh` | Első beállítás, secret generálás |
+| `deploy/scripts/truenas_ws.py` | Stdlib WebSocket kliens (legacy DDP) + REST fallback |
+| `deploy/scripts/truenas_apps.py` | TrueNAS app állapotok (WS) + Docker Hub tag cache |
+| `deploy/scripts/truenas_cron.py` | TrueNAS cron jobok list/run (WS) |
 | `.github/workflows/docker-build.yml` | CI: Docker image build + push to GHCR |
