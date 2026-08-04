@@ -23,7 +23,13 @@ log "Event: ${WEBHOOK_REF:-push}"
 # Ha a WEBHOOK_SECRET be van állítva (setup.sh generálja), a GitHub
 # X-Hub-Signature-256 fejlécet ellenőrizzük a nyers payload alapján.
 # A webhook a PAYLOAD és X_HUB_SIGNATURE_256 env-eket adja át (hooks.json).
-if [ -n "${WEBHOOK_SECRET:-}" ]; then
+# Fontos: startup / kézi deploy-nál (Watchtower restart, docker exec) nincs
+# signature env — ilyenkor a HMAC ellenőrzést kihagyjuk, nem abortálunk.
+if [ -n "${X_HUB_SIGNATURE_256:-}" ]; then
+    if [ -z "${WEBHOOK_SECRET:-}" ]; then
+        log "ERROR: Webhook signature present but WEBHOOK_SECRET not set — rejecting."
+        exit 1
+    fi
     log "Verifying webhook signature..."
     if ! python3 -c "import hashlib, hmac, os, sys; \
 sig=os.environ.get('X_HUB_SIGNATURE_256', ''); \
@@ -35,7 +41,7 @@ sys.exit(0 if hmac.compare_digest(sig, expected) else 1)"; then
     fi
     log "Webhook signature OK."
 else
-    log "WARNING: WEBHOOK_SECRET not set, skipping signature check."
+    log "No webhook signature (startup/manual deploy) — skipping HMAC check."
 fi
 
 # ── 1. Git pull ──────────────────────────────────────────────
